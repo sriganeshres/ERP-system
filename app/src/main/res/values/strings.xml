@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Workhub pro</string>
+    <string name="app_name">WorkHub pro</string>
+    <string name="hey_there">Hello There,</string>
+    <string name="create_account">Create a New Account</string>
+    <string name="login">Welcome Back</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="hide_password">Hide Password</string>
+    <string name="show_password">Show Password</string>
+    <string name="terms_and_conditions">By Continuing you accept our Privacy Policy and Term of Use</string>
 </resources>
