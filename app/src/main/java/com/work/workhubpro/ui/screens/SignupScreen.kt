@@ -1,4 +1,4 @@
-package com.work.workhubpro.screens
+package com.work.workhubpro.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,16 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.work.workhubpro.R
-import com.work.workhubpro.composables.CheckBoxComposable
-import com.work.workhubpro.composables.HeadingTextComposable
-import com.work.workhubpro.composables.MyTextField
-import com.work.workhubpro.composables.NormalTextComposable
-import com.work.workhubpro.composables.PasswordTextField
-import com.work.workhubpro.ui.Navigation.Navscreen
+import com.work.workhubpro.ui.composables.CheckBoxComposable
+import com.work.workhubpro.ui.composables.HeadingTextComposable
+import com.work.workhubpro.ui.composables.MyTextField
+import com.work.workhubpro.ui.composables.NormalTextComposable
+import com.work.workhubpro.ui.composables.PasswordTextField
+import com.work.workhubpro.ui.navigation.Navscreen
 
 @Composable
 fun SignupScreen(navController: NavController) {
