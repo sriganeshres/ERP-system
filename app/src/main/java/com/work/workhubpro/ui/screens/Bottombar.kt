@@ -28,7 +28,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.work.workhubpro.ui.Navigation.Navscreen
+import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.Community
 import com.work.workhubpro.ui.screens.Home
 import com.work.workhubpro.ui.screens.Projects

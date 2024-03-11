@@ -1,5 +1,7 @@
 package com.work.workhubpro.ui.composables
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
@@ -34,6 +36,10 @@ import com.work.workhubpro.R
 fun MyTextField(labelValue: String, painterResource: Painter) {
     var textValue: String by remember { mutableStateOf("") }
 
+    // Define the animation states
+    val colorAnimation = animateColorAsState(if (textValue.isNotEmpty()) Color.Red else Color.Green)
+    val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
+
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = textValue,
@@ -48,16 +54,17 @@ fun MyTextField(labelValue: String, painterResource: Painter) {
             fontStyle = FontStyle.Normal,
         ),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Cyan,
+            focusedContainerColor = Color.hsl(hue = 199f, saturation = 0.9f, lightness = 0.73f), // Use animated color
             focusedLabelColor = Color.DarkGray,
             cursorColor = Color.Black,
+            unfocusedContainerColor = Color.Transparent
         ),
         leadingIcon = {
             Icon(
                 painter = painterResource,
                 contentDescription = "Mail",
                 modifier = Modifier
-                    .size(20.dp, 20.dp),
+                    .size(sizeAnimation.value, sizeAnimation.value), // Use animated size
             )
         }
     )
@@ -68,7 +75,7 @@ fun MyTextField(labelValue: String, painterResource: Painter) {
 fun PasswordTextField(labelValue: String, painterResource: Painter) {
     var textValue: String by remember { mutableStateOf("") }
     var passwordVisible: Boolean by remember { mutableStateOf(false) }
-
+    val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = textValue,
@@ -83,36 +90,23 @@ fun PasswordTextField(labelValue: String, painterResource: Painter) {
             fontStyle = FontStyle.Normal,
         ),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.Cyan,
-            focusedLabelColor = Color.DarkGray,
-            cursorColor = Color.Black,
+            focusedContainerColor = Color.hsl(hue = 199f, saturation = 0.9f, lightness = 0.73f),
+            focusedLabelColor = Color.Blue.copy(alpha = 0.5f),
+            cursorColor = Color.White,
+            unfocusedContainerColor = Color.Transparent
         ),
         leadingIcon = {
             Icon(
                 painter = painterResource,
                 contentDescription = "Mail",
-                modifier = Modifier
-                    .size(20.dp, 20.dp),
+                modifier = Modifier.size(sizeAnimation.value, sizeAnimation.value),
             )
         },
         trailingIcon = {
-            val iconImage = if (passwordVisible){
-                Icons.Filled.Visibility
-            }else {
-                Icons.Filled.VisibilityOff
-            }
-
-            val description = if (passwordVisible){
-                stringResource(id = R.string.hide_password)
-            }else {
-                stringResource(id = R.string.show_password)
-            }
-
-            IconButton(onClick = {passwordVisible = !passwordVisible}) {
-                Icon(
-                    imageVector = iconImage,
-                    contentDescription = description
-                )
+            val iconImage = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+            val description = if (passwordVisible) "Hide Password" else "Show Password"
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(imageVector = iconImage, contentDescription = description)
             }
         },
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
