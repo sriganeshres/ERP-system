@@ -1,4 +1,4 @@
-package com.work.workhubpro.composables
+package com.work.workhubpro.ui.composables
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size

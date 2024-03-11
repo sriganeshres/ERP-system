@@ -1,4 +1,4 @@
-package com.work.workhubpro.screens
+package com.work.workhubpro.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.navigation.NavController
 import com.work.workhubpro.R
-import com.work.workhubpro.ui.Navigation.Navscreen
 import com.work.workhubpro.ui.theme.LightBlue
 
 

@@ -1,4 +1,4 @@
-package com.work.workhubpro.composables
+package com.work.workhubpro.ui.composables
 
 import android.util.Log
 import androidx.compose.foundation.layout.Row

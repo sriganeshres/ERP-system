@@ -1,17 +1,16 @@
-package com.work.workhubpro.ui
+package com.work.workhubpro.ui.navigation
 
 import Bottombar
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.work.workhubpro.WorkActivity
-import com.work.workhubpro.screens.Profile
-import com.work.workhubpro.screens.SignupScreen
 import com.work.workhubpro.ui.Navigation.Navscreen
 import com.work.workhubpro.ui.screens.Community
 import com.work.workhubpro.ui.screens.Home
 import com.work.workhubpro.ui.screens.Projects
+import com.work.workhubpro.ui.screens.Profile
+import com.work.workhubpro.ui.screens.SignupScreen
 
 @Composable
 fun Navigation(){

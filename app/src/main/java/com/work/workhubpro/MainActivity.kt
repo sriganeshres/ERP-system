@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.work.workhubpro.ui.Navigation
 import com.work.workhubpro.ui.Navigation.Navscreen
+import com.work.workhubpro.ui.navigation.Navigation
 import com.work.workhubpro.ui.theme.WorkhubProTheme
 
 class MainActivity : ComponentActivity() {
