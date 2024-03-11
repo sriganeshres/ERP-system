@@ -46,7 +46,7 @@ fun SignupScreen(navController: NavController) {
             PasswordTextField(labelValue = stringResource(id = R.string.password), painterResource(id = R.drawable.mail))
             Spacer(modifier = Modifier.height(16.dp))
             CheckBoxComposable(value = stringResource(id = R.string.terms_and_conditions))
-            Button(onClick ={ navController.navigate(Navscreen.Profile.route)}) {
+            Button(onClick ={ navController.navigate(Navscreen.Bottom.route)}) {
                 Text(text = "Signup")
             }
         }
