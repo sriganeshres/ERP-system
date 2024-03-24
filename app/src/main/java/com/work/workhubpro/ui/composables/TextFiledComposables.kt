@@ -21,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -30,10 +29,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.work.workhubpro.R
 
 @Composable
-fun MyTextField(labelValue: String, painterResource: Painter) {
+fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, onValueChange: (String) -> Unit) {
     var textValue: String by remember { mutableStateOf("") }
 
     // Define the animation states
@@ -72,7 +70,7 @@ fun MyTextField(labelValue: String, painterResource: Painter) {
 
 
 @Composable
-fun PasswordTextField(labelValue: String, painterResource: Painter) {
+fun PasswordTextField(labelValue: String, painterResource: Painter,textValue: String,onValueChange: (String) -> Unit) {
     var textValue: String by remember { mutableStateOf("") }
     var passwordVisible: Boolean by remember { mutableStateOf(false) }
     val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)

@@ -19,6 +19,7 @@ func main() {
 	app := api.Config{Router: e, Db: db}
 	app.Routes()
 	err := app.Db.Init()
+	print(err)
 	if err != nil {
 		panic(err)
 	}
