@@ -32,7 +32,6 @@ import com.work.workhubpro.ui.screens.Signup.SignupViewModel
 
 @Composable
 fun SignupScreen(navController: NavController) {
-    println("hello")
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -61,7 +60,7 @@ fun SignupScreen(navController: NavController) {
 
             )
             MyTextField(labelValue = stringResource(id = R.string.last_name), painterResource(id = R.drawable.outline_edit_black_24dp),textValue = lastName,
-                onValueChange = { lastName = it})
+                onValueChange = {lastName = it})
             MyTextField(labelValue = stringResource(id = R.string.email), painterResource(id = R.drawable.outline_mail_outline_black_20), textValue = email,
                 onValueChange = {email = it})
             PasswordTextField(labelValue = stringResource(id = R.string.password), painterResource(id = R.drawable.outline_password_black_20),textValue = password,
@@ -70,9 +69,7 @@ fun SignupScreen(navController: NavController) {
             CheckBoxComposable(value = stringResource(id = R.string.terms_and_conditions))
             Button(onClick ={
                 signupViewModel.signupUser(firstName,email,password)
-
                 navController.navigate(Navscreen.Bottom.route+"/${firstName}")
-
             }
             ) {
                 Text(text = "Signup")

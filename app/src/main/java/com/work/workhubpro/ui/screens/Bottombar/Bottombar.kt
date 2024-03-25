@@ -1,4 +1,3 @@
-
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
@@ -62,6 +61,7 @@ val items = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Bottombar(Name:String,navController: NavController) {
+
     val navigation = rememberNavController()
     var selectedItemindex by rememberSaveable {
         mutableIntStateOf(0)

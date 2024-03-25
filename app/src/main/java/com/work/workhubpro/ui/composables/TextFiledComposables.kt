@@ -32,8 +32,6 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, onValueChange: (String) -> Unit) {
-
-
     // Define the animation states
     val colorAnimation = animateColorAsState(if (textValue.isNotEmpty()) Color.Red else Color.Green)
     val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
@@ -69,7 +67,6 @@ fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, 
 
 @Composable
 fun PasswordTextField(labelValue: String, painterResource: Painter,textValue: String,onValueChange: (String) -> Unit) {
-
     var passwordVisible: Boolean by remember { mutableStateOf(false) }
     val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
     OutlinedTextField(
