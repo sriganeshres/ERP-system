@@ -1,4 +1,4 @@
-import android.annotation.SuppressLint
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
@@ -14,13 +14,12 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -62,7 +61,7 @@ val items = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Bottombar(navController: NavController) {
+fun Bottombar(Name:String,navController: NavController) {
     val navigation = rememberNavController()
     var selectedItemindex by rememberSaveable {
         mutableIntStateOf(0)
@@ -104,7 +103,7 @@ fun Bottombar(navController: NavController) {
         NavHost(navController = navigation ,startDestination = Navscreen.Home.route,
         modifier = Modifier.padding(paddingValues)) {
             composable(route = Navscreen.Home.route) {
-                Home(navController = navigation)
+                Home(Name,navController = navigation)
             }
             composable(route = Navscreen.Community.route) {
                 Community(navController = navigation)
@@ -114,10 +113,4 @@ fun Bottombar(navController: NavController) {
             }
         }
     }
-}
-@Preview
-@Composable
-fun BottombarPreview() {
-    val navController = rememberNavController()
-    Bottombar(navController = navController)
 }

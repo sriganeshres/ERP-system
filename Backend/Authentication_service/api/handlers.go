@@ -2,7 +2,6 @@ package api
 
 import (
 	"errors"
-	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -28,7 +27,6 @@ func (app *Config) Signup(ctx echo.Context) error {
 
 	var userData database.UserData
 
-	log.Printf("hi")
 	err := ctx.Bind(&userData)
 
 	if err != nil {

@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, onValueChange: (String) -> Unit) {
-    var textValue: String by remember { mutableStateOf("") }
+
 
     // Define the animation states
     val colorAnimation = animateColorAsState(if (textValue.isNotEmpty()) Color.Red else Color.Green)
@@ -41,9 +41,7 @@ fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, 
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = textValue,
-        onValueChange = {
-            textValue = it
-        },
+        onValueChange = onValueChange,
         label = { Text(text = labelValue) },
         keyboardOptions = KeyboardOptions.Default,
         textStyle = TextStyle(
@@ -71,15 +69,13 @@ fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, 
 
 @Composable
 fun PasswordTextField(labelValue: String, painterResource: Painter,textValue: String,onValueChange: (String) -> Unit) {
-    var textValue: String by remember { mutableStateOf("") }
+
     var passwordVisible: Boolean by remember { mutableStateOf(false) }
     val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = textValue,
-        onValueChange = {
-            textValue = it
-        },
+        onValueChange = onValueChange,
         label = { Text(text = labelValue) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         textStyle = TextStyle(
