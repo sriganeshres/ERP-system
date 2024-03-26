@@ -12,7 +12,7 @@ import (
 func main() {
 	e := echo.New()
 	db := database.NewDatabase()
-	er := godotenv.Load()
+	er := godotenv.Load("../../.env")
 	if er != nil {
 		log.Println(er)
 	}
