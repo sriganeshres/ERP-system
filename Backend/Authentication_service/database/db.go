@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"os"
 
 	_ "github.com/lib/pq"
 	"gorm.io/driver/postgres"
@@ -18,7 +19,7 @@ func NewDatabase() *Database {
 }
 
 func (db *Database) Init() error {
-	DB, err := gorm.Open(postgres.Open("postgres://root:password@localhost:5432/users?sslmode=disable"), &gorm.Config{})
+	DB, err := gorm.Open(postgres.Open(os.Getenv("DB_URL")), &gorm.Config{})
 	if err != nil {
 		return err
 	}
