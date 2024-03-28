@@ -44,3 +44,11 @@ func (db *Database) Migrate() error {
 	}
 	return nil
 }
+
+func (db *Database) CreateUser(userData *UserData) error {
+	err := db.DB.Create(&userData).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
