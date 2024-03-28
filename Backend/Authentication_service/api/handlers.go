@@ -39,9 +39,13 @@ func (app *Config) Signup(ctx echo.Context) error {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return errors.New("password must be at least 8 characters long")
 	}
+	if user, er := app.Db.GetUserByEmail(userData.Email); user != nil {
+		ctx.JSON(http.StatusBadRequest, "Already the email is in use.")
+		return er
+	}
 	userData.Password = utils.HashString(password)
-	if errorer := app.Db.DB.Create(&userData).Error; errorer != nil {
-		ctx.JSON(http.StatusBadRequest, errorer.Error())
+	if errorer := app.Db.CreateUser(&userData); errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
 		return errorer
 	}
 	ctx.JSON(http.StatusCreated, userData.Username)

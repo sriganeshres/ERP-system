@@ -5,8 +5,8 @@ postgres:
 createdbusers:
 	docker exec -it postgresGo createdb --username=root --owner=root users
 dropdbusers:
-	docker exec -it postgresGo dropdb --username=root --owner=root users
+	docker exec -it postgresGo dropdb -U root users
 bash:
 	docker exec -it postgresGo bash
 
-.PHONY: postgresinit postgres createdbusers
+.PHONY: postgresinit postgres createdbusers dropdbusers
