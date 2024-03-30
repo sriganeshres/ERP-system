@@ -31,7 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, onValueChange: (String) -> Unit) {
+fun MyTextField(
+    labelValue: String,
+    painterResource: Painter,
+    textValue: String,
+    onValueChange: (String) -> Unit
+) {
     // Define the animation states
     val colorAnimation = animateColorAsState(if (textValue.isNotEmpty()) Color.Red else Color.Green)
     val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
@@ -48,7 +53,11 @@ fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, 
             fontStyle = FontStyle.Normal,
         ),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.hsl(hue = 199f, saturation = 0.9f, lightness = 0.73f), // Use animated color
+            focusedContainerColor = Color.hsl(
+                hue = 199f,
+                saturation = 0.9f,
+                lightness = 0.73f
+            ), // Use animated color
             focusedLabelColor = Color.DarkGray,
             cursorColor = Color.Black,
             unfocusedContainerColor = Color.Transparent
@@ -66,7 +75,12 @@ fun MyTextField(labelValue: String, painterResource: Painter,textValue: String, 
 
 
 @Composable
-fun PasswordTextField(labelValue: String, painterResource: Painter,textValue: String,onValueChange: (String) -> Unit) {
+fun PasswordTextField(
+    labelValue: String,
+    painterResource: Painter,
+    textValue: String,
+    onValueChange: (String) -> Unit
+) {
     var passwordVisible: Boolean by remember { mutableStateOf(false) }
     val sizeAnimation = animateDpAsState(targetValue = if (textValue.isNotEmpty()) 30.dp else 20.dp)
     OutlinedTextField(
@@ -94,7 +108,8 @@ fun PasswordTextField(labelValue: String, painterResource: Painter,textValue: St
             )
         },
         trailingIcon = {
-            val iconImage = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+            val iconImage =
+                if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
             val description = if (passwordVisible) "Hide Password" else "Show Password"
             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                 Icon(imageVector = iconImage, contentDescription = description)
