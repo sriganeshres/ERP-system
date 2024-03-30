@@ -1,4 +1,4 @@
-package com.work.workhubpro.ui.screens
+package com.work.workhubpro.ui.screens.signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,6 @@ import com.work.workhubpro.ui.composables.MyTextField
 import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.composables.PasswordTextField
 import com.work.workhubpro.ui.navigation.Navscreen
-import com.work.workhubpro.ui.screens.Signup.SignupViewModel
 
 @Composable
 fun SignupScreen(navController: NavController) {
@@ -37,18 +36,18 @@ fun SignupScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
 
-    val signupViewModel : SignupViewModel = hiltViewModel()
+    val signupViewModel: SignupViewModel = hiltViewModel<SignupViewModel>()
 
-    Surface (
+    Surface(
         color = Color.White,
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .padding(28.dp)
     ) {
-        Column (
+        Column(
             modifier = Modifier.fillMaxSize()
-        ){
+        ) {
             NormalTextComposable(value = stringResource(id = R.string.hey_there))
             HeadingTextComposable(value = stringResource(id = R.string.create_account))
             Spacer(modifier = Modifier.height(20.dp))
@@ -56,20 +55,26 @@ fun SignupScreen(navController: NavController) {
                 labelValue = stringResource(id = R.string.first_name),
                 painterResource(id = R.drawable.outline_edit_black_24dp),
                 textValue = firstName,
-                onValueChange = {firstName = it}
+                onValueChange = { firstName = it }
 
             )
-            MyTextField(labelValue = stringResource(id = R.string.last_name), painterResource(id = R.drawable.outline_edit_black_24dp),textValue = lastName,
-                onValueChange = {lastName = it})
-            MyTextField(labelValue = stringResource(id = R.string.email), painterResource(id = R.drawable.outline_mail_outline_black_20), textValue = email,
-                onValueChange = {email = it})
-            PasswordTextField(labelValue = stringResource(id = R.string.password), painterResource(id = R.drawable.outline_password_black_20),textValue = password,
-                onValueChange = {password = it})
+            MyTextField(labelValue = stringResource(id = R.string.last_name),
+                painterResource(id = R.drawable.outline_edit_black_24dp),
+                textValue = lastName,
+                onValueChange = { lastName = it })
+            MyTextField(labelValue = stringResource(id = R.string.email),
+                painterResource(id = R.drawable.outline_mail_outline_black_20),
+                textValue = email,
+                onValueChange = { email = it })
+            PasswordTextField(labelValue = stringResource(id = R.string.password),
+                painterResource(id = R.drawable.outline_password_black_20),
+                textValue = password,
+                onValueChange = { password = it })
             Spacer(modifier = Modifier.height(16.dp))
             CheckBoxComposable(value = stringResource(id = R.string.terms_and_conditions))
-            Button(onClick ={
-                signupViewModel.signupUser(firstName,email,password)
-                navController.navigate(Navscreen.Bottom.route+"/${firstName}")
+            Button(onClick = {
+                signupViewModel.signupUser(firstName, email, password)
+                navController.navigate(Navscreen.Bottom.route + "/${firstName}")
             }
             ) {
                 Text(text = "Signup")

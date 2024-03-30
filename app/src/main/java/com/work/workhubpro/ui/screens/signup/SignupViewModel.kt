@@ -1,4 +1,4 @@
-package com.work.workhubpro.ui.screens.Signup
+package com.work.workhubpro.ui.screens.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,9 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(private val repo: UserRepository) : ViewModel() {
-
-
+public class SignupViewModel @Inject constructor(private val repo: UserRepository) : ViewModel() {
     fun signupUser(username: String, email: String, password: String) {
         println(username)
         val newUser = User(username, email, password) // Create a new User instance

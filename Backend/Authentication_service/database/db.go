@@ -5,6 +5,7 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
+	"github.com/sriganeshres/WorkHub-Pro/Backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -28,8 +29,8 @@ func (db *Database) Init() error {
 	return nil
 }
 
-func (db *Database) GetUserByEmail(email string) (*UserData, error) {
-	var user UserData
+func (db *Database) GetUserByEmail(email string) (*models.UserData, error) {
+	var user models.UserData
 	err := db.DB.Where("email =?", email).First(&user).Error
 	if err != nil {
 		return nil, err
@@ -38,14 +39,14 @@ func (db *Database) GetUserByEmail(email string) (*UserData, error) {
 }
 
 func (db *Database) Migrate() error {
-	err := db.DB.AutoMigrate(&UserData{})
+	err := db.DB.AutoMigrate(&models.UserData{})
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (db *Database) CreateUser(userData *UserData) error {
+func (db *Database) CreateUser(userData *models.UserData) error {
 	err := db.DB.Create(&userData).Error
 	if err != nil {
 		return err

@@ -1,4 +1,4 @@
-package com.work.workhubpro.ui.screens
+package com.work.workhubpro.ui.screens.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +36,7 @@ import com.work.workhubpro.ui.theme.LightBlue
 
 
 data class User(val name: String, val email: String, val profilePicture: Int)
+
 val josefinSansFontFamily = FontFamily(
     // Regular font style
     Font(R.font.josefinsansbold, FontWeight.Bold), // Bold font style
@@ -43,33 +44,38 @@ val josefinSansFontFamily = FontFamily(
 )
 
 @Composable
-fun Profile(navController: NavController){
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(color = LightBlue)){
+fun Profile(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = LightBlue)
+    ) {
 
 
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp),
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp),
 
             ) {
             Image(
-                painter = painterResource(id = R.drawable.bg),contentDescription = "bg file",
+                painter = painterResource(id = R.drawable.bg), contentDescription = "bg file",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .height(150.dp)
                     .fillMaxWidth()
 
             )
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp),
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
                 contentAlignment = Alignment.Center
 
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo), contentDescription = "logo file",
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "logo file",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .clip(shape = CircleShape)
@@ -79,17 +85,20 @@ fun Profile(navController: NavController){
                 )
             }
         }
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .height(600.dp)
-            .padding(10.dp)
-            .padding(
-                top = 0.dp
-            )
-            .background(Color.White)
-            .clip(RoundedCornerShape(100.dp))){
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(600.dp)
+                .padding(10.dp)
+                .padding(
+                    top = 0.dp
+                )
+                .background(Color.White)
+                .clip(RoundedCornerShape(100.dp))
+        ) {
 
-            Text(text = "Name: ",
+            Text(
+                text = "Name: ",
                 color = Color.Blue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,7 +109,8 @@ fun Profile(navController: NavController){
                 fontSize = 8f.em,
                 fontStyle = FontStyle.Normal
             )
-            Text(text = "John",
+            Text(
+                text = "John",
                 color = LightBlue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -110,7 +120,8 @@ fun Profile(navController: NavController){
                 fontSize = 8f.em,
                 fontStyle = FontStyle.Normal
             )
-            Text(text = "Occupation: ",
+            Text(
+                text = "Occupation: ",
                 color = Color.Blue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -120,7 +131,8 @@ fun Profile(navController: NavController){
                 fontSize = 8f.em,
                 fontStyle = FontStyle.Normal
             )
-            Text(text = "Senior Engineer ",
+            Text(
+                text = "Senior Engineer ",
                 color = LightBlue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -130,7 +142,8 @@ fun Profile(navController: NavController){
                 fontSize = 8f.em,
                 fontStyle = FontStyle.Normal
             )
-            Text(text = "Department:",
+            Text(
+                text = "Department:",
                 color = Color.Blue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -140,7 +153,8 @@ fun Profile(navController: NavController){
                 fontSize = 8f.em,
                 fontStyle = FontStyle.Normal
             )
-            Text(text = "FrontEnd Dev ",
+            Text(
+                text = "FrontEnd Dev ",
                 color = LightBlue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -151,7 +165,8 @@ fun Profile(navController: NavController){
                 fontStyle = FontStyle.Normal
 
             )
-            Text(text = "Salary: ",
+            Text(
+                text = "Salary: ",
                 color = Color.Blue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -162,7 +177,8 @@ fun Profile(navController: NavController){
                 fontStyle = FontStyle.Normal
 
             )
-            Text(text = "$100k",
+            Text(
+                text = "$100k",
                 color = LightBlue,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -173,7 +189,6 @@ fun Profile(navController: NavController){
                 fontStyle = FontStyle.Normal
 
             )
-
 
 
         }

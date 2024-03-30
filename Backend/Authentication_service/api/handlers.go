@@ -5,27 +5,36 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/sriganeshres/WorkHub-Pro/Backend/Authentication_service/database"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/Authentication_service/utils"
+	"github.com/sriganeshres/WorkHub-Pro/Backend/models"
 )
 
 func (app *Config) Login(ctx echo.Context) error {
-	var userData database.LoginUser
-	err := ctx.Bind(userData)
+	var userData models.LoginUser
+	err := ctx.Bind(&userData)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err.Error())
 	}
-	// email := userData.Email
-	// password := userData.Password
-	// user, err := app.Db.GetUserByEmail(email)
-
-	// Return the users as JSON response
-	return ctx.JSON(http.StatusOK, userData)
+	email := userData.Email
+	password := userData.Password
+	user, err := app.Db.GetUserByEmail(email)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+	if whether, erro := utils.VerifyPassword(password, user.Password); erro == nil {
+		if whether {
+			return ctx.JSON(http.StatusOK, user.Username)
+		} else {
+			return ctx.JSON(http.StatusBadRequest, "Invalid password")
+		}
+	} else {
+		return ctx.JSON(http.StatusUnauthorized, "Invalid credentials")
+	}
 }
 
 func (app *Config) Signup(ctx echo.Context) error {
 
-	var userData database.UserData
+	var userData models.UserData
 	err := ctx.Bind(&userData)
 
 	if err != nil {
