@@ -12,15 +12,18 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-     private val BASE_URL:String = "http://10.0.2.2:8000"
+    private val BASE_URL: String = "http://10.0.2.2:8000"
+
     @Singleton
     @Provides
-    fun providesRetrofit() : Retrofit {
-        return Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+    fun providesRetrofit(): Retrofit {
+        return Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
+
     @Singleton
     @Provides
-    fun provideUserAPI(retrofit: Retrofit) : UserApi{
+    fun provideUserAPI(retrofit: Retrofit): UserApi {
         return retrofit.create(UserApi::class.java)
     }
 }

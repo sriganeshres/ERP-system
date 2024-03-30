@@ -1,3 +1,5 @@
+package com.work.workhubpro.ui.screens.bottombar
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
@@ -27,31 +29,32 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.work.workhubpro.ui.navigation.Navscreen
-import com.work.workhubpro.ui.screens.Community
-import com.work.workhubpro.ui.screens.Home
-import com.work.workhubpro.ui.screens.Projects
+import com.work.workhubpro.ui.screens.community.Community
+import com.work.workhubpro.ui.screens.home.Home
+import com.work.workhubpro.ui.screens.projects.Projects
 
 data class BottomnavItems(
-    val title:String,
-    val route : String,
+    val title: String,
+    val route: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 )
+
 val items = listOf(
     BottomnavItems(
-        title="home",
+        title = "home",
         route = Navscreen.Home.route,
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home
     ),
     BottomnavItems(
-        title="projects",
+        title = "projects",
         route = Navscreen.Projects.route,
         selectedIcon = Icons.Filled.Work,
         unselectedIcon = Icons.Outlined.Work,
     ),
     BottomnavItems(
-        title="community",
+        title = "community",
         route = Navscreen.Community.route,
         selectedIcon = Icons.Filled.Chat,
         unselectedIcon = Icons.Outlined.Chat
@@ -60,7 +63,7 @@ val items = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Bottombar(Name:String,navController: NavController) {
+fun Bottombar(name: String, navController: NavController) {
 
     val navigation = rememberNavController()
     var selectedItemindex by rememberSaveable {
@@ -73,16 +76,18 @@ fun Bottombar(Name:String,navController: NavController) {
                 val currentDestination = navBackStackEntry?.destination
                 items.forEachIndexed { index, item ->
                     NavigationBarItem(
-                        selected = currentDestination?.hierarchy?.any {it.route == item.title} == true ,
+                        selected = currentDestination?.hierarchy?.any { it.route == item.title } == true,
 
-                        onClick = { selectedItemindex = index
-                                  navigation.navigate(item.route){
-                                      popUpTo(navigation.graph.findStartDestination().id){
-                                          saveState = true
-                                      }
-                                      launchSingleTop = true
-                                      restoreState = true
-                                  }},
+                        onClick = {
+                            selectedItemindex = index
+                            navigation.navigate(item.route) {
+                                popUpTo(navigation.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
                         icon = {
                             BadgedBox(
                                 badge = {
@@ -99,11 +104,13 @@ fun Bottombar(Name:String,navController: NavController) {
             }
         },
 
-        ) {paddingValues ->
-        NavHost(navController = navigation ,startDestination = Navscreen.Home.route,
-        modifier = Modifier.padding(paddingValues)) {
+        ) { paddingValues ->
+        NavHost(
+            navController = navigation, startDestination = Navscreen.Home.route,
+            modifier = Modifier.padding(paddingValues)
+        ) {
             composable(route = Navscreen.Home.route) {
-                Home(Name,navController = navigation)
+                Home(name, navController = navigation)
             }
             composable(route = Navscreen.Community.route) {
                 Community(navController = navigation)

@@ -3,7 +3,7 @@ postgresinit:
 postgres:
 	docker exec -it postgresGo psql
 createdb:
-	docker exec -it postgresGo createdb --username=root --owner=root $(name
+	docker exec -it postgresGo createdb --username=root --owner=root $(name)
 dropdb:
 	docker exec -it postgresGo dropdb -U root $(name)
 bash:

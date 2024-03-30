@@ -17,7 +17,7 @@ func VerifyPassword(password, hashedPassword string) (bool, error) {
 		return false, errors.New("zero-length password")
 	}
 	if len(hashedPassword) == 0 {
-		return false, errors.New("zero-length hashed password")
+		return false, errors.New("no user with the given email address")
 	}
 	return HashString(password) == hashedPassword, nil
 }

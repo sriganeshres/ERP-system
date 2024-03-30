@@ -1,4 +1,4 @@
-package com.work.workhubpro.ui.screens
+package com.work.workhubpro.ui.screens.community
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

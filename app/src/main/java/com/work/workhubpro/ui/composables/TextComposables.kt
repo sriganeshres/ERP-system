@@ -84,12 +84,12 @@ fun ClickableTextComposable(value: String) {
     val termsOfUse = "Terms of Use"
     val annotatedString = buildAnnotatedString {
         append(initialText)
-        withStyle(style = SpanStyle(color = Color.Cyan)){
+        withStyle(style = SpanStyle(color = Color.Cyan)) {
             pushStringAnnotation(tag = privacyPolicyText, annotation = privacyPolicyText)
             append(privacyPolicyText)
         }
         append(andText)
-        withStyle(style = SpanStyle(color = Color.Cyan)){
+        withStyle(style = SpanStyle(color = Color.Cyan)) {
             pushStringAnnotation(tag = termsOfUse, annotation = termsOfUse)
             append(termsOfUse)
         }
@@ -101,7 +101,7 @@ fun ClickableTextComposable(value: String) {
         onClick = { offSet ->
             annotatedString
                 .getStringAnnotations(offSet, offSet)
-                .firstOrNull()?.also {span ->
+                .firstOrNull()?.also { span ->
                     Log.d("ClickableTextComposable", "$span")
                 }
         })
