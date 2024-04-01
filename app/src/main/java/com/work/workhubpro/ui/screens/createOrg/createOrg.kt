@@ -1,4 +1,4 @@
-package com.work.workhubpro.ui.screens
+package com.work.workhubpro.ui.screens.createOrg
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -34,12 +34,10 @@ import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
 
 
-
 @Composable
 
 
 fun Create_Org_Screen(navController: NavController) {
-
 
 
     var email by remember { mutableStateOf("") }
@@ -74,7 +72,7 @@ fun Create_Org_Screen(navController: NavController) {
 
             MyTextField(
                 labelValue = stringResource(id = R.string.organisation_name),
-                painterResource(id=R.drawable.outline_edit_black_24dp),
+                painterResource(id = R.drawable.outline_edit_black_24dp),
                 textValue = organisationName,
                 onValueChange = { organisationName = it }
             )
@@ -86,13 +84,13 @@ fun Create_Org_Screen(navController: NavController) {
             )
             MyTextField(
                 labelValue = stringResource(id = R.string.domain_name),
-                painterResource (id= R.drawable.outline_edit_black_24dp),
+                painterResource(id = R.drawable.outline_edit_black_24dp),
                 textValue = domainName,
                 onValueChange = { domainName = it }
             )
             MyTextField(
                 labelValue = stringResource(id = R.string.admin_name),
-                painterResource (id= R.drawable.outline_edit_black_24dp),
+                painterResource(id = R.drawable.outline_edit_black_24dp),
                 textValue = adminName,
                 onValueChange = { adminName = it }
             )
@@ -100,7 +98,13 @@ fun Create_Org_Screen(navController: NavController) {
             CheckBoxComposable(value = stringResource(id = R.string.terms_and_conditions))
             Button(
                 onClick = {
-                    createOrgViewModel.createOrg(organisationName , email , adminName,domainName,companyType )
+                    createOrgViewModel.createOrg(
+                        organisationName,
+                        email,
+                        adminName,
+                        domainName,
+                        companyType
+                    )
                     navController.navigate(Navscreen.Signup.route)
                 }
             ) {
