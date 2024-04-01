@@ -13,4 +13,7 @@ interface UserApi {
 
     @POST("/api/create_org")
     suspend fun createorg(@Body request: Organisation): Response<String>
+
+    @POST("/api/join_org")
+    suspend fun joinorg(@Body request: Organisation): Response<String>
 }

@@ -2,8 +2,11 @@
     <string name="app_name">WorkHub pro</string>
     <string name="hey_there">Hello There,</string>
     <string name="create_account">Create a New Account</string>
+    <string name="create_Org">Create New Organisation</string>
+    <string name="admin_Details">Enter Admin\'s details</string>
     <string name="login">Welcome Back</string>
     <string name="first_name">First Name</string>
+    <string name="description">Short Description</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email</string>
     <string name="Company_email">Company Email</string>

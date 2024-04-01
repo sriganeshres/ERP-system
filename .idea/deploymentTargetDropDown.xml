@@ -2,24 +2,8 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CreateOrgScreenPreview">
-        <State />
-      </entry>
       <entry key="app">
-        <State>
-          <multipleDevicesSelectedInDropDown value="true" />
-          <targetsSelectedWithDialog>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adit4\.android\avd\Pixel_8_API_30.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetsSelectedWithDialog>
-        </State>
+        <State />
       </entry>
     </value>
   </component>
