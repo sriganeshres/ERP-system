@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"os"
 
 	_ "github.com/lib/pq"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/models"
@@ -20,7 +19,7 @@ func NewDatabase() *Database {
 }
 
 func (db *Database) Init() error {
-	DB, err := gorm.Open(postgres.Open(os.Getenv("DB_URL")), &gorm.Config{})
+	DB, err := gorm.Open(postgres.Open("host=localhost port=5432 user=root password=password dbname=SE sslmode=disable"), &gorm.Config{})
 	if err != nil {
 		return err
 	}
@@ -39,7 +38,7 @@ func (db *Database) GetUserByEmail(email string) (*models.UserData, error) {
 }
 
 func (db *Database) Migrate() error {
-	err := db.DB.AutoMigrate(&models.UserData{})
+	err := db.DB.AutoMigrate(&models.UserData{}, &models.WorkHub{})
 	if err != nil {
 		return err
 	}
@@ -52,4 +51,19 @@ func (db *Database) CreateUser(userData *models.UserData) error {
 		return err
 	}
 	return nil
+}
+func (db *Database) CreateWorkhub(WorkHub *models.WorkHub) error {
+	err := db.DB.Create(&WorkHub).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (db *Database) FindWorkHub(code int) (models.WorkHub, error) {
+	var workhub models.WorkHub
+	err := db.DB.Where("code = ?", code).First(&workhub).Error
+	if err != nil {
+		return models.WorkHub{}, err
+	}
+	return workhub, nil
 }

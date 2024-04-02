@@ -7,6 +7,7 @@ type UserData struct {
 	Username string `gorm:"unique_index;not null" json:"username"`
 	Password string `json:"password"`
 	Email    string `gorm:"unique_index;not null" json:"email"`
+	WorkHub WorkHub `gorm:"foreignkey:UserDataID" json:"work_hub"`
 }
 
 type LoginUser struct {
