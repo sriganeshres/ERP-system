@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -124,8 +125,8 @@ func SendEmail(to string, code int) error {
 	// Load SMTP configuration from environment variables
 	smtpHost := "smtp.gmail.com"
 	smtpPort := 587
-	smtpUsername := "rahulreddypurmani123@gmail.com"
-	smtpPassword := "tozm liuy rdcy iahd"
+	smtpUsername := os.Getenv("Gmail")
+	smtpPassword := os.Getenv("password")
 
 	if smtpHost == "" || smtpUsername == "" || smtpPassword == "" {
 		return fmt.Errorf("SMTP configuration not set")

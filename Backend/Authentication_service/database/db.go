@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"os"
 
 	_ "github.com/lib/pq"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/models"
@@ -19,7 +20,7 @@ func NewDatabase() *Database {
 }
 
 func (db *Database) Init() error {
-	DB, err := gorm.Open(postgres.Open("host=localhost port=5432 user=root password=password dbname=SE sslmode=disable"), &gorm.Config{})
+	DB, err := gorm.Open(postgres.Open(os.Getenv("DB_URL")), &gorm.Config{})
 	if err != nil {
 		return err
 	}
