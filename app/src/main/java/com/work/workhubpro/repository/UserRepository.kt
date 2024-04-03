@@ -11,8 +11,10 @@ class UserRepository @Inject constructor(private val userapi: UserApi) {
 
     suspend fun getUser(request: User) {
         println("heroku")
+
+        println(request)
         val response = userapi.signup(request)
-        println("AWS")
+
         if (response.isSuccessful && response.body() != null) {
             println("gojo")
         }

@@ -37,12 +37,27 @@ func (app *Config) Login(ctx echo.Context) error {
 }
 
 func (app *Config) Signup(ctx echo.Context) error {
+	body := ctx.Request().Body
+	defer body.Close()
 
-	var userData models.UserData
-	err := ctx.Bind(&userData)
-
+	// Create a byte slice to hold the body content
+	var data []byte
+	_, err := body.Read(data)
 	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err.Error())
+		return ctx.String(http.StatusInternalServerError, "Error reading request body")
+	}
+
+	// Print the raw body content (for debugging purposes)
+	fmt.Println("Request Body:", string(data))
+	var userData models.UserData
+	err1 := ctx.Bind(&userData)
+	userData.Role = "admin"
+	fmt.Println("Handling GET request...")
+	fmt.Println(userData)
+	if err1 != nil {
+		fmt.Println(err1.Error())
+		fmt.Println("i am the fire")
+		return ctx.JSON(http.StatusBadRequest, err1.Error())
 	}
 	password := userData.Password
 	if password == "" {
@@ -54,29 +69,33 @@ func (app *Config) Signup(ctx echo.Context) error {
 	}
 	if user, er := app.Db.GetUserByEmail(userData.Email); user != nil {
 		ctx.JSON(http.StatusBadRequest, "Already the email is in use.")
+		fmt.Println(er)
 		return er
 	}
 	userData.Password = utils.HashString(password)
 	if errorer := app.Db.CreateUser(&userData); errorer != nil {
 		ctx.JSON(http.StatusBadRequest, errorer)
+		fmt.Println(errorer)
 		return errorer
 	}
-	ctx.JSON(http.StatusCreated, userData.Username)
+	fmt.Println("hEY i am good here no error")
+	ctx.JSON(http.StatusCreated, userData)
 	return nil
 }
 func (app *Config) WorkHub(ctx echo.Context) error {
+	fmt.Println("Handling GET request Workhub...")
 	var WorkHub models.WorkHub
 	err := ctx.Bind(&WorkHub)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, err.Error())
 	}
+	var Code = generateRandomCode()
+	WorkHub.PrivacyKey = Code
 	if errorer := app.Db.CreateWorkhub(&WorkHub); errorer != nil {
 		ctx.JSON(http.StatusBadRequest, errorer)
 		return errorer
 	}
-	var Code = generateRandomCode()
-	ctx.JSON(http.StatusCreated, Code)
-
+	ctx.JSON(http.StatusCreated, WorkHub)
 	return nil
 }
 func generateRandomCode() int {

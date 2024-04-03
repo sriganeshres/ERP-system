@@ -38,7 +38,7 @@ func (db *Database) GetUserByEmail(email string) (*models.UserData, error) {
 }
 
 func (db *Database) Migrate() error {
-	err := db.DB.AutoMigrate(&models.UserData{}, &models.WorkHub{})
+	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.UserData{})
 	if err != nil {
 		return err
 	}

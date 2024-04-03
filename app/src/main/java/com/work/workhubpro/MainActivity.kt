@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        println("hello23")
+
         setContent {
             WorkhubProTheme {
                 val navController = rememberNavController()

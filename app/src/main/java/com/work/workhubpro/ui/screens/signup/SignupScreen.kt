@@ -36,6 +36,7 @@ fun SignupScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
 
+
     val signupViewModel: SignupViewModel = hiltViewModel<SignupViewModel>()
 
     Surface(
@@ -70,6 +71,10 @@ fun SignupScreen(navController: NavController) {
                 painterResource(id = R.drawable.outline_password_black_20),
                 textValue = password,
                 onValueChange = { password = it })
+            MyTextField(labelValue = stringResource(id = R.string.email),
+                painterResource(id = R.drawable.outline_mail_outline_black_20),
+                textValue = email,
+                onValueChange = { email = it })
             Spacer(modifier = Modifier.height(16.dp))
             CheckBoxComposable(value = stringResource(id = R.string.terms_and_conditions))
             Button(onClick = {

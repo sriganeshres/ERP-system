@@ -12,7 +12,7 @@ import javax.inject.Inject
 public class SignupViewModel @Inject constructor(private val repo: UserRepository) : ViewModel() {
     fun signupUser(username: String, email: String, password: String) {
         println(username)
-        val newUser = User(username, email, password) // Create a new User instance
+        val newUser = User(username, email,password) // Create a new User instance
         viewModelScope.launch {
             repo.getUser(newUser)
         }
