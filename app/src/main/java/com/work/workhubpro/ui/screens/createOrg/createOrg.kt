@@ -15,6 +15,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,12 +42,8 @@ import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
 
 fun Create_OrgScreen(navController: NavController) {
 
-
-    var email by remember { mutableStateOf("") }
     var organisationName by remember { mutableStateOf("") }
-    var companyType by remember { mutableStateOf("") }
     var domainName by remember { mutableStateOf("") }
-    var adminName by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
     var firstName by remember { mutableStateOf("") }
@@ -55,7 +53,7 @@ fun Create_OrgScreen(navController: NavController) {
 
 
     val createOrgViewModel: CreateOrganisationViewModel = hiltViewModel()
-
+    val idState = createOrgViewModel.id.collectAsState().value
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -80,30 +78,13 @@ fun Create_OrgScreen(navController: NavController) {
                 textValue = organisationName,
                 onValueChange = { organisationName = it }
             )
-            MyTextField(
-                labelValue = stringResource(id = R.string.Company_email),
-                painterResource(id = R.drawable.outline_mail_outline_black_20),
-                textValue = email,
-                onValueChange = { email = it }
-            )
-            MyTextField(
-                labelValue = stringResource(id = R.string.company_type),
-                painterResource(id = R.drawable.company_symbol),
-                textValue = companyType,
-                onValueChange = { companyType = it }
-            )
+
+
             MyTextField(
                 labelValue = stringResource(id = R.string.domain_name),
                 painterResource(id = R.drawable.outline_edit_black_24dp),
                 textValue = domainName,
                 onValueChange = { domainName = it }
-            )
-
-            MyTextField(
-                labelValue = stringResource(id = R.string.admin_name),
-                painterResource(id = R.drawable.admin_symbol),
-                textValue = adminName,
-                onValueChange = { adminName = it }
             )
 
             MyTextField(
@@ -142,17 +123,29 @@ fun Create_OrgScreen(navController: NavController) {
                 onClick = {
                     createOrgViewModel.createOrg(
                         organisationName,
-                        email,
-                        adminName,
+                        description,
+                        firstName+" "+lastName,
                         domainName,
-                        companyType
                     )
-                    navController.navigate(Navscreen.Bottom.route + "/${firstName}")
                 }
             ) {
                 Text(text = "Create Org")
             }
             Spacer(modifier = Modifier.height(16.dp))
+            LaunchedEffect(idState) {
+                println(idState)
+                println("Type of idState: ${idState.javaClass.name}")
+
+                if (idState != 0) { // Assuming 0u represents an initial state or default value
+                    createOrgViewModel.signupUser(
+                        firstName + " " + lastName,
+                        adminEmail,
+                        password,
+                        idState
+                    )
+                    navController.navigate(Navscreen.Bottom.route + "/${firstName}")
+                }
+            }
 //            Button(){Text(text="Create Organisation")}
         }
     }
