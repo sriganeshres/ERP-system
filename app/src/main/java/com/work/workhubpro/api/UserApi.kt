@@ -1,6 +1,8 @@
 package com.work.workhubpro.api
 
+import com.work.workhubpro.models.LoginResponse
 import com.work.workhubpro.models.Organisation
+import com.work.workhubpro.models.SignupResponse
 import com.work.workhubpro.models.User
 import retrofit2.Response
 import retrofit2.http.Body
@@ -11,5 +13,7 @@ import javax.inject.Named
 
 interface UserApi {
     @POST("/api/signup")
-    suspend fun signup(@Body request: User): Response<User>
+    suspend fun signup(@Body request: User): Response<SignupResponse>
+    @POST("/api/token")
+    suspend fun token(@Body request: String): Response<User>
 }

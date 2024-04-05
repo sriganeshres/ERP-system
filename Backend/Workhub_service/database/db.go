@@ -30,7 +30,7 @@ func (db *Database) Init() error {
 }
 
 func (db *Database) Migrate() error {
-	err := db.DB.AutoMigrate(&models.WorkHub{})
+	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.UserData{})
 	if err != nil {
 		return err
 	}

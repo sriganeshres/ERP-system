@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.work.workhubpro.R
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.composables.CheckBoxComposable
 import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.MyTextField
@@ -35,12 +36,11 @@ import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.composables.PasswordTextField
 import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
+import com.work.workhubpro.utils.TokenManager
 
 
 @Composable
-
-
-fun Create_OrgScreen(navController: NavController) {
+fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewModel) {
 
     var organisationName by remember { mutableStateOf("") }
     var domainName by remember { mutableStateOf("") }
@@ -54,7 +54,10 @@ fun Create_OrgScreen(navController: NavController) {
 
     val createOrgViewModel: CreateOrganisationViewModel = hiltViewModel()
     val idState = createOrgViewModel.id.collectAsState().value
+    val adminData = createOrgViewModel.admin.collectAsState().value
+    val token = createOrgViewModel.token.collectAsState().value
     val scrollState = rememberScrollState()
+    val tokenManager= createOrgViewModel.getTokenManager()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -128,7 +131,8 @@ fun Create_OrgScreen(navController: NavController) {
                         domainName,
                     )
                 }
-            ) {
+            )
+            {
                 Text(text = "Create Org")
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -143,9 +147,18 @@ fun Create_OrgScreen(navController: NavController) {
                         password,
                         idState
                     )
-                    navController.navigate(Navscreen.Bottom.route + "/${firstName}")
                 }
             }
+            LaunchedEffect(adminData) {
+                println("i am sung jo ")
+                println(adminData)
+                if (adminData != null) {
+                    sharedViewModel.updateUser(adminData)
+                    tokenManager.saveToken(token)
+                    navController.navigate(Navscreen.Bottom.route + "/$firstName")
+                }
+            }
+
 //            Button(){Text(text="Create Organisation")}
         }
     }

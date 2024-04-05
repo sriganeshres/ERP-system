@@ -14,5 +14,5 @@ func (app *Config) Routes() {
 	app.Router.POST("/api/login", app.Login)
 	app.Router.POST("/api/signup", app.Signup)
 	app.Router.POST("/api/sendmail", app.SendEmailHandler)
+	app.Router.POST("api/token", app.VerifyToken)
 }
-

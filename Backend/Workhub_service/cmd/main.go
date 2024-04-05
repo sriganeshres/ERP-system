@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"path/filepath"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
@@ -11,7 +12,10 @@ import (
 
 func main() {
 	e := echo.New()
-	er := godotenv.Load()
+	envPath := filepath.Join("..", "..", ".env")
+
+	er := godotenv.Load(envPath)
+
 	db := database.NewDatabase()
 	if er != nil {
 		panic(er)
