@@ -84,6 +84,15 @@ fun LandingPage(navController: NavController) {
                     ) {
                         Text(text = "Join")
                     }
+                    Button (
+                        onClick = { navController.navigate(Navscreen.Login.route) },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Red,
+                            contentColor = Color.White
+                        )
+                    ){
+                        Text(text = "Login")
+                    }
                 }
             }
         }

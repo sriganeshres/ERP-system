@@ -38,7 +38,7 @@ import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
 @Composable
 
 
-fun Create_OrgScreen(navController: NavController) {
+fun CreateOrgscreen(navController: NavController) {
 
 
     var email by remember { mutableStateOf("") }

@@ -9,13 +9,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.work.workhubpro.ui.screens.bottombar.Bottombar
 import com.work.workhubpro.ui.screens.community.Community
-import com.work.workhubpro.ui.screens.createOrg.Create_OrgScreen
+import com.work.workhubpro.ui.screens.createOrg.CreateOrgscreen
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.landing.LandingPage
+import com.work.workhubpro.ui.screens.loginPage.LoginScreen
 import com.work.workhubpro.ui.screens.profile.Profile
 import com.work.workhubpro.ui.screens.projects.Projects
 import com.work.workhubpro.ui.screens.signup.SignupScreen
-
 
 @Composable
 fun Navigation() {
@@ -41,7 +41,9 @@ fun Navigation() {
             val argumentName = backStackEntry.arguments?.getString("name").orEmpty()
             Home(argumentName, navController = navController)
         }
-
+        composable(route = Navscreen.Login.route) {
+            LoginScreen(navController = navController)
+        }
         composable(route = Navscreen.Community.route) {
             Community(navController = navController)
         }
@@ -50,7 +52,7 @@ fun Navigation() {
         }
 
         composable(route=Navscreen.Create_Org.route){
-            Create_OrgScreen(navController = navController)
+            CreateOrgscreen(navController = navController)
         }
         composable (route = Navscreen.Landing.route) {
             LandingPage(navController = navController)

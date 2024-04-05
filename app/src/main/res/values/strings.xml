@@ -5,6 +5,7 @@
     <string name="create_Org">Create New Organisation</string>
     <string name="admin_Details">Enter Admin\'s details</string>
     <string name="login">Welcome Back</string>
+    <string name ="username">Username</string>
     <string name="first_name">First Name</string>
     <string name="description">Short Description</string>
     <string name="last_name">Last Name</string>
@@ -18,5 +19,6 @@
     <string name="domain_name">Domain Name</string>
     <string name="company_type">Company Type</string>
     <string name="organisation_name">Organisation Name</string>
+    <string name ="Login">Login With your Credentials</string>
 
 </resources>
