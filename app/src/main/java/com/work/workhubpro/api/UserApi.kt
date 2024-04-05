@@ -6,15 +6,10 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 import javax.inject.Inject
+import javax.inject.Named
 
 
 interface UserApi {
     @POST("/api/signup")
     suspend fun signup(@Body request: User): Response<User>
-
-    @POST("/api/create")
-    suspend fun createorg(@Body request: Organisation): Response<Organisation>
-
-    @POST("/api/join_org")
-    suspend fun joinorg(@Body request: Organisation): Response<String>
 }

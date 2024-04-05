@@ -2,21 +2,19 @@ package main
 
 import (
 	"log"
-	// "path/filepath"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
-	"github.com/sriganeshres/WorkHub-Pro/Backend/Authentication_service/api"
-	"github.com/sriganeshres/WorkHub-Pro/Backend/Authentication_service/database"
+	"github.com/sriganeshres/WorkHub-Pro/Backend/Workhub_service/api"
+	"github.com/sriganeshres/WorkHub-Pro/Backend/Workhub_service/database"
 )
 
 func main() {
 	e := echo.New()
-	db := database.NewDatabase()
-	// envPath := filepath.Join("..", "..", ".env")
 	er := godotenv.Load()
+	db := database.NewDatabase()
 	if er != nil {
-		log.Println(er)
+		panic(er)
 	}
 	app := api.Config{Router: e, Db: db}
 	app.Routes()
@@ -29,5 +27,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	e.Logger.Fatal(e.Start(":8000"))
+	e.Logger.Fatal(e.Start(":8001"))
 }

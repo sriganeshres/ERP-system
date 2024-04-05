@@ -3,15 +3,11 @@ package api
 import (
 	"errors"
 	"fmt"
-	"math/rand"
 	"net/http"
-	"os"
-	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/Authentication_service/utils"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/models"
-	"gopkg.in/gomail.v2"
 )
 
 func (app *Config) Login(ctx echo.Context) error {
@@ -52,7 +48,7 @@ func (app *Config) Signup(ctx echo.Context) error {
 	fmt.Println("Request Body:", string(data))
 	var userData models.UserData
 	err1 := ctx.Bind(&userData)
-	userData.Role = "admin"
+	// userData.Role = "admin"
 	fmt.Println("Handling GET request...")
 	fmt.Println(userData)
 	if err1 != nil {
@@ -83,26 +79,7 @@ func (app *Config) Signup(ctx echo.Context) error {
 	ctx.JSON(http.StatusCreated, userData)
 	return nil
 }
-func (app *Config) WorkHub(ctx echo.Context) error {
-	fmt.Println("Handling GET request Workhub...")
-	var WorkHub models.WorkHub
-	err := ctx.Bind(&WorkHub)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err.Error())
-	}
-	var Code = generateRandomCode()
-	WorkHub.PrivacyKey = Code
-	if errorer := app.Db.CreateWorkhub(&WorkHub); errorer != nil {
-		ctx.JSON(http.StatusBadRequest, errorer)
-		return errorer
-	}
-	ctx.JSON(http.StatusCreated, WorkHub)
-	return nil
-}
-func generateRandomCode() int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(9000) + 1000
-}
+
 func (app *Config) SendEmailHandler(ctx echo.Context) error {
 	var requestData struct {
 		Email string `json:"email"`
@@ -115,55 +92,10 @@ func (app *Config) SendEmailHandler(ctx echo.Context) error {
 	email := requestData.Email
 	code := requestData.Code
 
-	var err = SendEmail(email, code)
+	var err = utils.SendEmail(email, code)
 	if err != nil {
 		return ctx.String(http.StatusInternalServerError, err.Error())
 	}
 	return ctx.String(http.StatusOK, "Email sent successfully")
 }
-func SendEmail(to string, code int) error {
-	// Load SMTP configuration from environment variables
-	smtpHost := "smtp.gmail.com"
-	smtpPort := 587
-	smtpUsername := os.Getenv("Gmail")
-	smtpPassword := os.Getenv("password")
 
-	if smtpHost == "" || smtpUsername == "" || smtpPassword == "" {
-		return fmt.Errorf("SMTP configuration not set")
-	}
-
-	// Initialize SMTP dialer
-	dialer := gomail.NewDialer(smtpHost, smtpPort, smtpUsername, smtpPassword)
-
-	// Compose email message
-	msg := gomail.NewMessage()
-	msg.SetHeader("From", "rahulreddypurmani123@gmail.com")
-	msg.SetHeader("To", to)
-	msg.SetHeader("Subject", "Your Privacy Code")
-	msg.SetBody("text/plain", fmt.Sprintf("Your privacy code is: %d", code))
-
-	// Send email
-	err := dialer.DialAndSend(msg)
-	if err != nil {
-		return err
-	}
-	fmt.Println("Email sent to", to)
-	return nil
-}
-func (app *Config) Verify(ctx echo.Context) error {
-	var requestData struct {
-		Code int `json:"code"`
-	}
-	if err := ctx.Bind(&requestData); err != nil {
-		return err
-	}
-	code := requestData.Code
-
-	workhub, err := app.Db.FindWorkHub(code)
-	if err != nil {
-		return err
-	}
-	ctx.JSON(http.StatusCreated, workhub)
-	return nil
-
-}
