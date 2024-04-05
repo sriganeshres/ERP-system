@@ -13,7 +13,6 @@ type Config struct {
 func (app *Config) Routes() {
 	app.Router.POST("/api/login", app.Login)
 	app.Router.POST("/api/signup", app.Signup)
-	app.Router.POST("/api/create", app.WorkHub)
 	app.Router.POST("/api/sendmail", app.SendEmailHandler)
-	app.Router.POST("/api/verify", app.Verify)
 }
+

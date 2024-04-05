@@ -1,6 +1,7 @@
 package com.work.workhubpro.repository
 
 import com.work.workhubpro.api.UserApi
+import com.work.workhubpro.di.NetworkModule
 import com.work.workhubpro.models.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -11,7 +12,7 @@ class UserRepository @Inject constructor(private val userapi: UserApi) {
 
     suspend fun getUser(request: User) {
         println("heroku")
-
+        val serviceNumber = 1
         println(request)
         val response = userapi.signup(request)
 
