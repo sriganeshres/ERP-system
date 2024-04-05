@@ -10,7 +10,6 @@ import (
 
 func JwtMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		// Get the Authorization header value
 		authHeader := c.Request().Header.Get("Authorization")
 		if authHeader == "" {
 			return c.String(http.StatusUnauthorized, "Missing JWT token")

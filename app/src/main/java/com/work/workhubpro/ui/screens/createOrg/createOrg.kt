@@ -36,6 +36,7 @@ import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.composables.PasswordTextField
 import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
+import com.work.workhubpro.utils.TokenManager
 
 
 @Composable
@@ -54,7 +55,9 @@ fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewMode
     val createOrgViewModel: CreateOrganisationViewModel = hiltViewModel()
     val idState = createOrgViewModel.id.collectAsState().value
     val adminData = createOrgViewModel.admin.collectAsState().value
+    val token = createOrgViewModel.token.collectAsState().value
     val scrollState = rememberScrollState()
+    val tokenManager= createOrgViewModel.getTokenManager()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -151,6 +154,7 @@ fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewMode
                 println(adminData)
                 if (adminData != null) {
                     sharedViewModel.updateUser(adminData)
+                    tokenManager.saveToken(token)
                     navController.navigate(Navscreen.Bottom.route + "/$firstName")
                 }
             }

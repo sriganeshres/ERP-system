@@ -6,15 +6,20 @@ import com.work.workhubpro.models.Organisation
 import com.work.workhubpro.models.User
 import com.work.workhubpro.repository.OrganisationCreation
 import com.work.workhubpro.repository.UserRepository
+import com.work.workhubpro.utils.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateOrganisationViewModel @Inject constructor(private val repo: OrganisationCreation,private val repo2: UserRepository ) : ViewModel() {
+class CreateOrganisationViewModel @Inject constructor(private val repo: OrganisationCreation,private val repo2: UserRepository,private  val tokenManager :TokenManager) : ViewModel() {
 
    val id = repo.id
    val admin = repo2.user
+    val token = repo2.token
+    fun getTokenManager(): TokenManager {
+        return tokenManager
+    }
     fun createOrg(companyName: String, description: String,admin: String, domainName: String) {
 //        println(username)
         val newOrg =
@@ -25,8 +30,6 @@ class CreateOrganisationViewModel @Inject constructor(private val repo: Organisa
     }
 
     fun signupUser(username: String, email: String, password: String,id:Int) {
-
-
         val newUser = User(username, email, password,id) // Create a new User instance
         viewModelScope.launch {
             repo2.getUser(newUser)

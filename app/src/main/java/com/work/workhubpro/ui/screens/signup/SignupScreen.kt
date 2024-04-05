@@ -28,6 +28,7 @@ import com.work.workhubpro.ui.composables.MyTextField
 import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.composables.PasswordTextField
 import com.work.workhubpro.ui.navigation.Navscreen
+import com.work.workhubpro.utils.TokenManager
 
 @Composable
 fun SignupScreen(navController: NavController) {
@@ -36,9 +37,7 @@ fun SignupScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
 
-
     val signupViewModel: SignupViewModel = hiltViewModel<SignupViewModel>()
-
     Surface(
         color = Color.White,
         modifier = Modifier

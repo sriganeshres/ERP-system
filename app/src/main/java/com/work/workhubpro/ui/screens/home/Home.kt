@@ -11,11 +11,11 @@ import com.work.workhubpro.models.User
 
 @Composable
 fun Home(name: String, navController: NavController,sharedViewModel: SharedViewModel) {
-println(sharedViewModel.user)
-    val user:User? = sharedViewModel.user.collectAsState().value
+
+
     Column {
         Text(text = "hello $name")
-        Text(text ="email ${user?.email}  ")
+
 
     }
 
