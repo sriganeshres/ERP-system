@@ -14,10 +14,10 @@ import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.createOrg.Create_OrgScreen
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.landing.LandingPage
+import com.work.workhubpro.ui.screens.loginPage.LoginScreen
 import com.work.workhubpro.ui.screens.profile.Profile
 import com.work.workhubpro.ui.screens.projects.Projects
 import com.work.workhubpro.ui.screens.signup.SignupScreen
-
 
 @Composable
 fun Navigation() {
@@ -44,7 +44,9 @@ fun Navigation() {
             val argumentName = backStackEntry.arguments?.getString("name").orEmpty()
             Home(argumentName, navController = navController,sharedViewModel)
         }
-
+        composable(route = Navscreen.Login.route) {
+            LoginScreen(navController = navController)
+        }
         composable(route = Navscreen.Community.route) {
             Community(navController = navController,sharedViewModel)
         }

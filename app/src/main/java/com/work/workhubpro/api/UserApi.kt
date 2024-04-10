@@ -14,6 +14,10 @@ import javax.inject.Named
 interface UserApi {
     @POST("/api/signup")
     suspend fun signup(@Body request: User): Response<SignupResponse>
+
+    @POST("/api/login")
+    suspend fun login(@Body request: User): Response<String>
+
     @POST("/api/token")
     suspend fun token(@Body request: String): Response<User>
 }
