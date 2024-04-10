@@ -8,5 +8,7 @@ dropdb:
 	docker exec -it postgresGo dropdb -U root $(name)
 bash:
 	docker exec -it postgresGo bash
+runapp:
+	go run .\Workhub_service\cmd\main.go ; go run .\Authentication_service\cmd\main.go
 
-.PHONY: postgresinit postgres createdbusers dropdbusers
+.PHONY: postgresinit postgres createdb dropdb runapp 

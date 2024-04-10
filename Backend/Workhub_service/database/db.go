@@ -29,15 +29,6 @@ func (db *Database) Init() error {
 	return nil
 }
 
-func (db *Database) GetUserByEmail(email string) (*models.UserData, error) {
-	var user models.UserData
-	err := db.DB.Where("email =?", email).First(&user).Error
-	if err != nil {
-		return nil, err
-	}
-	return &user, nil
-}
-
 func (db *Database) Migrate() error {
 	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.UserData{})
 	if err != nil {
@@ -46,10 +37,19 @@ func (db *Database) Migrate() error {
 	return nil
 }
 
-func (db *Database) CreateUser(userData *models.UserData) error {
-	err := db.DB.Create(&userData).Error
+func (db *Database) CreateWorkhub(WorkHub *models.WorkHub) error {
+	err := db.DB.Create(&WorkHub).Error
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func (db *Database) FindWorkHub(code int) (*models.WorkHub, error) {
+	var workhub models.WorkHub
+	err := db.DB.Where("privacy_key = ?", code).First(&workhub).Error
+	if err != nil {
+		return nil, err
+	}
+	return &workhub, nil
 }

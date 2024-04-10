@@ -2,14 +2,16 @@ package com.work.workhubpro.ui.navigation
 
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.screens.bottombar.Bottombar
 import com.work.workhubpro.ui.screens.community.Community
-import com.work.workhubpro.ui.screens.createOrg.CreateOrgscreen
+import com.work.workhubpro.ui.screens.createOrg.Create_OrgScreen
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.landing.LandingPage
 import com.work.workhubpro.ui.screens.loginPage.LoginScreen
@@ -20,6 +22,7 @@ import com.work.workhubpro.ui.screens.signup.SignupScreen
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
+    val sharedViewModel: SharedViewModel = hiltViewModel()
     NavHost(navController = navController, startDestination = Navscreen.Landing.route ){
     composable(route = Navscreen.Signup.route){
      SignupScreen(navController = navController)
@@ -32,27 +35,27 @@ fun Navigation() {
             arguments = listOf(navArgument("name") { type = NavType.StringType })
         ) { backStackEntry ->
             val argumentName = backStackEntry.arguments?.getString("name").orEmpty()
-            Bottombar(argumentName, navController = navController)
+            Bottombar(argumentName, navController = navController,sharedViewModel)
         }
         composable(
             route = "${Navscreen.Home.route}/{name}",
             arguments = listOf(navArgument("name") { type = NavType.StringType })
         ) { backStackEntry ->
             val argumentName = backStackEntry.arguments?.getString("name").orEmpty()
-            Home(argumentName, navController = navController)
+            Home(argumentName, navController = navController,sharedViewModel)
         }
         composable(route = Navscreen.Login.route) {
             LoginScreen(navController = navController)
         }
         composable(route = Navscreen.Community.route) {
-            Community(navController = navController)
+            Community(navController = navController,sharedViewModel)
         }
         composable(route = Navscreen.Projects.route) {
-            Projects(navController = navController)
+            Projects(navController = navController,sharedViewModel)
         }
 
         composable(route=Navscreen.Create_Org.route){
-            CreateOrgscreen(navController = navController)
+            Create_OrgScreen(navController = navController,sharedViewModel)
         }
         composable (route = Navscreen.Landing.route) {
             LandingPage(navController = navController)

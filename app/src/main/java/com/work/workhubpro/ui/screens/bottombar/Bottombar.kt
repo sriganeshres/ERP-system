@@ -28,6 +28,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.home.Home
@@ -63,7 +64,7 @@ val items = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Bottombar(name: String, navController: NavController) {
+fun Bottombar(name: String, navController: NavController,sharedViewModel: SharedViewModel) {
 
     val navigation = rememberNavController()
     var selectedItemindex by rememberSaveable {
@@ -110,13 +111,13 @@ fun Bottombar(name: String, navController: NavController) {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(route = Navscreen.Home.route) {
-                Home(name, navController = navigation)
+                Home(name, navController = navigation,sharedViewModel)
             }
             composable(route = Navscreen.Community.route) {
-                Community(navController = navigation)
+                Community(navController = navigation,sharedViewModel)
             }
             composable(route = Navscreen.Projects.route) {
-                Projects(navController = navigation)
+                Projects(navController = navigation,sharedViewModel)
             }
         }
     }

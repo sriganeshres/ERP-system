@@ -15,6 +15,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.work.workhubpro.R
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.composables.CheckBoxComposable
 import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.MyTextField
@@ -33,19 +36,14 @@ import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.composables.PasswordTextField
 import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
+import com.work.workhubpro.utils.TokenManager
 
 
 @Composable
+fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewModel) {
 
-
-fun CreateOrgscreen(navController: NavController) {
-
-
-    var email by remember { mutableStateOf("") }
     var organisationName by remember { mutableStateOf("") }
-    var companyType by remember { mutableStateOf("") }
     var domainName by remember { mutableStateOf("") }
-    var adminName by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
     var firstName by remember { mutableStateOf("") }
@@ -55,8 +53,11 @@ fun CreateOrgscreen(navController: NavController) {
 
 
     val createOrgViewModel: CreateOrganisationViewModel = hiltViewModel()
-
+    val idState = createOrgViewModel.id.collectAsState().value
+    val adminData = createOrgViewModel.admin.collectAsState().value
+    val token = createOrgViewModel.token.collectAsState().value
     val scrollState = rememberScrollState()
+    val tokenManager= createOrgViewModel.getTokenManager()
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -80,30 +81,13 @@ fun CreateOrgscreen(navController: NavController) {
                 textValue = organisationName,
                 onValueChange = { organisationName = it }
             )
-            MyTextField(
-                labelValue = stringResource(id = R.string.Company_email),
-                painterResource(id = R.drawable.outline_mail_outline_black_20),
-                textValue = email,
-                onValueChange = { email = it }
-            )
-            MyTextField(
-                labelValue = stringResource(id = R.string.company_type),
-                painterResource(id = R.drawable.company_symbol),
-                textValue = companyType,
-                onValueChange = { companyType = it }
-            )
+
+
             MyTextField(
                 labelValue = stringResource(id = R.string.domain_name),
                 painterResource(id = R.drawable.outline_edit_black_24dp),
                 textValue = domainName,
                 onValueChange = { domainName = it }
-            )
-
-            MyTextField(
-                labelValue = stringResource(id = R.string.admin_name),
-                painterResource(id = R.drawable.admin_symbol),
-                textValue = adminName,
-                onValueChange = { adminName = it }
             )
 
             MyTextField(
@@ -142,17 +126,39 @@ fun CreateOrgscreen(navController: NavController) {
                 onClick = {
                     createOrgViewModel.createOrg(
                         organisationName,
-                        email,
-                        adminName,
+                        description,
+                        firstName+" "+lastName,
                         domainName,
-                        companyType
                     )
-                    navController.navigate(Navscreen.Bottom.route + "/${firstName}")
                 }
-            ) {
+            )
+            {
                 Text(text = "Create Org")
             }
             Spacer(modifier = Modifier.height(16.dp))
+            LaunchedEffect(idState) {
+                println(idState)
+                println("Type of idState: ${idState.javaClass.name}")
+
+                if (idState != 0) { // Assuming 0u represents an initial state or default value
+                    createOrgViewModel.signupUser(
+                        firstName + " " + lastName,
+                        adminEmail,
+                        password,
+                        idState
+                    )
+                }
+            }
+            LaunchedEffect(adminData) {
+                println("i am sung jo ")
+                println(adminData)
+                if (adminData != null) {
+                    sharedViewModel.updateUser(adminData)
+                    tokenManager.saveToken(token)
+                    navController.navigate(Navscreen.Bottom.route + "/$firstName")
+                }
+            }
+
 //            Button(){Text(text="Create Organisation")}
         }
     }
