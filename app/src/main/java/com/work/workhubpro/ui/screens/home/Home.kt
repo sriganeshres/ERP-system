@@ -14,9 +14,7 @@ fun Home(name: String, navController: NavController,sharedViewModel: SharedViewM
 
 
     Column {
-        Text(text = "hello $name")
-
-
+        Text(text = "hello $name",)
     }
 
 }

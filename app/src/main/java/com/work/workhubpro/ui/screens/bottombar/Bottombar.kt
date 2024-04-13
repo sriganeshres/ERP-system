@@ -24,12 +24,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.navigation.Navscreen
+import com.work.workhubpro.ui.screens.chat.Chat
 import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.projects.Projects
@@ -118,6 +121,13 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
             }
             composable(route = Navscreen.Projects.route) {
                 Projects(navController = navigation,sharedViewModel)
+            }
+            composable(
+                route = "${Navscreen.Chat.route}/{receiver}",
+                arguments = listOf(navArgument("receiver") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val argumentName = backStackEntry.arguments?.getString("receiver").orEmpty()
+                Chat(argumentName, navController = navController,sharedViewModel)
             }
         }
     }
