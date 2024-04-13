@@ -13,6 +13,7 @@
     <string name="password">Password</string>
     <string name="hide_password">Hide Password</string>
     <string name="show_password">Show Password</string>
+    <string name="send_message">send message</string>
     <string name="terms_and_conditions">By Continuing you accept our Privacy Policy and Term of Use</string>
     <string name="admin_name">Admin Name</string>
     <string name="domain_name">Domain Name</string>

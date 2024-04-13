@@ -57,7 +57,7 @@ fun MyTextField(
                 hue = 199f,
                 saturation = 0.9f,
                 lightness = 0.73f
-            ), // Use animated color
+            ),
             focusedLabelColor = Color.DarkGray,
             cursorColor = Color.Black,
             unfocusedContainerColor = Color.Transparent

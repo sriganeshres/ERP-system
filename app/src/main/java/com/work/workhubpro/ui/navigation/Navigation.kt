@@ -10,7 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.screens.bottombar.Bottombar
-import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.createOrg.Create_OrgScreen
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.landing.LandingPage
@@ -44,10 +43,6 @@ fun Navigation() {
             val argumentName = backStackEntry.arguments?.getString("name").orEmpty()
             Home(argumentName, navController = navController,sharedViewModel)
         }
-
-        composable(route = Navscreen.Community.route) {
-            Community(navController = navController,sharedViewModel)
-        }
         composable(route = Navscreen.Projects.route) {
             Projects(navController = navController,sharedViewModel)
         }
@@ -58,5 +53,6 @@ fun Navigation() {
         composable (route = Navscreen.Landing.route) {
             LandingPage(navController = navController)
         }
+
     }
 }
