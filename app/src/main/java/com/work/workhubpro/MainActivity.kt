@@ -18,27 +18,24 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var userApi : UserApi
+    lateinit var userApi: UserApi
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        println("hello23")
+
         setContent {
             WorkhubProTheme {
                 val navController = rememberNavController()
 
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     Navigation()
-
-
-                    }
                 }
             }
         }
     }
+}
 
 
