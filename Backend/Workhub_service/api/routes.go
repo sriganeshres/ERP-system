@@ -12,4 +12,8 @@ type Config struct {
 
 func (app *Config) Routes() {
 	app.Router.POST("/api/workhub", app.CreateWorkHub)
+	app.Router.POST("/api/createproject", app.CreateProject)
+	app.Router.GET("/api/Project/:id", app.GetProject)
+	app.Router.DELETE("/api/Project/:id", app.Deleteproject)
+	app.Router.GET("/api/Projects/:id", app.GetAllProjects)
 }
