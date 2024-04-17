@@ -16,4 +16,6 @@ func (app *Config) Routes() {
 	app.Router.GET("/api/Project/:id", app.GetProject)
 	app.Router.DELETE("/api/Project/:id", app.Deleteproject)
 	app.Router.GET("/api/Projects/:id", app.GetAllProjects)
+	app.Router.POST("/api/join", app.JoinWorkHub)
+	app.Router.GET("/api/getworkhub", app.GetWorkHub)
 }

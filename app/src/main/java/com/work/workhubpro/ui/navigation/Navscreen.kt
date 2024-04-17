@@ -8,10 +8,10 @@ sealed class Navscreen(val route: String) {
     object Community : Navscreen("community")
     object Work : Navscreen("work")
     object Projects : Navscreen("projects")
-
     object Landing : Navscreen("landing")
     object Create_Org : Navscreen ("create_org")
     object Chat : Navscreen("chat")
     object Login : Navscreen("login")
     object ProjectDetails : Navscreen("project_details")
+    object JoinOrganization_Screen :Navscreen("join")
 }

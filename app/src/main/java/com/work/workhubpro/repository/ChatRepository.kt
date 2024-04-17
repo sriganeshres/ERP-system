@@ -37,6 +37,8 @@ class ChatRepository @Inject constructor(private val chatapi: ChatApi) {
 
             // Create a new list of Message objects with parsed CreatedAt field
             val chatmessages = mutableListOf<Message>()
+            println("hello")
+            println(messages)
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX")
             messages.forEach { message ->
                 val parsedTime = LocalTime.parse(message.CreatedAt?.format(formatter), formatter)
@@ -45,12 +47,12 @@ class ChatRepository @Inject constructor(private val chatapi: ChatApi) {
             }
 
             _getmessages.emit(chatmessages)
-
+            println("NO ERROR")
         }
             else {
-
+            println(response.errorBody()?.string())
                 println(response.message())
-                println("HAS SOME ERROR",)
+                println("HAS SOME ERROR")
                }
     }
 }

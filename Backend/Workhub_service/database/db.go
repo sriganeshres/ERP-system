@@ -61,6 +61,19 @@ func (db *Database) CreateProject(Project *models.Project) error {
 	}
 	return nil
 }
+func (db *Database) UpdateWorkhub(id uint, User models.UserData) error {
+	var workhub models.WorkHub
+	err := db.DB.Where("id =?", id).First(&workhub).Error
+	if err != nil {
+		return err
+	}
+	workhub.Users = append(workhub.Users, User)
+	err = db.DB.Save(&workhub).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func (db *Database) FindProject(code int) (*models.Project, error) {
 	var Project models.Project
