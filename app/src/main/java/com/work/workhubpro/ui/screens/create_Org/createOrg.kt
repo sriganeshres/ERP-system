@@ -1,4 +1,4 @@
-package com.work.workhubpro.ui.screens.createOrg
+package com.work.workhubpro.ui.screens.create_Org
 
 //import androidx.compose.material3.Button
 //import androidx.compose.material3.Text
@@ -36,11 +36,10 @@ import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.composables.PasswordTextField
 import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.CreateOrg.CreateOrganisationViewModel
-import com.work.workhubpro.utils.TokenManager
 
 
 @Composable
-fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewModel) {
+fun CreateOrgScreen(navController: NavController,sharedViewModel:SharedViewModel) {
 
     var organisationName by remember { mutableStateOf("") }
     var domainName by remember { mutableStateOf("") }

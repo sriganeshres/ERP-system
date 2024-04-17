@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"path/filepath"
-	// "path/filepath"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"

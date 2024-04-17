@@ -30,28 +30,11 @@ func (db *Database) Init() error {
 }
 
 func (db *Database) Migrate() error {
-	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.Project{}, &models.UserData{})
+	err := db.DB.AutoMigrate(&models.WorkHub{},&models.Project{}, &models.UserData{} )
 	if err != nil {
 		return err
 	}
 	return nil
-}
-
-func (db *Database) CreateWorkhub(WorkHub *models.WorkHub) error {
-	err := db.DB.Create(&WorkHub).Error
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func (db *Database) FindWorkHub(code int) (*models.WorkHub, error) {
-	var workhub models.WorkHub
-	err := db.DB.Where("privacy_key = ?", code).First(&workhub).Error
-	if err != nil {
-		return nil, err
-	}
-	return &workhub, nil
 }
 
 func (db *Database) CreateProject(Project *models.Project) error {
@@ -61,41 +44,25 @@ func (db *Database) CreateProject(Project *models.Project) error {
 	}
 	return nil
 }
-func (db *Database) UpdateWorkhub(id uint, User models.UserData) error {
-	var workhub models.WorkHub
-	err := db.DB.Where("id =?", id).First(&workhub).Error
-	if err != nil {
-		return err
-	}
-	workhub.Users = append(workhub.Users, User)
-	err = db.DB.Save(&workhub).Error
-	if err != nil {
-		return err
-	}
-	return nil
-}
 
 func (db *Database) FindProject(code int) (*models.Project, error) {
 	var Project models.Project
-	err := db.DB.Where("project_id = ?", code).First(&Project).Error
+	err := db.DB.Where("privacy_key = ?", code).First(&Project).Error
 	if err != nil {
-		fmt.Println("Project not Found in the finproject")
 		return nil, err
 	}
 	return &Project, nil
 }
 
-func (db *Database) DeleteProject(code int) error {
+func (db *Database) DeleteProject(code int) error{
 	var Project models.Project
-	err := db.DB.Where("project_id = ?", code).First(&Project).Error
-	if err != nil {
+	err := db.DB.Where("privacy_key = ?", code).First(&Project).Error
+	if err!=nil {
 		fmt.Println("Project not Found")
-		return err
+		return err 
 	}
-	fmt.Println("Project Found", Project)
-	// db.DB.Delete(&Project).
-	err1 := db.DB.Delete(&Project).Error
-	if err1 != nil {
+	err1:=db.DB.Delete(&Project).Error
+	if err1!=nil{
 		fmt.Println("Error in deletion from DB")
 		return err1
 	}

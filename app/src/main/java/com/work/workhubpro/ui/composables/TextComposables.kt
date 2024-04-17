@@ -59,6 +59,25 @@ fun HeadingTextComposable(value: String) {
 }
 
 @Composable
+fun ProjectHeading(value: String) {
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(),
+        style = TextStyle(
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Normal,
+        ),
+        color = Color.Cyan,
+        textAlign = TextAlign.Center
+    )
+}
+
+
+
+@Composable
 fun CheckBoxComposable(value: String) {
     Row(
         modifier = Modifier

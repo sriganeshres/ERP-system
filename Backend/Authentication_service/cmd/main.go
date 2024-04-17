@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"path/filepath"
 	// "path/filepath"
 
 	"github.com/joho/godotenv"
@@ -13,8 +14,8 @@ import (
 func main() {
 	e := echo.New()
 	db := database.NewDatabase()
-	// envPath := filepath.Join("..", "..", ".env")
-	er := godotenv.Load()
+	envPath := filepath.Join("..", "..", ".env")
+	er := godotenv.Load(envPath)
 	if er != nil {
 		log.Println(er)
 	}

@@ -66,26 +66,32 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
-
-            implementation(libs.androidx.ui.tooling.preview)
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation(libs.androidx.ui.tooling.preview)
     implementation ("io.ktor:ktor-client-android:1.6.4")
     implementation("io.ktor:ktor-client-websockets:1.6.4")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
+    implementation("androidx.compose.material3:material3:1.0.0-alpha14")
+//    implementation ("androidx.compose.ui:ui-image:1.2.0-beta01")
+//    implementation ("androidx.compose.foundation:foundation-image:1.3.0")
+//    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:1.0.0")
+//    implementation(libs.androidx.material3.android)
+//    implementation ("androidx.compose.material3:material3:$m3-version")
     implementation(libs.androidx.material3)
     implementation(libs.androidx.activity.ktx)
     // For hilt Implementation
-    implementation ("com.google.dagger:hilt-android:2.46.1")
-    implementation(libs.androidx.constraintlayout)
+    implementation ("com.google.dagger:hilt-android:2.49")
+//    implementation(libs.androidx.constraintlayout)
     implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
 
     kapt ("com.google.dagger:hilt-compiler:2.46.1")
 
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
 
     // For instrumentation tests
     androidTestImplementation ("com.google.dagger:hilt-android-testing:2.46.1")
