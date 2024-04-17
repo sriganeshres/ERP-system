@@ -49,7 +49,9 @@ func (s *Server) handleWS(ws *websocket.Conn, name string) {
 
 func (s *Server) broadcast(b []byte, receiver string) {
 	fmt.Println("Receiver:", receiver)
+
 	for _, user := range s.Users {
+		fmt.Print("hello")
 		if user.name == receiver && user.connected {
 			go func(ws *websocket.Conn) {
 				fmt.Println("Sending this data ", b)
