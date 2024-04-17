@@ -9,6 +9,6 @@ constructor(
     val password: String,
     val id : Int? =null,
     val ID: Int? = null,
-    val role: String?=null
+    val role: String?=null,
 )
 

@@ -21,5 +21,7 @@
     <string name="company_type">Company Type</string>
     <string name="organisation_name">Organisation Name</string>
     <string name ="Login">Login With your Credentials</string>
+    <string name="Profile_photo">Profile</string>
+    <string name="Projects_list">Projects</string>
 
 </resources>

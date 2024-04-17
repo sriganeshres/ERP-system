@@ -10,13 +10,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.screens.bottombar.Bottombar
-import com.work.workhubpro.ui.screens.createOrg.Create_OrgScreen
+import com.work.workhubpro.ui.screens.create_Org.CreateOrgScreen
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.landing.LandingPage
 import com.work.workhubpro.ui.screens.loginPage.LoginScreen
 import com.work.workhubpro.ui.screens.profile.Profile
-import com.work.workhubpro.ui.screens.projects.Projects
+import com.work.workhubpro.ui.screens.projects.ProjectListScreens
 import com.work.workhubpro.ui.screens.signup.SignupScreen
+
 
 @Composable
 fun Navigation() {
@@ -47,11 +48,11 @@ fun Navigation() {
             LoginScreen(navController = navController)
         }
         composable(route = Navscreen.Projects.route) {
-            Projects(navController = navController,sharedViewModel)
+            ProjectListScreens(navController = navController, sharedViewModel = sharedViewModel)
         }
 
         composable(route=Navscreen.Create_Org.route){
-            Create_OrgScreen(navController = navController,sharedViewModel)
+            CreateOrgScreen(navController = navController,sharedViewModel)
         }
         composable (route = Navscreen.Landing.route) {
             LandingPage(navController = navController)
