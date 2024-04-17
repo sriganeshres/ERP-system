@@ -17,10 +17,8 @@ class UserRepository @Inject constructor(private val userapi: UserApi) {
     val token: StateFlow<String> get() = _token.asStateFlow()
     suspend fun getUser(request: User) {
         println("heroku")
-        val serviceNumber = 1
         println(request)
         val response = userapi.signup(request)
-
         if (response.isSuccessful && response.body() != null) {
             _user.emit(response.body()!!.user)
             _token.emit(response.body()!!.token)

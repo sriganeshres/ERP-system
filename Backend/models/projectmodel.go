@@ -8,4 +8,5 @@ type Project struct {
 	Description string     `json:"description"`
 	Members     []UserData `json:"members"`
 	ProjectLead UserData   `json:"project_leader"`
+	WorkHubID   uint       `gorm:"foreignKey:"WorkHubID" json:"wid"`
 }

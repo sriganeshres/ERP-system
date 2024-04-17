@@ -13,4 +13,6 @@ sealed class Navscreen(val route: String) {
     object Create_Org : Navscreen ("create_org")
     object Chat : Navscreen("chat")
     object Login : Navscreen("login")
+
+    object JoinOrganization_Screen :Navscreen("join")
 }

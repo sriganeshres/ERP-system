@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -93,7 +94,7 @@ func (app *Config) Signup(ctx echo.Context) error {
 
 	var userData models.UserData
 	err1 := ctx.Bind(&userData)
-	userData.Role = "admin"
+	// userData.Role = "admin"
 
 	if err1 != nil {
 
@@ -146,4 +147,20 @@ func (app *Config) SendEmailHandler(ctx echo.Context) error {
 		return ctx.String(http.StatusInternalServerError, err.Error())
 	}
 	return ctx.String(http.StatusOK, "Email sent successfully")
+}
+
+func (app *Config) GetUser(ctx echo.Context) error {
+	email := ctx.QueryParam("email")
+	if email == "" {
+		ctx.JSON(http.StatusBadRequest, "Please provide an email address")
+		return errors.New("email address is not provided")
+	}
+	fmt.Print(email)
+	user, err := app.Db.GetUserByEmail(email)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	ctx.JSON(http.StatusOK, user)
+	return nil
 }
