@@ -94,7 +94,7 @@ fun LandingPage(navController: NavController) {
                     }
 
                     Button(
-                        onClick = { navController.navigate(Navscreen.Signup.route) },
+                        onClick = { navController.navigate(Navscreen.JoinOrganization_Screen.route) },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Blue,
                             contentColor = Color.White

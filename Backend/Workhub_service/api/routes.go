@@ -12,4 +12,6 @@ type Config struct {
 
 func (app *Config) Routes() {
 	app.Router.POST("/api/workhub", app.CreateWorkHub)
+	app.Router.POST("/api/join", app.JoinWorkHub)
+	app.Router.GET("/api/getworkhub", app.GetWorkHub)
 }

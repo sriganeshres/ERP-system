@@ -1,20 +1,18 @@
 package com.work.workhubpro.repository
 
-import com.work.workhubpro.api.UserApi
 import com.work.workhubpro.api.WorkHubApi
-import com.work.workhubpro.di.NetworkModule
-import com.work.workhubpro.models.Organisation
+import com.work.workhubpro.models.Project
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-
-class OrganisationCreation @Inject constructor(private val workHubApi : WorkHubApi){
+class Projectcreation @Inject constructor(private val workHubApi: WorkHubApi) {
     private val _id = MutableStateFlow<Int>(0)
     val id: StateFlow<Int> get() = _id.asStateFlow()
-    suspend fun getOrg(request: Organisation){
-        val response = workHubApi.createorg(request)
+
+    suspend fun getProject(request: Project) {
+        val response = workHubApi.createProj(request)
         println(response.body()?.name)
         if (response.isSuccessful && response.body() != null) {
             _id.emit(response.body()!!.ID)
@@ -25,6 +23,4 @@ class OrganisationCreation @Inject constructor(private val workHubApi : WorkHubA
             println("Error: Response not successful or body is null")
         }
     }
-
-
 }

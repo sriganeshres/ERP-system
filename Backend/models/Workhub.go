@@ -11,3 +11,8 @@ type WorkHub struct {
 	PrivacyKey  int        `gorm:"not null" json:"privacy_key"`
 	Users       []UserData `gorm:"foreignKey:WorkhubID"`
 }
+
+type JoinWorkHub struct {
+	UserEmail  string `json:"useremail"`
+	PrivacyKey int    `json:"key"`
+}

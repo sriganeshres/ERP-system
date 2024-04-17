@@ -16,7 +16,7 @@ type UserData struct {
 	Password  string    `json:"password"`
 	Email     string    `gorm:"unique_index;not null" json:"email"`
 	Role      RoleField `json:"role" gorm:"default:'user'"`
-	WorkhubID uint      `gorm:"foreignKey:WorkHubID" json:"id"`
+	WorkhubID uint      `json:"ID"`
 }
 
 type LoginUser struct {

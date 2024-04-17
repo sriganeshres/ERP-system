@@ -50,6 +50,7 @@ fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewMode
     var lastName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var adminEmail by remember { mutableStateOf("") }
+    val role = "admin"
 
 
     val createOrgViewModel: CreateOrganisationViewModel = hiltViewModel()
@@ -145,7 +146,8 @@ fun Create_OrgScreen(navController: NavController,sharedViewModel:SharedViewMode
                         firstName + " " + lastName,
                         adminEmail,
                         password,
-                        idState
+                        idState,
+                        role
                     )
                 }
             }
