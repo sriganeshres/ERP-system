@@ -12,7 +12,7 @@ class Projectcreation @Inject constructor(private val workHubApi: WorkHubApi) {
     val id: StateFlow<Int> get() = _id.asStateFlow()
 
     suspend fun getProject(request: Project) {
-        val response = workHubApi.createProj(request)
+        val response = workHubApi.createProject(request)
         println(response.body()?.name)
         if (response.isSuccessful && response.body() != null) {
             _id.emit(response.body()!!.ID)
