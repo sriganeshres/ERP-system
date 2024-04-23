@@ -15,9 +15,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -37,6 +43,7 @@ import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
+import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.theme.LightBlue
 import com.work.workhubpro.ui.theme.Lightblue2
 import com.work.workhubpro.ui.theme.mediumblue
@@ -113,48 +120,69 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 Image(
                     painter = painterResource(R.drawable.calendar),
                     contentDescription = "Your Image Description",
-                    modifier = Modifier.size(70.dp).shadow(10.dp)
-                        .padding(10.dp).
-                        clickable{datedialogueState.show()},
+                    modifier = Modifier
+                        .size(70.dp)
+                        .shadow(10.dp)
+                        .padding(10.dp)
+                        .clickable { datedialogueState.show() },
                 )
 
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().padding(18.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(18.dp)
         ) {
             Surface(
                 modifier = Modifier
-                    .shadow(20.dp),
+                    .shadow(20.dp)
+                    .fillMaxWidth(0.35f)
+                    .background(color=Color.Transparent),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Text(
-                    text = "Add Tasks",
-
-                    style = TextStyle(
-                        fontFamily = joseph,
-                        fontSize = 18.sp,
-                        color = Color.Black
-                    ),
-                    modifier = Modifier.background(LightBlue)
-                        .padding(10.dp)
-                )
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color =
+                            Color.hsl(265f, 0.55f, 0.50f) // Valid form color
+                            ,
+                            shape = RoundedCornerShape(10.dp)
+                        ),
+                    shape = RoundedCornerShape(10.dp),
+                    onClick = {
+                        navController.navigate(Navscreen.Createtask.route)
+                    },
+                ) {
+                    Text(text = "Add Task",color=Color.White)
+                }
             }
             Surface(
                 modifier = Modifier
-                    .shadow(20.dp),
-                        shape = RoundedCornerShape(8.dp)
+                    .shadow(20.dp)
+                    .fillMaxWidth(0.5f)
+                    .background(color=Color.Transparent),
+                shape = RoundedCornerShape(8.dp)
+
 
             ) {
-                Text(
-                    text = "Add Projects",
-                    style = TextStyle(
-                        fontFamily = joseph,
-                        fontSize = 18.sp,
-                        color = Color.Black
-                    ), modifier = Modifier.background(LightBlue).padding(10.dp)
-                )
+                Button(
+                    modifier = Modifier
+                        .background(
+                            color =
+                            Color.hsl(265f, 0.55f, 0.50f) // Valid form color
+                            ,
+                            shape = RoundedCornerShape(10.dp)
+                        ),
+                    shape = RoundedCornerShape(10.dp),
+                    onClick = {
+                        navController.navigate(Navscreen.CreateProject.route)
+                    },
+                ) {
+                    Text(text = "Add Project",color=Color.White)
+                }
             }
        }
         Spacer(modifier = Modifier.height(20.dp))
