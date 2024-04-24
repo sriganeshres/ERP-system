@@ -1,7 +1,6 @@
 package com.work.workhubpro.ui.screens.taskform
 
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,7 +40,7 @@ fun Create_task(
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var assignedTo by remember { mutableStateOf("") }
-    val createTaskViewModel:TaskFormViewModel = hiltViewModel()
+    val createTaskViewModel: TaskFormViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
 
 
@@ -95,13 +94,14 @@ fun Create_task(
                         color =
                         Color.hsl(248f, 0.95f, 0.60f), // Valid form color
 
-                        shape = RoundedCornerShape(10.dp)),
+                        shape = RoundedCornerShape(10.dp)
+                    ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    createTaskViewModel.createTask(name, description,assignedTo)
+                    createTaskViewModel.createTask(name, description, assignedTo)
                 },
             ) {
-                Text(text = "Create Task",color=Color.White)
+                Text(text = "Create Task", color = Color.White)
             }
         }
     }
@@ -120,10 +120,13 @@ fun MyTextField(
         onValueChange = onValueChange,
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp)
-        ,
+            .padding(10.dp),
         leadingIcon = {
-            Icon(painter = painterResource, contentDescription = null, modifier = Modifier.size(24.dp))
+            Icon(
+                painter = painterResource,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
         },
         label = {
             Text(text = labelValue)
