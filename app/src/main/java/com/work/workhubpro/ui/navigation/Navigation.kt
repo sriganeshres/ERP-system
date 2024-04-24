@@ -56,7 +56,7 @@ fun Navigation() {
             CreateOrgScreen(navController = navController,sharedViewModel)
         }
         composable (route = Navscreen.Landing.route) {
-            LandingPage(navController = navController)
+            LandingPage(navController = navController,sharedViewModel)
         }
         composable(route = Navscreen.JoinOrganization_Screen.route) {
             JoinOrganization_Screen(navController = navController, sharedViewModel = sharedViewModel)

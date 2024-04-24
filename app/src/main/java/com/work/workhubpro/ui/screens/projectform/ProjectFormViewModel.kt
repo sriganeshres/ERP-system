@@ -10,9 +10,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 public class ProjectFormmViewMoel @Inject constructor(private val repo: Projectcreation) : ViewModel() {
-    fun createProject(name: String, description: String, projectlead: String) {
+   var response = repo.response
+    fun createProject(name: String, description: String, projectlead: String,id:Int) {
         println(name)
-        val project = Project(name, description,projectlead) // Create a new User instance
+        val project = Project(name, description,projectlead,id) // Create a new User instance
         viewModelScope.launch {
             repo.getProject(project)
         }

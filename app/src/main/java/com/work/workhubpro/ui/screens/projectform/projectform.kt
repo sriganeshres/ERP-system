@@ -2,6 +2,7 @@ package com.work.workhubpro.ui.screens.projectform
 
 
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,24 +28,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.work.workhubpro.R
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.NormalTextComposable
 
 @Composable
 fun CreateProject(
     navController: NavController,
+    sharedViewModel: SharedViewModel
 ) {
+
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var projectlead by remember { mutableStateOf("") }
     val createProjectViewModel:ProjectFormmViewMoel = hiltViewModel()
+    var response = createProjectViewModel.response.collectAsState().value
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
 
     val gradient = Brush.verticalGradient(
@@ -94,17 +103,22 @@ fun CreateProject(
                     .padding(15.dp)
                     .background(
                         color =
-                            Color.hsl(248f, 0.95f, 0.60f), // Valid form color
+                        Color.hsl(248f, 0.95f, 0.60f), // Valid form color
 
-                        shape = RoundedCornerShape(10.dp)),
+                        shape = RoundedCornerShape(10.dp)
+                    ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    createProjectViewModel.createProject(name, description, projectlead)
+                    println("ashwathama")
+                    println(sharedViewModel.user.value)
+                    createProjectViewModel.createProject(name, description, projectlead,sharedViewModel.user.value?.id!!)
                 },
             ) {
                 Text(text = "Create Project",color=Color.White)
             }
+
         }
+
     }
 }
 
