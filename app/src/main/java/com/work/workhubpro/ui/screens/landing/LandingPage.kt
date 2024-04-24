@@ -27,10 +27,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.work.workhubpro.R
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.navigation.Navscreen
 
 @Composable
-fun LandingPage(navController: NavController) {
+fun LandingPage(navController: NavController,sharedViewModel: SharedViewModel) {
    val ViewModel : LandingViewModel= hiltViewModel()
     val user = ViewModel.user.collectAsState().value
     val tokenManager = ViewModel.getTokenManager()
@@ -41,6 +42,7 @@ fun LandingPage(navController: NavController) {
             if(user!=null){
                 println(user)
                 println(user.username)
+                sharedViewModel.updateUser(user)
                 println("hello")
                 navController.navigate(Navscreen.Bottom.route + "/${user.username.substring(0,4)}")
             }

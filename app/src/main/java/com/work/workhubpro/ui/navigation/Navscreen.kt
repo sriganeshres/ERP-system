@@ -14,4 +14,7 @@ sealed class Navscreen(val route: String) {
     object Login : Navscreen("login")
     object ProjectDetails : Navscreen("project_details")
     object JoinOrganization_Screen :Navscreen("join")
+    object CreateProject: Navscreen("create_project")
+    object Createtask: Navscreen("create_task")
+
 }

@@ -95,23 +95,29 @@ func (app *Config) Verify(ctx echo.Context) error {
 	return nil
 }
 
-
-
-
 func (app *Config) CreateProject(ctx echo.Context) error {
 	fmt.Println("Handling POST request Workhub...")
 	var Project models.Project
 	err := ctx.Bind(&Project)
 	if err != nil {
 		fmt.Println("error in bindin")
-		return ctx.JSON(http.StatusBadGateway, err.Error())
+		return ctx.JSON(http.StatusBadGateway, echo.Map{
+			"success": false,
+			"msg":     "Parsing error",
+		})
 	}
-	Project.ProjectID=utils.GenerateProjectCode()
+	Project.ProjectID = utils.GenerateProjectCode()
 	if errorer := app.Db.CreateProject(&Project); errorer != nil {
-		ctx.JSON(http.StatusBadRequest, errorer)
+		ctx.JSON(http.StatusBadRequest, echo.Map{
+			"success": false,
+			"msg":     "Internal Error",
+		})
 		return errorer
 	}
-	ctx.JSON(http.StatusCreated, Project)
+	ctx.JSON(http.StatusCreated, echo.Map{
+		"success": true,
+		"msg":     "successfully created a Project",
+	})
 	return nil
 }
 
@@ -121,14 +127,14 @@ func (app *Config) GetProject(ctx echo.Context) error {
 	if code == "" {
 		return ctx.JSON(http.StatusBadRequest, "Invalid Project code")
 	}
-	fmt.Println("code", strings.Split(code," "))
+	fmt.Println("code", strings.Split(code, " "))
 	projectId, err := strconv.Atoi(code)
 	if err != nil {
-    // Handle the error if the conversion fails
-    return ctx.JSON(http.StatusBadRequest, "Invalid project code")
-}
+		// Handle the error if the conversion fails
+		return ctx.JSON(http.StatusBadRequest, "Invalid project code")
+	}
 
-project, errorer := app.Db.FindProject(projectId)
+	project, errorer := app.Db.FindProject(projectId)
 	if project == nil {
 		return ctx.JSON(http.StatusNotFound, "Project not found")
 	}
@@ -141,34 +147,37 @@ project, errorer := app.Db.FindProject(projectId)
 }
 
 func (app *Config) Deleteproject(ctx echo.Context) error {
-	code:=ctx.Param("id")
-	ProjectId,err1:=strconv.Atoi(code)
-	if err1!=nil{
-		ctx.JSON(http.StatusBadRequest,err1)
+	code := ctx.Param("id")
+	ProjectId, err1 := strconv.Atoi(code)
+	if err1 != nil {
+		ctx.JSON(http.StatusBadRequest, err1)
 		return err1
 	}
-	err:=app.Db.DeleteProject(ProjectId)
-	if err!=nil{
-		ctx.JSON(http.StatusBadRequest,err)
+	err := app.Db.DeleteProject(ProjectId)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
 	}
-	ctx.JSON(http.StatusOK,"Deleted")
+	ctx.JSON(http.StatusOK, "Deleted")
 	return nil
 }
 
 func (app *Config) GetAllProjects(ctx echo.Context) error {
-	fmt.Println("Handling GET request Workhub...")
-	code:=ctx.Param("id")
-	workhub_id,err1:=strconv.Atoi(code)
-	if err1!=nil{
-		ctx.JSON(http.StatusBadRequest,err1)
+	fmt.Println("Handling GET for all projects request Workhub...")
+
+	code := ctx.Param("id")
+	workhub_id, err1 := strconv.Atoi(code)
+	fmt.Println(workhub_id)
+	if err1 != nil {
+		ctx.JSON(http.StatusBadRequest, err1)
 		return err1
 	}
-	project, errorer := app.Db.GetProjectsForWorkhub(workhub_id)	
+	projects, errorer := app.Db.GetProjectsForWorkhub(workhub_id)
 	if errorer != nil {
 		ctx.JSON(http.StatusBadRequest, errorer)
 		return errorer
 	}
-	ctx.JSON(http.StatusCreated, project)
+	fmt.Println(projects)
+	ctx.JSON(http.StatusCreated, projects)
 	return nil
 }
 func (app *Config) VerifyKey(key int) (uint, error) {
@@ -193,5 +202,120 @@ func (app *Config) GetWorkHub(ctx echo.Context) error {
 		return err
 	}
 	ctx.JSON(http.StatusOK, strconv.Itoa(int(Workhub.ID)))
+	return nil
+}
+
+func (app *Config) CreateTask(ctx echo.Context) error {
+	fmt.Println("Handling POST request Workhub...")
+	var Task models.Task
+	err := ctx.Bind(&Task)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+	Task.ID = uint(utils.GenerateRandomCode())
+	if errorer := app.Db.CreateTask(&Task); errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
+		return errorer
+	}
+	ctx.JSON(http.StatusCreated, Task)
+	return nil
+}
+
+func (app *Config) DeleteWorkHub(ctx echo.Context) error {
+	key, erro := strconv.Atoi(ctx.QueryParam("code"))
+	if erro != nil {
+		ctx.JSON(http.StatusBadRequest, erro)
+		return erro
+	}
+	err := app.Db.DeleteWorkHub(key)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
+	}
+	ctx.JSON(http.StatusNoContent, "Deleted successfully")
+	return nil
+}
+
+func (app *Config) UpdateTask(ctx echo.Context) error {
+	var task models.UpdateTask
+	err := ctx.Bind(&task)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	if errorer := app.Db.UpdateTask(task.ID, task.StatusField); errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, "Updated task successfully")
+	return nil
+}
+
+func (app *Config) GetAllTasksByProject(ctx echo.Context) error {
+	fmt.Println("Getting")
+	var id int
+	v := ctx.QueryParam("id")
+	fmt.Println(v)
+	id, err := strconv.Atoi(v)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	var tasks []models.Task
+	errorer := app.Db.GetAllTasksByProjectID(id, &tasks)
+	if errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer.Error())
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, tasks)
+	return nil
+}
+
+func (app *Config) GetTaskByUserID(ctx echo.Context) error {
+	var id int
+	v := ctx.QueryParam("id")
+	id, err := strconv.Atoi(v)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	var tasks []models.Task
+	errorer := app.Db.GetAllTasksByUserID(id, &tasks)
+	if errorer != nil {
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, tasks)
+	return nil
+}
+
+func (app *Config) GetTaskByWorkHubID(ctx echo.Context) error {
+	var id int
+	v := ctx.QueryParam("id")
+	id, err := strconv.Atoi(v)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	var tasks []models.Task
+	errorer := app.Db.GetAllTasksByWorkHubID(id, &tasks)
+	if errorer != nil {
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, tasks)
+	return nil
+}
+
+func (app *Config) DeleteTask(ctx echo.Context) error {
+	var id int
+	v := ctx.QueryParam("id")
+	id, err := strconv.Atoi(v)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	err = app.Db.DeleteTask(id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err)
+	}
+	ctx.JSON(http.StatusOK, "Deleted successfully")
 	return nil
 }

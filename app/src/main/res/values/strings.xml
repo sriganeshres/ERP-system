@@ -26,5 +26,11 @@
     <string name="join_org">Join your Organization</string>
     <string name="privacy_key">Privacy Key</string>
     <string name="role">Role</string>
+    <string name="create_project">Enter Project Details</string>
+    <string name="project_name">Enter Project Name</string>
+    <string name="projectlead">Enter Project Leader</string>
+    <string name="project_description">Enter Project description</string>
+    <string name="Create_New_project">Create New Project</string>
+
 
 </resources>
