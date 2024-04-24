@@ -157,7 +157,13 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
                 val argumentName = backStackEntry.arguments?.getString("receiver").orEmpty()
                 Chat(argumentName, navController = navController,sharedViewModel)
             }
-
+            composable(
+                route = "${Navscreen.ProjectDetails.route}/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val argumentName = backStackEntry.arguments?.getString("id").orEmpty()
+                ProjectDetails(argumentName, navController = navController,sharedViewModel)
+            }
 
         }
     }
