@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Work
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +37,7 @@ import com.work.workhubpro.ui.navigation.Navscreen
 import com.work.workhubpro.ui.screens.chat.Chat
 import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.home.Home
+import com.work.workhubpro.ui.screens.profile.Profile
 import com.work.workhubpro.ui.screens.projectDetails.ProjectDetails
 import com.work.workhubpro.ui.screens.projects.ProjectListScreens
 
@@ -63,7 +66,13 @@ val items = listOf(
         route = Navscreen.Community.route,
         selectedIcon = Icons.Filled.Chat,
         unselectedIcon = Icons.Outlined.Chat
-    )
+    ),
+            BottomnavItems(
+            title = "profile",
+    route = Navscreen.Profile.route,
+    selectedIcon = Icons.Filled.Person,
+    unselectedIcon = Icons.Outlined.Person,
+)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -122,6 +131,9 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
             }
             composable(route = Navscreen.Projects.route) {
                 ProjectListScreens(navController = navigation,sharedViewModel)
+            }
+            composable(route = Navscreen.Profile.route) {
+                Profile(navController = navigation)
             }
             composable(
                 route = "${Navscreen.ProjectDetails.route}/{name}",

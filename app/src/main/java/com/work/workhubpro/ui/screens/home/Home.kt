@@ -61,12 +61,11 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             .background(Lightblue2)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.header2),
+            painter = painterResource(id = R.drawable.border),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxWidth()
-                .width(700.dp)
-                .height(72.dp)
+                .height(75.dp)
         )
 
         Text(
@@ -85,7 +84,8 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 .fillMaxWidth()
                 .shadow(20.dp)
                 .height(200.dp),
-            color = mediumblue
+            color = mediumblue,
+            shape = RoundedCornerShape(12.dp)
         ) {
             Text(
                 text = "Technova Solutions is a cutting-edge technology firm specializing in innovative software solutions. Our expertise spans AI-driven automation, cloud computing, and data analytics, empowering businesses to thrive in the digital age.",
@@ -94,7 +94,8 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                     fontSize = 18.sp,
                     color = Color.White
                 ),
-                modifier = Modifier.padding(18.dp)
+                modifier = Modifier.padding(18.dp),
+
             )
         }
         Row(
