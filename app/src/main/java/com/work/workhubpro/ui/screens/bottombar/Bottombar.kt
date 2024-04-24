@@ -36,7 +36,9 @@ import com.work.workhubpro.ui.screens.chat.Chat
 import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.projectDetails.ProjectDetails
+import com.work.workhubpro.ui.screens.projectform.CreateProject
 import com.work.workhubpro.ui.screens.projects.ProjectListScreens
+import com.work.workhubpro.ui.screens.taskform.Create_task
 
 data class BottomnavItems(
     val title: String,
@@ -123,6 +125,12 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
             composable(route = Navscreen.Projects.route) {
                 ProjectListScreens(navController = navigation,sharedViewModel)
             }
+            composable(route = Navscreen.CreateProject.route) {
+                CreateProject(navController = navigation)
+            }
+            composable(route = Navscreen.Createtask.route) {
+                Create_task(navController = navigation)
+            }
             composable(
                 route = "${Navscreen.ProjectDetails.route}/{name}",
                 arguments = listOf(navArgument("name") { type = NavType.StringType })
@@ -137,6 +145,7 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
                 val argumentName = backStackEntry.arguments?.getString("receiver").orEmpty()
                 Chat(argumentName, navController = navController,sharedViewModel)
             }
+
 
         }
     }
