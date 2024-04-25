@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +37,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 @Composable
-fun JoinOrganization_Screen(navController: NavController, sharedViewModel: SharedViewModel) {
+fun JoinOrganization_Screen(
+    navController: NavController,
+    sharedViewModel: SharedViewModel,
+    showPopup: MutableState<Boolean> = mutableStateOf(false),
+    popupMessage: MutableState<String> = mutableStateOf("")
+) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -46,6 +53,7 @@ fun JoinOrganization_Screen(navController: NavController, sharedViewModel: Share
     val scrollState = rememberScrollState()
     val joinOrgViewModel: JoinOrgViewModel = hiltViewModel()
     val id = joinOrgViewModel.id.collectAsState().value
+
 
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -104,20 +112,37 @@ fun JoinOrganization_Screen(navController: NavController, sharedViewModel: Share
             }
             Spacer(modifier = Modifier.height(16.dp))
             LaunchedEffect(id) {
-                println("Checked")
-                println("id: $id")
-                if (id != 0) {
-                    joinOrgViewModel.signupUser(
-                        firstName + " " + lastName,
-                        email,
-                        password,
-                        id = id,
-                        role
-                    )
-                    navController.navigate(Navscreen.Bottom.route + "/$firstName")
+                try {
+                    println("Checked")
+                    println("id: $id")
+                    if (id != 0) {
+                        joinOrgViewModel.signupUser(
+                            firstName + " " + lastName,
+                            email,
+                            password,
+                            id = id,
+                            role
+                        )
+                        navController.navigate(Navscreen.Bottom.route + "/$firstName")
+                    }
+                } catch (e: Exception) {
+                    // Handle the exception gracefully
+                    showPopup.value = true
+                    popupMessage.value = "Error occurred: ${e.message}"
                 }
             }
-
+            if (showPopup.value) {
+                AlertDialog(
+                    onDismissRequest = { showPopup.value = false },
+                    title = { Text(text = "Error") },
+                    text = { Text(text = popupMessage.value) },
+                    confirmButton = {
+                        Button(onClick = { showPopup.value = false }) {
+                            Text("OK")
+                        }
+                    }
+                )
+            }
         }
     }
 }

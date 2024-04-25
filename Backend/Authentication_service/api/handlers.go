@@ -22,13 +22,17 @@ func (app *Config) Login(ctx echo.Context) error {
 	email := userData.Email
 	password := userData.Password
 	user, err := app.Db.GetUserByEmail(email)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, "Invalid password")
+	}
 	if user == nil {
 		return ctx.JSON(http.StatusBadRequest, "Invalid credentials")
 	}
 	whether, erro := utils.VerifyPassword(password, user.Password)
-	if whether == false {
-		fmt.Printf(erro.Error())
-		return ctx.JSON(http.StatusBadRequest, "Invalid password")
+	if !whether {
+		fmt.Println(erro.Error())
+		ctx.JSON(http.StatusBadRequest, "Invalid password")
+		return errors.New(erro.Error())
 	}
 
 	// Set custom claims
@@ -167,7 +171,6 @@ func (app *Config) GetUser(ctx echo.Context) error {
 
 
 func (app *Config) GetAllEmployees(ctx echo.Context) error {
-	
 	var requestData struct {
 		WorkhubId uint `json:"workhub_id"`
 	}
@@ -202,5 +205,19 @@ func (app *Config) GetAllProjectLeads(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, err.Error())
 	}
 	ctx.JSON(http.StatusOK, users)
+	return nil
+}
+func (app *Config) AddUsersToProject(ctx echo.Context) error {
+	var dataIncoming models.AddUsersToProject
+	err := ctx.Bind(&dataIncoming)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	if errorer := app.Db.AddUsersToProject(dataIncoming); errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, "Added Successfully")
 	return nil
 }

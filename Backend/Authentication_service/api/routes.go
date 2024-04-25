@@ -18,4 +18,5 @@ func (app *Config) Routes() {
 	app.Router.GET("/api/user", app.GetUser)
 	app.Router.POST("/api/getallemployees",app.GetAllEmployees)
 	app.Router.POST("/api/getallprojectleads",app.GetAllProjectLeads)
+	app.Router.POST("/api/addUsers", app.AddUsersToProject)
 }

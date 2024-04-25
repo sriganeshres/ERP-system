@@ -17,10 +17,16 @@ type UserData struct {
 	Email     string    `gorm:"unique_index;not null" json:"email"`
 	Role      RoleField `json:"role" gorm:"default:'user'"`
 	WorkhubID uint      `json:"id" gorm:"foreignKey:WorkhubID"`
-	ProjectID *uint     `gorm:"foreignKey:ProjectID;null" json:"project_id"`
+	ProjectID uint      `gorm:"foreignKey:ProjectID;null" json:"project_id"`
 }
 
 type LoginUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+}
+
+type AddUsersToProject struct {
+	Names     []string `json:"names"`
+	ProjectID int      `json:"project_id"`
+	WorkHubID int	   `json:"workhub_id"`
 }

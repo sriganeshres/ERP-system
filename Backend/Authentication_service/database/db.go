@@ -71,3 +71,26 @@ func (db *Database) GetAllProjectLeadbyWorkhubId(workhubId uint) ([]models.UserD
 	}
 	return users, nil
 }
+func (db *Database) GetUserByUserNameAndWorkHubID(name string, wid int) (models.UserData, error) {
+	var user models.UserData
+	err := db.DB.Where("username =?", name).Where("workhub_id =?", wid).First(&user).Error
+	if err != nil {
+		return models.UserData{}, err
+	}
+	return user, nil
+}
+
+func (db *Database) AddUsersToProject(userDataFromFront models.AddUsersToProject) error {
+	for _, name := range userDataFromFront.Names {
+		user, err := db.GetUserByUserNameAndWorkHubID(name, userDataFromFront.WorkHubID)
+		if err != nil {
+			return err
+		}
+		user.ProjectID = uint(userDataFromFront.ProjectID)
+		err = db.DB.Save(&user).Error
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
