@@ -2,6 +2,7 @@ package com.work.workhubpro.repository
 
 import com.work.workhubpro.api.UserApi
 import com.work.workhubpro.di.NetworkModule
+import com.work.workhubpro.models.SendMail
 import com.work.workhubpro.models.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,6 +31,15 @@ class UserRepository @Inject constructor(private val userapi: UserApi) {
         val response = userapi.token(token)
         if (response.isSuccessful && response.body() != null) {
             _user.emit(response.body())
+        }
+        else{
+            println("some error")
+        }
+    }
+    suspend fun sendemail(request: SendMail){
+        val response = userapi.mail(request)
+        if (response.isSuccessful && response.body() != null) {
+           println(response.body())
         }
         else{
             println("some error")

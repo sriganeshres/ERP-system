@@ -1,6 +1,7 @@
 package com.work.workhubpro.api
 
 import com.work.workhubpro.models.LoginResponse
+import com.work.workhubpro.models.SendMail
 import com.work.workhubpro.models.SignupResponse
 import com.work.workhubpro.models.User
 import retrofit2.Response
@@ -17,5 +18,7 @@ interface UserApi {
 
     @POST("/api/token")
     suspend fun token(@Body request: String): Response<User>
+    @POST("/api/sendmail")
+    suspend fun mail(@Body request: SendMail): Response<String>
 
 }

@@ -1,6 +1,12 @@
-package com.work.workhubpro.ui.screens.taskform
+package com.work.workhubpro.ui.screens.addemploy
 
 
+
+
+
+
+
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,19 +44,15 @@ import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.NormalTextComposable
 
 @Composable
-fun Create_task(
+fun Addemploy(
     navController: NavController,
     sharedViewModel: SharedViewModel
 ) {
-    val assigned_by = sharedViewModel.user.collectAsState().value?.ID
-    val work_hub_id = sharedViewModel.user.collectAsState().value?.id
-    val project_key = sharedViewModel.user.collectAsState().value?.id
-    var name by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
-    var assignedTo by remember { mutableStateOf("") }
-    val createTaskViewModel: TaskFormViewModel = hiltViewModel()
-    val scrollState = rememberScrollState()
 
+    var email by remember { mutableStateOf("") }
+    val scrollState = rememberScrollState()
+    val context = LocalContext.current
+  val addemplymodel:EmployViewModel = hiltViewModel()
 
     val gradient = Brush.verticalGradient(
         colors = listOf(
@@ -74,24 +78,11 @@ fun Create_task(
             HeadingTextComposable(value = stringResource(id = R.string.create_project))
 
             MyTextField(
-                labelValue = stringResource(id = R.string.project_name),
+                labelValue = stringResource(id = R.string.email),
                 painterResource(id = R.drawable.company_symbol),
-                textValue = name,
-                onValueChange = { name = it }
+                textValue = email,
+                onValueChange = { email = it }
             )
-            MyTextField(
-                labelValue = stringResource(id = R.string.project_description),
-                painterResource(id = R.drawable.outline_edit_black_24dp),
-                textValue = description,
-                onValueChange = { description = it }
-            )
-            MyTextField(
-                labelValue = stringResource(id = R.string.project_description),
-                painterResource(id = R.drawable.outline_edit_black_24dp),
-                textValue = assignedTo,
-                onValueChange = { assignedTo = it }
-            )
-
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,12 +95,15 @@ fun Create_task(
                     ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    createTaskViewModel.createTask(name, description, assignedTo.toInt(),assigned_by!!,work_hub_id!!,project_key!!)
+                          addemplymodel.addemploy(email,sharedViewModel.workhub.value?.privateKey!!)
+
                 },
             ) {
-                Text(text = "Create Task", color = Color.White)
+                Text(text = "Add Employ",color=Color.White)
             }
+
         }
+
     }
 }
 
@@ -126,13 +120,10 @@ fun MyTextField(
         onValueChange = onValueChange,
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(10.dp)
+        ,
         leadingIcon = {
-            Icon(
-                painter = painterResource,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
+            Icon(painter = painterResource, contentDescription = null, modifier = Modifier.size(24.dp))
         },
         label = {
             Text(text = labelValue)

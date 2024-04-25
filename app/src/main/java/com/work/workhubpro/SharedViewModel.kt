@@ -25,4 +25,5 @@ public class SharedViewModel  @Inject constructor(): ViewModel() {
     fun updateWorkhub(newWorkhub: Organisation) {
         _workhub.value = newWorkhub
     }
+
 }

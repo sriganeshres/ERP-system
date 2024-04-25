@@ -5,6 +5,8 @@ sealed class Navscreen(val route: String) {
     object Profile : Navscreen("profile")
     object Bottom : Navscreen("bottom")
     object Home : Navscreen("home")
+    object Addempoly : Navscreen("Addemploy")
+
     object Community : Navscreen("community")
     object Work : Navscreen("work")
     object Projects : Navscreen("projects")

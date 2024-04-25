@@ -34,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.navigation.Navscreen
+import com.work.workhubpro.ui.screens.addemploy.Addemploy
 import com.work.workhubpro.ui.screens.chat.Chat
 import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.home.Home
@@ -141,7 +142,10 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
                 CreateProject(navController = navigation,sharedViewModel)
             }
             composable(route = Navscreen.Createtask.route) {
-                Create_task(navController = navigation)
+                Create_task(navController = navigation,sharedViewModel)
+            }
+            composable(route = Navscreen.Createtask.route) {
+                Addemploy(navController = navigation,sharedViewModel)
             }
             composable(
                 route = "${Navscreen.ProjectDetails.route}/{name}",
@@ -157,7 +161,13 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
                 val argumentName = backStackEntry.arguments?.getString("receiver").orEmpty()
                 Chat(argumentName, navController = navController,sharedViewModel)
             }
-
+            composable(
+                route = "${Navscreen.ProjectDetails.route}/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val argumentName = backStackEntry.arguments?.getString("id").orEmpty()
+                ProjectDetails(argumentName, navController = navController,sharedViewModel)
+            }
 
         }
     }

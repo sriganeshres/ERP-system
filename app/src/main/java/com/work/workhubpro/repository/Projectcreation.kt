@@ -9,10 +9,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 class Projectcreation @Inject constructor(private val workHubApi: WorkHubApi) {
-    var _response = MutableStateFlow<Resp?>(null)
-    var _projects = MutableStateFlow<List<Project>>(emptyList())
+    private var _response = MutableStateFlow<Resp?>(null)
+    private var _projects = MutableStateFlow<List<Project>>(emptyList())
+    private var _parProject = MutableStateFlow<Project?>(null)
     val response: StateFlow<Resp?> get() = _response.asStateFlow()
     val projects: StateFlow<List<Project>> get() = _projects.asStateFlow()
+    val currProject: StateFlow<Project?> get() = _parProject.asStateFlow()
+
 
     suspend fun getProject(request: Project) {
         val response = workHubApi.createProject(request)
@@ -36,4 +39,14 @@ class Projectcreation @Inject constructor(private val workHubApi: WorkHubApi) {
             println("Error: Response not successful or body is null")
         }
     }
+
+    suspend fun getProjectDetails(request: Int) {
+        val response = workHubApi.getProjectById(request)
+        if (response.isSuccessful && response.body() != null) {
+            _parProject.emit(response.body()!!)
+        } else {
+            println("Error: Response not successful or body is null")
+        }
+    }
+
 }
