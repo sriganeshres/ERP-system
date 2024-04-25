@@ -61,6 +61,8 @@ fun Create_task(
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var assignedTo by remember { mutableStateOf("") }
+    var deadline by remember { mutableStateOf("") }
+    
     val createTaskViewModel: TaskFormViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
     var selectedOptions by remember { mutableStateOf(SelectedOptions()) }
@@ -116,8 +118,8 @@ fun Create_task(
             MyTextField(
                 labelValue = stringResource(id = R.string.task_deadline),
                 painterResource(id = R.drawable.outline_edit_black_24dp),
-                textValue = assignedTo,
-                onValueChange = { assignedTo = it }
+                textValue = deadline,
+                onValueChange = { deadline = it }
             )
 
             // Dropdown for selecting employees
@@ -153,8 +155,8 @@ fun Create_task(
                     ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    createTaskViewModel.createTask(name, description, assignedTo,
-                        sharedViewModel.user.value?.id ?: 0)
+                    createTaskViewModel.createTask(name, description, deadline,selectedOptions.selectedEmployees[0].username,
+                       assignedby= sharedViewModel.user.value?.id ?: 0)
                 },
             ) {
                 Text(text = "Create Task", color = Color.White)
