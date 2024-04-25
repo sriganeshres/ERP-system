@@ -154,6 +154,15 @@ func (db *Database) GetAllTasksByProjectID(ProjectID int, tasks *[]models.Task) 
 	return nil
 }
 
+func (db *Database) GetWorkhubbyID(workhub_id int) (*models.WorkHub, error) {
+	var workhub *models.WorkHub
+	err := db.DB.Where("ID = ?", workhub_id).Find(&workhub).Error
+	if err != nil {
+		return nil, err
+	}
+	return workhub, nil
+}
+
 func (db *Database) GetAllTasksByWorkHubID(WorkHubID int, tasks *[]models.Task) error {
 	err := db.DB.Where("work_hub_id =?", WorkHubID).Find(tasks).Error
 	if err != nil {

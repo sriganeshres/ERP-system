@@ -29,7 +29,7 @@ fun Navigation() {
      SignupScreen(navController = navController)
     }
     composable(route = Navscreen.Profile.route){
-      Profile(navController = navController)
+      Profile(navController = navController,sharedViewModel)
     }
         composable(
             route = "${Navscreen.Bottom.route}/{name}",

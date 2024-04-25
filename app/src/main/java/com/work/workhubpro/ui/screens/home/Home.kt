@@ -20,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -52,8 +54,22 @@ import java.time.LocalDate
 @Composable
 fun Home(name: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val datedialogueState = rememberMaterialDialogState()
+    val viewmodel : HomeViewModel = hiltViewModel()
+    val workhub = viewmodel.workhub.collectAsState().value
+    var name = "technovia"
+    var description = "description"
+    println(workhub)
+    if(workhub!=null){
+        name = workhub.name
+        description = workhub.description
+    }
+
+    LaunchedEffect(Unit) {
+        viewmodel.getworkhub(sharedViewModel.user.value?.id.toString())
+    }
     val font = FontFamily(Font(R.font.kaushanscript))
     val joseph = FontFamily(Font(R.font.josefinsansbold))
+
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -76,7 +92,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
         )
 
         Text(
-            text = "TechNova Solutions",
+            text = name,
             style = TextStyle(
                 fontFamily = font,
                 fontSize = 35.sp,
@@ -95,7 +111,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = "Technova Solutions is a cutting-edge technology firm specializing in innovative software solutions. Our expertise spans AI-driven automation, cloud computing, and data analytics, empowering businesses to thrive in the digital age.",
+                text=description,
                 style = TextStyle(
                     fontFamily = joseph,
                     fontSize = 18.sp,
@@ -140,7 +156,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 modifier = Modifier
                     .shadow(20.dp)
                     .fillMaxWidth(0.35f)
-                    .background(color=Color.Transparent),
+                    .background(color = Color.Transparent),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 Button(
@@ -164,7 +180,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 modifier = Modifier
                     .shadow(20.dp)
                     .fillMaxWidth(0.5f)
-                    .background(color=Color.Transparent),
+                    .background(color = Color.Transparent),
                 shape = RoundedCornerShape(8.dp)
 
 

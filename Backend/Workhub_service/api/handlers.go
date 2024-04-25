@@ -234,6 +234,26 @@ func (app *Config) DeleteWorkHub(ctx echo.Context) error {
 	ctx.JSON(http.StatusNoContent, "Deleted successfully")
 	return nil
 }
+func (app *Config) GetWorkHubById(ctx echo.Context) error {
+	fmt.Println("Handling GET workhubID request Workhub...")
+
+	code := ctx.Param("id")
+	workhub_id, err1 := strconv.Atoi(code)
+	fmt.Println(workhub_id)
+	fmt.Println(workhub_id)
+	if err1 != nil {
+		ctx.JSON(http.StatusBadRequest, err1)
+		return err1
+	}
+	Workhub, errorer := app.Db.GetWorkhubbyID(workhub_id)
+	if errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
+		return errorer
+	}
+	ctx.JSON(http.StatusCreated, Workhub)
+	return nil
+
+}
 
 func (app *Config) UpdateTask(ctx echo.Context) error {
 	var task models.UpdateTask

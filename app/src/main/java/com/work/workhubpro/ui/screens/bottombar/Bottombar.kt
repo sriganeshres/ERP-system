@@ -135,7 +135,7 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
                 ProjectListScreens(navController = navigation,sharedViewModel)
             }
             composable(route = Navscreen.Profile.route) {
-                Profile(navController = navigation)
+                Profile(navController = navigation,sharedViewModel)
             }
             composable(route = Navscreen.CreateProject.route) {
                 CreateProject(navController = navigation,sharedViewModel)

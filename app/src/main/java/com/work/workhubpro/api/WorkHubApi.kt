@@ -32,4 +32,7 @@ interface WorkHubApi {
     suspend fun createTask(@Body request: Task): Response<Task>
     @GET("/api/Projects/{id}")
     suspend fun getallprojects(@Path("id") id: String): Response<List<Project>>
+    @GET("/api/getworkhub/{id}")
+    suspend fun getworkhub(@Path("id") id: String): Response<Organisation>
+
 }
