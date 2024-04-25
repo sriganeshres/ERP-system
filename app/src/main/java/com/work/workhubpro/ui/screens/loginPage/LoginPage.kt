@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,6 +57,8 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     val role = "admin"
+    val token=loginViewModel.token.collectAsState().value
+    val tokenManager=loginViewModel.getTokenManager()
 
     val scrollState = rememberScrollState()
     var isTermsAccepted by remember { mutableStateOf(false) }
@@ -140,9 +143,10 @@ fun LoginScreen(
                         color = if (isFormValid.value) {
                             Color.hsl(248f, 0.95f, 0.60f) // Valid form color
                         } else {
-                            Color.hsl(210f,0.34f,0.60f)// Invalid form color
+                            Color.hsl(210f, 0.34f, 0.60f)// Invalid form color
                         },
-                        shape = RoundedCornerShape(10.dp)),
+                        shape = RoundedCornerShape(10.dp)
+                    ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
                     if (isFormValid.value) {
@@ -150,6 +154,7 @@ fun LoginScreen(
                             val success = loginViewModel.loginuser(username, email, password)
                             if (success) {
                                 loginSuccess = true
+                                tokenManager.saveToken(token)
                                 navController.navigate(Navscreen.Bottom.route + "/${username}")
                             } else {
                                 showInvalidCredentialsPopup = true
