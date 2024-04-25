@@ -141,7 +141,7 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
                 CreateProject(navController = navigation,sharedViewModel)
             }
             composable(route = Navscreen.Createtask.route) {
-                Create_task(navController = navigation)
+                Create_task(navController = navigation,sharedViewModel)
             }
             composable(
                 route = "${Navscreen.ProjectDetails.route}/{name}",
