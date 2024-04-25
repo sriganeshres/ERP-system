@@ -28,9 +28,14 @@
     <string name="role">Role</string>
     <string name="create_project">Enter Project Details</string>
     <string name="project_name">Enter Project Name</string>
+    <string name="task_name">Enter Task Name</string>
     <string name="projectlead">Enter Project Leader</string>
     <string name="project_description">Enter Project description</string>
+    <string name="task_description">Enter Task description</string>
+    <string name="task_deadline">Enter deadline in dd-mm-yyyy</string>
     <string name="Create_New_project">Create New Project</string>
+    <string name="Create_New_Task">Create New Task</string>
+
 
 
 </resources>
