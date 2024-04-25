@@ -5,7 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"path/filepath"
+	// "path/filepath"
 	"strings"
 
 	"github.com/gorilla/websocket"
@@ -99,8 +99,8 @@ func main() {
 	server := NewServer()
 	e := echo.New()
 	db := database.NewDatabase()
-	envPath := filepath.Join("..", "..", ".env")
-	er := godotenv.Load(envPath)
+	// envPath := filepath.Join("..", "..", ".env")
+	er := godotenv.Load()
 	if er != nil {
 		log.Println(er)
 	}

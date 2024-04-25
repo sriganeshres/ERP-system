@@ -11,3 +11,11 @@ type Project struct {
 	ProjectID   int        `gorm:"not null" json:"project_key"`
 	WorkhubID   int        `gorm:"not null" json:"workhub_id"`
 }
+
+type ProjectCreationRequest struct {
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	ProjectLead string   `json:"project_leader"`
+	WorkhubID   int      `json:"workhub_id"`
+	Members     []string `json:"members"`
+}
