@@ -8,6 +8,7 @@ constructor(
     val name: String,
     val description: String,
     val assigned_by: Int = 0,
+    val deadline : String,
     val assigned_to: String,
     val project_key: Int = 0,
     val work_hub_id: Int = 0,

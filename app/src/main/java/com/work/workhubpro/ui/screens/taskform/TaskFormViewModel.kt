@@ -14,12 +14,13 @@ public class TaskFormViewModel @Inject constructor(
     private val repo: TaskRepository,
     private val users: UserRepository
 ) : ViewModel() {
-    fun createTask(name: String, description: String, assignedTo: String,assignedby:Int) {
+    fun createTask(name: String, description: String, deadline: String,assignedto:String,assignedby:Int) {
         println(name)
             val task = Task(
                 name = name,
                 description = description,
-                assigned_to = assignedTo,
+                deadline=deadline,
+                assigned_to = assignedto,
                 assigned_by = assignedby,
                 status = "notStarted"
             ) // Create a new Task instance
