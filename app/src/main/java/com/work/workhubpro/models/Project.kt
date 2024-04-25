@@ -6,9 +6,10 @@ data class Project @Inject
 constructor(
     val name: String,
     val description : String,
-    val project_leader:String,
-    val workHub_id: Int,
+    val workHub_id: Int? = 0,
     val Members: List<User>? = null,
-    val ID : Int=0,
+    val projectLead:String,
+    val employees:List<String> = emptyList(),
+    val ID : Int?=0,
     val project_key: Int=0
 )

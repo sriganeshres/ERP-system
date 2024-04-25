@@ -164,3 +164,43 @@ func (app *Config) GetUser(ctx echo.Context) error {
 	ctx.JSON(http.StatusOK, user)
 	return nil
 }
+
+
+func (app *Config) GetAllEmployees(ctx echo.Context) error {
+	
+	var requestData struct {
+		WorkhubId uint `json:"workhub_id"`
+	}
+	if err := ctx.Bind(&requestData); err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+	}
+	users, err := app.Db.GetAllEmplyeesbyWorkhubId(requestData.WorkhubId)
+	if len(users) == 0 {
+		return ctx.JSON(http.StatusBadRequest, "No employees found")
+	}
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+	fmt.Println(users)
+	ctx.JSON(http.StatusOK, users)
+	return nil
+}
+
+
+func (app *Config) GetAllProjectLeads(ctx echo.Context) error {
+	var requestData struct {
+		WorkhubId uint `json:"workhub_id"`
+	}
+	if err := ctx.Bind(&requestData); err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+	}
+	users, err := app.Db.GetAllProjectLeadbyWorkhubId(requestData.WorkhubId)
+	if len(users) == 0 {
+		return ctx.JSON(http.StatusBadRequest, "No project leads found")
+	}
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+	ctx.JSON(http.StatusOK, users)
+	return nil
+}

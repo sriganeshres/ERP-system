@@ -53,3 +53,21 @@ func (db *Database) CreateUser(userData *models.UserData) error {
 	}
 	return nil
 }
+
+func (db *Database) GetAllEmplyeesbyWorkhubId(workhubId uint) ([]models.UserData, error) {
+	var users []models.UserData
+	err := db.DB.Where("workhub_id = ? AND role = ?", workhubId, "employee").Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (db *Database) GetAllProjectLeadbyWorkhubId(workhubId uint) ([]models.UserData, error) {
+	var users []models.UserData
+	err := db.DB.Where("workhub_id = ? AND role = ?", workhubId, "ProjectLeader").Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}

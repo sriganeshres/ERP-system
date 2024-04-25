@@ -6,6 +6,9 @@ import com.work.workhubpro.models.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+data class employee(
+val workhub_id: Int
+)
 
 
 interface UserApi {
@@ -17,5 +20,12 @@ interface UserApi {
 
     @POST("/api/token")
     suspend fun token(@Body request: String): Response<User>
+
+    @POST("/api/getallprojectleads")
+    suspend fun getleaders(@Body workhub_id: employee): Response<List<User>>
+
+    @POST("/api/getallemployees")
+    suspend fun getemployees(@Body workhub_id: employee): Response<List<User>>
+
 
 }
