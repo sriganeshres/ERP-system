@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"path/filepath"
+
 	// "path/filepath"
 	"strings"
 
@@ -99,8 +101,8 @@ func main() {
 	server := NewServer()
 	e := echo.New()
 	db := database.NewDatabase()
-	// envPath := filepath.Join("..", "..", ".env")
-	er := godotenv.Load()
+	envPath := filepath.Join("..", "..", ".env")
+	er := godotenv.Load(envPath)
 	if er != nil {
 		log.Println(er)
 	}

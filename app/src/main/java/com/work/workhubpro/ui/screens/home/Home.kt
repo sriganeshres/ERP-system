@@ -1,5 +1,7 @@
 package com.work.workhubpro.ui.screens.home
 
+import android.service.autofill.OnClickAction
+import android.view.View.OnClickListener
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +22,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -52,8 +56,23 @@ import java.time.LocalDate
 @Composable
 fun Home(name: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val datedialogueState = rememberMaterialDialogState()
+    val viewmodel : HomeViewModel = hiltViewModel()
+    val workhub = viewmodel.workhub.collectAsState().value
+    var name = "technovia"
+    var description = "description"
+    println(workhub)
+    if(workhub!=null){
+        sharedViewModel.updateWorkhub(workhub)
+        name = workhub.name
+        description = workhub.description
+    }
+
+    LaunchedEffect(Unit) {
+        viewmodel.getworkhub(sharedViewModel.user.value?.id.toString())
+    }
     val font = FontFamily(Font(R.font.kaushanscript))
     val joseph = FontFamily(Font(R.font.josefinsansbold))
+
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -76,7 +95,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
         )
 
         Text(
-            text = "TechNova Solutions",
+            text = name,
             style = TextStyle(
                 fontFamily = font,
                 fontSize = 35.sp,
@@ -95,7 +114,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = "Technova Solutions is a cutting-edge technology firm specializing in innovative software solutions. Our expertise spans AI-driven automation, cloud computing, and data analytics, empowering businesses to thrive in the digital age.",
+                text=description,
                 style = TextStyle(
                     fontFamily = joseph,
                     fontSize = 18.sp,
@@ -140,7 +159,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 modifier = Modifier
                     .shadow(20.dp)
                     .fillMaxWidth(0.35f)
-                    .background(color=Color.Transparent),
+                    .background(color = Color.Transparent),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 Button(
@@ -164,7 +183,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 modifier = Modifier
                     .shadow(20.dp)
                     .fillMaxWidth(0.5f)
-                    .background(color=Color.Transparent),
+                    .background(color = Color.Transparent),
                 shape = RoundedCornerShape(8.dp)
 
 
@@ -192,7 +211,11 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 .padding(16.dp)
                 .shadow(20.dp)// Add padding for the Surface
                 .fillMaxWidth() ,
-            shape = RoundedCornerShape(8.dp)// Ensure the Surface occupies the entire width
+            shape = RoundedCornerShape(8.dp),
+            onClick = {
+                // Navigate to another destination when clicked
+                navController.navigate(Navscreen.Addempoly.route)
+            }/// Ensure the Surface occupies the entire width
         ) {
             Text(
                 text = "Add Employers",
@@ -200,12 +223,15 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                     fontFamily = joseph,
                     fontSize = 18.sp,
                     color = Color.Black
+
                 ),
+
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .background(LightBlue)
                     .padding(10.dp)
-                    .fillMaxWidth() // Make Text fill the entire width inside the Surface
+                    .fillMaxWidth()
+
             )
         }
 

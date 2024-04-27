@@ -53,8 +53,9 @@ fun JoinOrganization_Screen(
     val scrollState = rememberScrollState()
     val joinOrgViewModel: JoinOrgViewModel = hiltViewModel()
     val id = joinOrgViewModel.id.collectAsState().value
-
-
+    val tokenManager = joinOrgViewModel.getTokenManger()
+    val token = joinOrgViewModel.token.collectAsState().value
+    val user = joinOrgViewModel.user.collectAsState().value
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -123,12 +124,20 @@ fun JoinOrganization_Screen(
                             id = id,
                             role
                         )
-                        navController.navigate(Navscreen.Bottom.route + "/$firstName")
+
                     }
                 } catch (e: Exception) {
                     // Handle the exception gracefully
                     showPopup.value = true
                     popupMessage.value = "Error occurred: ${e.message}"
+                }
+            }
+            LaunchedEffect(user) {
+                if (user!=null) {
+                    println(tokenManager.getToken())
+                    tokenManager.saveToken(token)
+                    sharedViewModel.updateUser(user)
+                    navController.navigate(Navscreen.Bottom.route + "/$firstName")
                 }
             }
             if (showPopup.value) {

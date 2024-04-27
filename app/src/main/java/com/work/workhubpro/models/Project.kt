@@ -7,9 +7,8 @@ constructor(
     val name: String,
     val description : String,
     val workHub_id: Int? = 0,
+    val projectLead:String?,
     val Members: List<User>? = null,
-    val projectLead:String,
-    val employees:List<String> = emptyList(),
     val ID : Int?=0,
     val project_key: Int=0
 )

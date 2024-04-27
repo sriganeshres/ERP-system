@@ -95,7 +95,6 @@ fun CreateProject(
     val scrollState = rememberScrollState()
     var workhub_Id = sharedViewModel.user.value?.id
     println(workhub_Id)
-    // Fetch project leaders and employees from the API
     LaunchedEffect(Unit) {
         if (workhub_Id != null) {
             projectFormViewModel.getProjectLeaders(workhub_Id)
@@ -169,7 +168,7 @@ fun CreateProject(
                     if (workhub_Id != null) {
                         projectFormViewModel.createProject(name,description,
                             selectedOptions.selectedProjectLeads[0].username,
-                            selectedOptions.selectedEmployees.map { it.username },workhub_Id)
+                            selectedOptions.selectedEmployees.map { it },workhub_Id)
                     }
                 }
             ) {

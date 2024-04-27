@@ -18,19 +18,24 @@ import com.work.workhubpro.ui.screens.loginPage.LoginScreen
 import com.work.workhubpro.ui.screens.profile.Profile
 import com.work.workhubpro.ui.screens.projects.ProjectListScreens
 import com.work.workhubpro.ui.screens.signup.SignupScreen
+import com.work.workhubpro.ui.screens.startingpage.Starting
 
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
     val sharedViewModel: SharedViewModel = hiltViewModel()
-    NavHost(navController = navController, startDestination = Navscreen.Landing.route ){
+    NavHost(navController = navController, startDestination = Navscreen.Starting.route ){
     composable(route = Navscreen.Signup.route){
      SignupScreen(navController = navController)
     }
     composable(route = Navscreen.Profile.route){
-      Profile(navController = navController)
+      Profile(navController = navController,sharedViewModel)
     }
+        composable(route = Navscreen.Starting.route){
+            Starting(navController = navController,sharedViewModel)
+        }
+
         composable(
             route = "${Navscreen.Bottom.route}/{name}",
             arguments = listOf(navArgument("name") { type = NavType.StringType })
@@ -46,7 +51,7 @@ fun Navigation() {
             Home(argumentName, navController = navController,sharedViewModel)
         }
         composable(route = Navscreen.Login.route) {
-            LoginScreen(navController = navController)
+            LoginScreen(navController = navController,sharedViewModel)
         }
         composable(route = Navscreen.Projects.route) {
             ProjectListScreens(navController = navController, sharedViewModel = sharedViewModel)
