@@ -24,53 +24,65 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
+import com.work.workhubpro.models.Project
 import com.work.workhubpro.models.User
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun ProjectDetails(id: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val projectDetailsViewModel: ProjectDetailsViewModel = hiltViewModel()
+    println("i am kawaki")
+    println(id)
     LaunchedEffect(Unit) {
         projectDetailsViewModel.getProjectDetails(id.toInt())
     }
-    val project = projectDetailsViewModel.project.collectAsState().value!!
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(16.dp)
-    ) {
-        Text(
-            text = project.name,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Text(
-            text = project.description,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Text(
-            text = "Project Leader: ${project.project_leader}",
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Text(
-            text = "Members:",
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(8.dp)
+
+    val project = projectDetailsViewModel.project.collectAsState().value
+    var members : List<User> = emptyList()
+    if(project!=null){
+        members = project.Members!!
+    }
+
+    if (project != null) { // Check if project is not null
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(16.dp)
         ) {
-            items(project.Members!!) { member ->
-                MemberItem(member = member)
-                Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = project.name,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = project.description,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            Text(
+                text = "Project Leader: ${project.projectLead}",
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            Text(
+                text = "Members:",
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(members) { member ->
+                    MemberItem(member = member)
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
             }
         }
+    } else {
+        // Show a loading indicator or placeholder until project data is available
+        Text(text = "Loading project details...")
     }
 }
 

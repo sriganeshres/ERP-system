@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -162,6 +164,8 @@ fun Info(user:User){
 @Composable
 fun Profile(navController: NavController,sharedViewModel: SharedViewModel) {
     val user = sharedViewModel.user.collectAsState().value
+    val profileViewModel:ProfileViewModel = hiltViewModel()
+    val tokenmanager = profileViewModel.getTokenManager()
     val heading = FontFamily(Font(R.font.dmserif))
     val dancing = FontFamily(Font(R.font.dancingscript))
     var showDialog by remember { mutableStateOf(false) }
@@ -203,6 +207,32 @@ fun Profile(navController: NavController,sharedViewModel: SharedViewModel) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
+        Surface(
+            modifier = Modifier
+                .shadow(20.dp)
+                .fillMaxWidth(0.5f)
+                .background(color = Color.Transparent)
+                .align(Alignment.CenterHorizontally),
+            shape = RoundedCornerShape(8.dp),
+        ) {
+            Button(
+                modifier = Modifier
+                    .background(
+                        color =
+                        Color.hsl(265f, 0.55f, 0.50f) // Valid form color
+                        ,
+                        shape = RoundedCornerShape(10.dp)
+                    ),
+                shape = RoundedCornerShape(10.dp),
+                onClick = {
+             tokenmanager.saveToken(null)
+                    navController.navigate(Navscreen.Landing.route)
+                },
+
+            ) {
+                Text(text = "Logout",color=Color.White)
+            }
+        }
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -244,7 +274,7 @@ fun Profile(navController: NavController,sharedViewModel: SharedViewModel) {
                 )
             }
         }
-        Info(user!!)
+        Info(user)
     }
 }
 

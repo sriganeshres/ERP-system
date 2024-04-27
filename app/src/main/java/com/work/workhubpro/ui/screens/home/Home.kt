@@ -1,6 +1,7 @@
 package com.work.workhubpro.ui.screens.home
 
 import android.service.autofill.OnClickAction
+import android.view.View.OnClickListener
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -61,6 +62,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
     var description = "description"
     println(workhub)
     if(workhub!=null){
+        sharedViewModel.updateWorkhub(workhub)
         name = workhub.name
         description = workhub.description
     }
@@ -209,7 +211,11 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 .padding(16.dp)
                 .shadow(20.dp)// Add padding for the Surface
                 .fillMaxWidth() ,
-            shape = RoundedCornerShape(8.dp)// Ensure the Surface occupies the entire width
+            shape = RoundedCornerShape(8.dp),
+            onClick = {
+                // Navigate to another destination when clicked
+                navController.navigate(Navscreen.Addempoly.route)
+            }/// Ensure the Surface occupies the entire width
         ) {
             Text(
                 text = "Add Employers",
@@ -217,12 +223,15 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                     fontFamily = joseph,
                     fontSize = 18.sp,
                     color = Color.Black
+
                 ),
+
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .background(LightBlue)
                     .padding(10.dp)
-                    .fillMaxWidth() // Make Text fill the entire width inside the Surface
+                    .fillMaxWidth()
+
             )
         }
 

@@ -48,7 +48,8 @@ fun Addemploy(
     navController: NavController,
     sharedViewModel: SharedViewModel
 ) {
-
+println("again checking things out ")
+    println(sharedViewModel.workhub.collectAsState().value)
     var email by remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -95,7 +96,7 @@ fun Addemploy(
                     ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                          addemplymodel.addemploy(email,sharedViewModel.workhub.value?.privateKey!!)
+                          addemplymodel.addemploy(email,sharedViewModel.workhub.value?.privacy_key!!)
 
                 },
             ) {

@@ -12,6 +12,7 @@ import javax.inject.Inject
 class ProjectDetailsViewModel @Inject constructor(private val repo: Projectcreation): ViewModel(){
     val project = repo.currProject
     fun getProjectDetails(request :Int) {
+        println("hello killpin pandey")
         viewModelScope.launch {
             repo.getProjectDetails(request)
         }

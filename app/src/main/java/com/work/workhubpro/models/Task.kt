@@ -13,3 +13,8 @@ constructor(
     val project_key: Int,
     val status:String,
 )
+data class UpdateTask @Inject
+constructor(
+    val ID: Int,
+    val status: String
+) 

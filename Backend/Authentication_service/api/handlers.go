@@ -22,13 +22,17 @@ func (app *Config) Login(ctx echo.Context) error {
 	email := userData.Email
 	password := userData.Password
 	user, err := app.Db.GetUserByEmail(email)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, "Invalid password")
+	}
 	if user == nil {
 		return ctx.JSON(http.StatusBadRequest, "Invalid credentials")
 	}
 	whether, erro := utils.VerifyPassword(password, user.Password)
-	if whether == false {
-		fmt.Printf(erro.Error())
-		return ctx.JSON(http.StatusBadRequest, "Invalid password")
+	if !whether {
+		fmt.Println(erro.Error())
+		ctx.JSON(http.StatusBadRequest, "Invalid password")
+		return errors.New(erro.Error())
 	}
 
 	// Set custom claims
@@ -40,6 +44,8 @@ func (app *Config) Login(ctx echo.Context) error {
 	if err != nil {
 		return err
 	}
+	println(user)
+	println(t)
 	ctx.JSON(http.StatusCreated, echo.Map{
 		"token": t,
 		"user":  user,
@@ -52,7 +58,8 @@ func (app *Config) VerifyToken(ctx echo.Context) error {
 	var tokenString string
 	err := ctx.Bind(&tokenString)
 	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, err.Error())
+		return ctx.JSON(http.StatusBadRequest, echo.Map{"user": nil,
+			"success": false})
 	}
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte("secret"), nil
@@ -62,13 +69,15 @@ func (app *Config) VerifyToken(ctx echo.Context) error {
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return ctx.JSON(http.StatusUnauthorized, "Invalid token claims")
+		return ctx.JSON(http.StatusUnauthorized, echo.Map{"user": nil,
+			"success": false})
 	}
 
 	// Extract email from claims
 	email, ok := claims["email"].(string)
 	if !ok {
-		return ctx.JSON(http.StatusUnauthorized, "Invalid token claims")
+		return ctx.JSON(http.StatusUnauthorized, echo.Map{"user": nil,
+			"success": false})
 	}
 
 	// Now you have the email extracted from the token
@@ -77,7 +86,9 @@ func (app *Config) VerifyToken(ctx echo.Context) error {
 	if err != nil {
 		return err
 	}
-	return ctx.JSON(http.StatusOK, user)
+	return ctx.JSON(http.StatusOK, echo.Map{"user": user,
+		"success": true,
+	})
 
 }
 
@@ -144,9 +155,15 @@ func (app *Config) SendEmailHandler(ctx echo.Context) error {
 
 	var err = utils.SendEmail(email, code)
 	if err != nil {
-		return ctx.String(http.StatusInternalServerError, err.Error())
+		return ctx.JSON(http.StatusInternalServerError, echo.Map{
+			"msg":     err.Error(),
+			"success": false,
+		})
 	}
-	return ctx.String(http.StatusOK, "Email sent successfully")
+	return ctx.JSON(http.StatusInternalServerError, echo.Map{
+		"msg":     "sent mail",
+		"success": true,
+	})
 }
 
 func (app *Config) GetUser(ctx echo.Context) error {
@@ -162,5 +179,61 @@ func (app *Config) GetUser(ctx echo.Context) error {
 		return err
 	}
 	ctx.JSON(http.StatusOK, user)
+	return nil
+}
+
+func (app *Config) GetAllEmployees(ctx echo.Context) error {
+	println("hi hello how are you")
+	var requestData struct {
+		WorkhubId uint `json:"workhub_id"`
+	}
+	if err := ctx.Bind(&requestData); err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+	}
+	println(requestData.WorkhubId)
+	users, err := app.Db.GetAllEmplyeesbyWorkhubId(requestData.WorkhubId)
+	if len(users) == 0 {
+		println("any errors")
+		return ctx.JSON(http.StatusBadRequest, "No employees found")
+	}
+	if err != nil {
+		println("what is the error")
+		println(err.Error())
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+	fmt.Println(users)
+	ctx.JSON(http.StatusOK, users)
+	return nil
+}
+
+func (app *Config) GetAllProjectLeads(ctx echo.Context) error {
+	var requestData struct {
+		WorkhubId uint `json:"workhub_id"`
+	}
+	if err := ctx.Bind(&requestData); err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
+	}
+	users, err := app.Db.GetAllProjectLeadbyWorkhubId(requestData.WorkhubId)
+	if len(users) == 0 {
+		return ctx.JSON(http.StatusBadRequest, "No project leads found")
+	}
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, err.Error())
+	}
+	ctx.JSON(http.StatusOK, users)
+	return nil
+}
+func (app *Config) AddUsersToProject(ctx echo.Context) error {
+	var dataIncoming models.AddUsersToProject
+	err := ctx.Bind(&dataIncoming)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	if errorer := app.Db.AddUsersToProject(dataIncoming); errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, "Added Successfully")
 	return nil
 }

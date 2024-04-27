@@ -90,7 +90,7 @@ func (db *Database) UpdateWorkhub(id uint, User models.UserData) error {
 
 func (db *Database) FindProject(code int) (*models.Project, error) {
 	var Project models.Project
-	err := db.DB.Where("project_id = ?", code).First(&Project).Error
+	err := db.DB.Where("ID = ?", code).First(&Project).Error
 	if err != nil {
 		fmt.Println("Project not Found in the finproject")
 		return nil, err
@@ -100,7 +100,7 @@ func (db *Database) FindProject(code int) (*models.Project, error) {
 
 func (db *Database) DeleteProject(code int) error {
 	var Project models.Project
-	err := db.DB.Where("project_id = ?", code).First(&Project).Error
+	err := db.DB.Where("ID = ?", code).First(&Project).Error
 	if err != nil {
 		fmt.Println("Project not Found")
 		return err

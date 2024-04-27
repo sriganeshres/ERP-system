@@ -239,26 +239,36 @@ fun CreateOrgScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
             LaunchedEffect(idState) {
-                println(idState)
-                println("Type of idState: ${idState.javaClass.name}")
+                try {
+                    println(idState)
+                    println("Type of idState: ${idState.javaClass.name}")
 
-                if (idState != 0) { // Assuming 0u represents an initial state or default value
-                    createOrgViewModel.signupUser(
-                        firstName + " " + lastName,
-                        adminEmail,
-                        password,
-                        idState,
-                        role
-                    )
+                    if (idState != 0) { // Assuming 0 represents an initial state or default value
+                        createOrgViewModel.signupUser(
+                            firstName + " " + lastName,
+                            adminEmail,
+                            password,
+                            idState,
+                            role
+                        )
+                    }
+                } catch (e: Exception) {
+                    showPopup.value = true
+                    popupMessage.value = "Error occurred: ${e.message}"
                 }
             }
             LaunchedEffect(adminData) {
-                println("i am sung jo ")
-                println(adminData)
-                if (adminData != null) {
-                    sharedViewModel.updateUser(adminData)
-                    tokenManager.saveToken(token)
-                    navController.navigate(Navscreen.Bottom.route + "/$firstName")
+                try {
+                    println("i am sung jo ")
+                    println(adminData)
+                    if (adminData != null) {
+                        sharedViewModel.updateUser(adminData)
+                        tokenManager.saveToken(token)
+                        navController.navigate(Navscreen.Bottom.route + "/$firstName")
+                    }
+                } catch (e: Exception) {
+                    showPopup.value = true
+                    popupMessage.value = "Error occurred: ${e.message}"
                 }
             }
         }

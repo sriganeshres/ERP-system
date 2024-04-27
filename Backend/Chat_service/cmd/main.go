@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	// "path/filepath"
 	"strings"
 
 	"github.com/gorilla/websocket"

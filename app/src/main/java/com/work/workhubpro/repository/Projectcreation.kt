@@ -44,8 +44,11 @@ class Projectcreation @Inject constructor(private val workHubApi: WorkHubApi) {
         val response = workHubApi.getProjectById(request)
         if (response.isSuccessful && response.body() != null) {
             _parProject.emit(response.body()!!)
+            println("i am getting the project")
+            println(response.body())
         } else {
             println("Error: Response not successful or body is null")
+
         }
     }
 

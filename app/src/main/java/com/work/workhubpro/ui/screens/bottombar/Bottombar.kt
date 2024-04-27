@@ -38,6 +38,7 @@ import com.work.workhubpro.ui.screens.addemploy.Addemploy
 import com.work.workhubpro.ui.screens.chat.Chat
 import com.work.workhubpro.ui.screens.community.Community
 import com.work.workhubpro.ui.screens.home.Home
+import com.work.workhubpro.ui.screens.landing.LandingPage
 import com.work.workhubpro.ui.screens.profile.Profile
 import com.work.workhubpro.ui.screens.projectDetails.ProjectDetails
 import com.work.workhubpro.ui.screens.projectform.CreateProject
@@ -141,11 +142,17 @@ fun Bottombar(name: String, navController: NavController,sharedViewModel: Shared
             composable(route = Navscreen.CreateProject.route) {
                 CreateProject(navController = navigation,sharedViewModel)
             }
+            composable(route = Navscreen.Addempoly.route) {
+                Addemploy(navController = navigation, sharedViewModel =sharedViewModel )
+            }
             composable(route = Navscreen.Createtask.route) {
                 Create_task(navController = navigation,sharedViewModel)
             }
-            composable(route = Navscreen.Createtask.route) {
+            composable(route = Navscreen.Addempoly.route) {
                 Addemploy(navController = navigation,sharedViewModel)
+            }
+            composable (route = Navscreen.Landing.route) {
+                LandingPage(navController = navController,sharedViewModel)
             }
             composable(
                 route = "${Navscreen.ProjectDetails.route}/{name}",
