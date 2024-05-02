@@ -1,7 +1,6 @@
 package com.work.workhubpro.ui.screens.home
 
-import android.service.autofill.OnClickAction
-import android.view.View.OnClickListener
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,9 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +36,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,12 +49,14 @@ import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
+import com.work.workhubpro.models.Task
 import com.work.workhubpro.ui.navigation.Navscreen
-import com.work.workhubpro.ui.theme.LightBlue
 import com.work.workhubpro.ui.theme.Lightblue2
 import com.work.workhubpro.ui.theme.mediumblue
 import java.time.LocalDate
 
+
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun Home(name: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val datedialogueState = rememberMaterialDialogState()
@@ -60,6 +64,11 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
     val workhub = viewmodel.workhub.collectAsState().value
     var name = "technovia"
     var description = "description"
+    val homeViewModel: HomeViewModel = hiltViewModel()
+    LaunchedEffect (Unit){
+        homeViewModel.gettasks(sharedViewModel.user.value?.id!!)
+    }
+    dummyTasks=homeViewModel.tasks.collectAsState().value
     println(workhub)
     if(workhub!=null){
         sharedViewModel.updateWorkhub(workhub)
@@ -72,6 +81,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
     }
     val font = FontFamily(Font(R.font.kaushanscript))
     val joseph = FontFamily(Font(R.font.josefinsansbold))
+    val role= sharedViewModel.user.value?.role
 
 
     var showDialog by remember { mutableStateOf(false) }
@@ -149,90 +159,21 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
 
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(18.dp)
-        ) {
-            Surface(
-                modifier = Modifier
-                    .shadow(20.dp)
-                    .fillMaxWidth(0.35f)
-                    .background(color = Color.Transparent),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            color =
-                            Color.hsl(265f, 0.55f, 0.50f) // Valid form color
-                            ,
-                            shape = RoundedCornerShape(10.dp)
-                        ),
-                    shape = RoundedCornerShape(10.dp),
-                    onClick = {
-                        navController.navigate(Navscreen.Createtask.route)
-                    },
-                ) {
-                    Text(text = "Add Task",color=Color.White)
-                }
+
+
+        // Render buttons based on user role
+        when (role) {
+            "admin" -> {
+                AdminButtons(navController)
             }
-            Surface(
-                modifier = Modifier
-                    .shadow(20.dp)
-                    .fillMaxWidth(0.5f)
-                    .background(color = Color.Transparent),
-                shape = RoundedCornerShape(8.dp)
+            "ProjectLeader" -> {
 
-
-            ) {
-                Button(
-                    modifier = Modifier
-                        .background(
-                            color =
-                            Color.hsl(265f, 0.55f, 0.50f) // Valid form color
-                            ,
-                            shape = RoundedCornerShape(10.dp)
-                        ),
-                    shape = RoundedCornerShape(10.dp),
-                    onClick = {
-                        navController.navigate(Navscreen.CreateProject.route)
-                    },
-                ) {
-                    Text(text = "Add Project",color=Color.White)
-                }
+                ProjectLeaderButtons(navController)
+                AssignedTasksList(dummyTasks)
             }
-       }
-        Spacer(modifier = Modifier.height(20.dp))
-        Surface(
-            modifier = Modifier
-                .padding(16.dp)
-                .shadow(20.dp)// Add padding for the Surface
-                .fillMaxWidth() ,
-            shape = RoundedCornerShape(8.dp),
-            onClick = {
-                // Navigate to another destination when clicked
-                navController.navigate(Navscreen.Addempoly.route)
-            }/// Ensure the Surface occupies the entire width
-        ) {
-            Text(
-                text = "Add Employers",
-                style = TextStyle(
-                    fontFamily = joseph,
-                    fontSize = 18.sp,
-                    color = Color.Black
-
-                ),
-
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .background(LightBlue)
-                    .padding(10.dp)
-                    .fillMaxWidth()
-
-            )
+            "employee" -> {
+                AssignedTasksList(dummyTasks)
+            }
         }
 
         Box(
@@ -282,4 +223,185 @@ fun HomePreview() {
         navController = navController,
         sharedViewModel = SharedViewModel()
     )
+}
+
+
+@Composable
+fun AdminButtons(navController: NavController) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(18.dp)
+    ) {
+        AddTaskButton(navController)
+        AddProjectButton(navController)
+    }
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(18.dp)
+    ) {
+        AddEmployeesButton(navController)
+    }
+}
+
+@Composable
+fun ProjectLeaderButtons(navController: NavController) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(18.dp)
+    ) {
+        AddTaskButton(navController)
+    }
+}
+
+@Composable
+fun AddTaskButton(navController: NavController) {
+    Surface(
+        modifier = Modifier
+            .shadow(20.dp)
+            .fillMaxWidth(0.35f)
+            .background(color = Color.Transparent),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
+
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = Color.hsl(265f, 0.55f, 0.50f),
+                    shape = RoundedCornerShape(10.dp)
+                ),
+            shape = RoundedCornerShape(10.dp),
+            onClick = {
+                navController.navigate(Navscreen.Createtask.route)
+            },
+        ) {
+            Text(text = "Add Task", color = Color.White)
+        }
+    }
+}
+
+@Composable
+fun AddProjectButton(navController: NavController) {
+    Surface(
+        modifier = Modifier
+            .shadow(20.dp)
+            .fillMaxWidth(0.5f)
+            .background(color = Color.Transparent),
+        shape = RoundedCornerShape(8.dp),
+
+    ) {
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
+
+            modifier = Modifier
+                .background(
+                    color = Color.hsl(265f, 0.55f, 0.50f),
+                    shape = RoundedCornerShape(10.dp)
+                ),
+            shape = RoundedCornerShape(10.dp),
+            onClick = {
+                navController.navigate(Navscreen.CreateProject.route)
+            },
+        ) {
+            Text(text = "Add Project", color = Color.White)
+        }
+    }
+}
+
+@Composable
+fun AddEmployeesButton(navController: NavController) {
+
+        Surface(
+            modifier = Modifier
+
+                .padding(16.dp)
+                .shadow(20.dp)
+                .fillMaxWidth(0.7f)
+                .background(color = Color.Transparent),
+                shape = RoundedCornerShape(8.dp)
+        ) {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
+                modifier = Modifier
+                    .background(
+                        color = Color.Cyan
+                    )
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                onClick = {
+                    // navController.navigate(Navscreen.AddEmployees.route)
+                },
+            ) {
+                Text(
+                    text = "Add Employers",
+                    style = TextStyle(
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 18.sp,
+                        color = Color.White
+                    ),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .background(Color.Transparent)
+                        .padding(10.dp)
+                        .fillMaxWidth() // Make Text fill the entire width inside the Surface
+                )
+            }
+        }
+
+}
+
+
+
+
+@Composable
+fun AssignedTasksList(tasks: List<Task>) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        items(tasks) { task ->
+            TaskItem(task = task)
+        }
+    }
+}
+
+@Composable
+fun TaskItem(task: Task) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = RoundedCornerShape(8.dp),
+        tonalElevation = 4.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = task.name,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = task.description,
+                style = TextStyle(fontSize = 14.sp)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+//            Text(
+//                text = "Due Date: ${task.deadline}",
+//                style = TextStyle(fontSize = 14.sp)
+//            )
+        }
+    }
 }
