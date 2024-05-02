@@ -12,6 +12,8 @@ class TaskRepository @Inject constructor(
 ){
     private val _id = MutableStateFlow<Int>(0)
     val id : StateFlow<Int> get() = _id.asStateFlow()
+    private val _tasks= MutableStateFlow<List<Task>>(emptyList())
+    val tasks: StateFlow<List<Task>> get() = _tasks.asStateFlow()
 
     suspend fun createTask(request: Task) {
         val response = workhubApi.createTask(request)
@@ -32,12 +34,12 @@ class TaskRepository @Inject constructor(
     }
 
 
+
+
     suspend fun getTaskByUserID(request: Int) {
         val response = workhubApi.getTaskByUserID(request)
         if (response.isSuccessful && response.body() != null) {
-            for (task in response.body()!!) {
-                println(task.ID)
-            }
+            _tasks.emit(response.body()!!)
         } else {
             println("couldn't get")
         }
