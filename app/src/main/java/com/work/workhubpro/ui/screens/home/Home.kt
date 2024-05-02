@@ -23,6 +23,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -53,125 +55,34 @@ import com.work.workhubpro.ui.theme.Lightblue2
 import com.work.workhubpro.ui.theme.mediumblue
 import java.time.LocalDate
 
-val dummyTasks = listOf(
-    Task(
-        ID = 1,
-        name = "Implement feature X",
-        description = "Implement the new feature X in the application",
-        assigned_by = 1,
-        deadline = "2023-06-30",
-        assigned_to = "John Doe",
-        project_key = 1,
-        work_hub_id = 1,
-        status = "In Progress"
-    ),
-    Task(
-        ID = 2,
-        name = "Fix bug Y",
-        description = "Fix the bug Y in the existing codebase",
-        assigned_by = 2,
-        deadline = "2023-05-15",
-        assigned_to = "Jane Smith",
-        project_key = 2,
-        work_hub_id = 1,
-        status = "Pending"
-    ),
-    Task(
-        ID = 3,
-        name = "Refactor module Z",
-        description = "Refactor the module Z for better performance",
-        assigned_by = 1,
-        deadline = "2023-07-10",
-        assigned_to = "Michael Johnson",
-        project_key = 1,
-        work_hub_id = 2,
-        status = "In Progress"
-    ),
-    Task(
-        ID = 4,
-        name = "Implement authentication",
-        description = "Implement authentication system for the application",
-        assigned_by = 3,
-        deadline = "2023-06-20",
-        assigned_to = "Emily Davis",
-        project_key = 3,
-        work_hub_id = 2,
-        status = "Pending"
-    ),
-    Task(
-        ID = 5,
-        name = "Design UI/UX",
-        description = "Design the UI/UX for the new feature",
-        assigned_by = 2,
-        deadline = "2023-05-25",
-        assigned_to = "David Wilson",
-        project_key = 2,
-        work_hub_id = 1,
-        status = "Completed"
-    ),
-    Task(
-        ID = 6,
-        name = "Integrate payment gateway",
-        description = "Integrate the payment gateway with the application",
-        assigned_by = 1,
-        deadline = "2023-08-01",
-        assigned_to = "Sarah Thompson",
-        project_key = 1,
-        work_hub_id = 3,
-        status = "In Progress"
-    ),
-    Task(
-        ID = 7,
-        name = "Conduct user testing",
-        description = "Conduct user testing for the new feature",
-        assigned_by = 3,
-        deadline = "2023-07-15",
-        assigned_to = "Robert Anderson",
-        project_key = 3,
-        work_hub_id = 2,
-        status = "Pending"
-    ),
-    Task(
-        ID = 8,
-        name = "Optimize database queries",
-        description = "Optimize database queries for better performance",
-        assigned_by = 2,
-        deadline = "2023-06-10",
-        assigned_to = "Jessica Taylor",
-        project_key = 2,
-        work_hub_id = 1,
-        status = "In Progress"
-    ),
-    Task(
-        ID = 9,
-        name = "Implement push notifications",
-        description = "Implement push notifications for the mobile app",
-        assigned_by = 1,
-        deadline = "2023-07-20",
-        assigned_to = "Christopher Brown",
-        project_key = 1,
-        work_hub_id = 3,
-        status = "Pending"
-    ),
-    Task(
-        ID = 10,
-        name = "Deploy to production",
-        description = "Deploy the application to the production environment",
-        assigned_by = 3,
-        deadline = "2023-08-10",
-        assigned_to = "Ashley Garcia",
-        project_key = 3,
-        work_hub_id = 2,
-        status = "In Progress"
-    )
-)
+
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun Home(name: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val datedialogueState = rememberMaterialDialogState()
+    val viewmodel : HomeViewModel = hiltViewModel()
+    val workhub = viewmodel.workhub.collectAsState().value
+    var name = "technovia"
+    var description = "description"
+    val homeViewModel: HomeViewModel = hiltViewModel()
+    LaunchedEffect (Unit){
+        homeViewModel.gettasks(sharedViewModel.user.value?.id!!)
+    }
+    dummyTasks=homeViewModel.tasks.collectAsState().value
+    println(workhub)
+    if(workhub!=null){
+        sharedViewModel.updateWorkhub(workhub)
+        name = workhub.name
+        description = workhub.description
+    }
+
+    LaunchedEffect(Unit) {
+        viewmodel.getworkhub(sharedViewModel.user.value?.id.toString())
+    }
     val font = FontFamily(Font(R.font.kaushanscript))
     val joseph = FontFamily(Font(R.font.josefinsansbold))
     val role= sharedViewModel.user.value?.role
+
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -194,7 +105,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
         )
 
         Text(
-            text = "TechNova Solutions",
+            text = name,
             style = TextStyle(
                 fontFamily = font,
                 fontSize = 35.sp,
@@ -213,7 +124,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = "Technova Solutions is a cutting-edge technology firm specializing in innovative software solutions. Our expertise spans AI-driven automation, cloud computing, and data analytics, empowering businesses to thrive in the digital age.",
+                text=description,
                 style = TextStyle(
                     fontFamily = joseph,
                     fontSize = 18.sp,
@@ -264,86 +175,6 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 AssignedTasksList(dummyTasks)
             }
         }
-
-
-//        Row(
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(18.dp)
-//        ) {
-//            Surface(
-//                modifier = Modifier
-//                    .shadow(20.dp)
-//                    .fillMaxWidth(0.35f)
-//                    .background(color = Color.Transparent),
-//                shape = RoundedCornerShape(8.dp)
-//            ) {
-//                Button(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .background(
-//                            color =
-//                            Color.hsl(265f, 0.55f, 0.50f) // Valid form color
-//                            ,
-//                            shape = RoundedCornerShape(10.dp)
-//                        ),
-//                    shape = RoundedCornerShape(10.dp),
-//                    onClick = {
-//                        navController.navigate(Navscreen.Createtask.route)
-//                    },
-//                ) {
-//                    Text(text = "Add Task",color=Color.White)
-//                }
-//            }
-//            Surface(
-//                modifier = Modifier
-//                    .shadow(20.dp)
-//                    .fillMaxWidth(0.5f)
-//                    .background(color = Color.Transparent),
-//                shape = RoundedCornerShape(8.dp)
-//
-//
-//            ) {
-//                Button(
-//                    modifier = Modifier
-//                        .background(
-//                            color =
-//                            Color.hsl(265f, 0.55f, 0.50f) // Valid form color
-//                            ,
-//                            shape = RoundedCornerShape(10.dp)
-//                        ),
-//                    shape = RoundedCornerShape(10.dp),
-//                    onClick = {
-//                        navController.navigate(Navscreen.CreateProject.route)
-//                    },
-//                ) {
-//                    Text(text = "Add Project",color=Color.White)
-//                }
-//            }
-//       }
-//        Spacer(modifier = Modifier.height(20.dp))
-//        Surface(
-//            modifier = Modifier
-//                .padding(16.dp)
-//                .shadow(20.dp)// Add padding for the Surface
-//                .fillMaxWidth() ,
-//            shape = RoundedCornerShape(8.dp)// Ensure the Surface occupies the entire width
-//        ) {
-//            Text(
-//                text = "Add Employers",
-//                style = TextStyle(
-//                    fontFamily = joseph,
-//                    fontSize = 18.sp,
-//                    color = Color.Black
-//                ),
-//                textAlign = TextAlign.Center,
-//                modifier = Modifier
-//                    .background(LightBlue)
-//                    .padding(10.dp)
-//                    .fillMaxWidth() // Make Text fill the entire width inside the Surface
-//            )
-//        }
 
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -491,9 +322,9 @@ fun AddEmployeesButton(navController: NavController) {
             modifier = Modifier
 
                 .padding(16.dp)
-                    .shadow(20.dp)
-                    .fillMaxWidth(0.7f)
-                    .background(color = Color.Transparent),
+                .shadow(20.dp)
+                .fillMaxWidth(0.7f)
+                .background(color = Color.Transparent),
                 shape = RoundedCornerShape(8.dp)
         ) {
             Button(
@@ -567,10 +398,10 @@ fun TaskItem(task: Task) {
                 style = TextStyle(fontSize = 14.sp)
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Due Date: ${task.deadline}",
-                style = TextStyle(fontSize = 14.sp)
-            )
+//            Text(
+//                text = "Due Date: ${task.deadline}",
+//                style = TextStyle(fontSize = 14.sp)
+//            )
         }
     }
 }

@@ -2,7 +2,6 @@ package com.work.workhubpro.repository
 
 import com.work.workhubpro.api.WorkHubApi
 import com.work.workhubpro.models.Task
-import com.work.workhubpro.models.UpdateTask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,14 +31,6 @@ class TaskRepository @Inject constructor(
         }
     }
 
-    suspend fun updateTask(request: UpdateTask) {
-        val response = workhubApi.updateTask(request)
-        if (response.isSuccessful && response.body() != null){
-            println("Successfully Updated")
-        } else {
-            println("Could not updated")
-        }
-    }
 
     suspend fun getTaskByUserID(request: Int) {
         val response = workhubApi.getTaskByUserID(request)

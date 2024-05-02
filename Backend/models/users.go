@@ -24,3 +24,9 @@ type LoginUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
+
+type AddUsersToProject struct {
+	Names     []string `json:"names"`
+	ProjectID int      `json:"project_id"`
+	WorkHubID int      `json:"workhub_id"`
+}

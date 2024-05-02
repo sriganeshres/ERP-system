@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.work.workhubpro.R
+import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.NormalTextComposable
 import com.work.workhubpro.ui.navigation.Navscreen
@@ -51,12 +52,14 @@ import java.util.regex.Pattern
 @Composable
 fun LoginScreen(
     navController: NavController,
+    sharedViewModel: SharedViewModel
 ) {
     val loginViewModel: LoginPageViewModel = hiltViewModel<LoginPageViewModel>()
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     val role = "admin"
+    val user=loginViewModel.user.collectAsState().value
     val token=loginViewModel.token.collectAsState().value
     val tokenManager=loginViewModel.getTokenManager()
 
@@ -152,19 +155,24 @@ fun LoginScreen(
                     if (isFormValid.value) {
                         coroutineScope.launch {
                             val success = loginViewModel.loginuser(username, email, password)
-                            if (success) {
-                                loginSuccess = true
-                                tokenManager.saveToken(token)
-                                navController.navigate(Navscreen.Bottom.route + "/${username}")
-                            } else {
-                                showInvalidCredentialsPopup = true
-                            }
+
                         }
                     }
                 }
             )
             {
                 Text(text = "Login",color=Color.White)
+            }
+            LaunchedEffect(user){
+                if (user!=null) {
+                    loginSuccess = true
+                    println("hi batoske")
+                    println(token)
+                    println(tokenManager.getToken())
+                    tokenManager.saveToken(token)
+                    sharedViewModel.updateUser(user)
+                    navController.navigate(Navscreen.Bottom.route + "/${username}")
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
         }

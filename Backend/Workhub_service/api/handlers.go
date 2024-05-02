@@ -1,10 +1,11 @@
 package api
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -56,7 +57,7 @@ func (app *Config) JoinWorkHub(ctx echo.Context) error {
 	defer response.Body.Close()
 
 	// Read response body
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println("Error reading response body:", err)
 		return err
@@ -97,8 +98,10 @@ func (app *Config) Verify(ctx echo.Context) error {
 
 func (app *Config) CreateProject(ctx echo.Context) error {
 	fmt.Println("Handling POST request Workhub...")
+	var ProjectReq models.ProjectCreationRequest
 	var Project models.Project
-	err := ctx.Bind(&Project)
+	var usersData models.AddUsersToProject
+	err := ctx.Bind(&ProjectReq)
 	if err != nil {
 		fmt.Println("error in bindin")
 		return ctx.JSON(http.StatusBadGateway, echo.Map{
@@ -107,6 +110,20 @@ func (app *Config) CreateProject(ctx echo.Context) error {
 		})
 	}
 	Project.ProjectID = utils.GenerateProjectCode()
+	Project.Name = ProjectReq.Name
+	Project.Description = ProjectReq.Description
+	Project.ProjectLead = ProjectReq.ProjectLead
+	Project.WorkhubID = ProjectReq.WorkhubID
+	usersData.Names = ProjectReq.Members
+	usersData.ProjectID = Project.ProjectID
+	usersData.WorkHubID = ProjectReq.WorkhubID
+	JSONUsers, err := json.Marshal(usersData)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, echo.Map{
+			"success": false,
+			"msg":     "Couldnt Read JSON",
+		})
+	}
 	if errorer := app.Db.CreateProject(&Project); errorer != nil {
 		ctx.JSON(http.StatusBadRequest, echo.Map{
 			"success": false,
@@ -114,6 +131,29 @@ func (app *Config) CreateProject(ctx echo.Context) error {
 		})
 		return errorer
 	}
+	url := "http://localhost:8000/api/addUsers"
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(JSONUsers))
+	if err != nil {
+		fmt.Println("Error:", err)
+		ctx.JSON(http.StatusBadRequest, echo.Map{
+			"success": false,
+			"msg":     "CouldnOt send Request further",
+		})
+		return err
+	}
+	defer response.Body.Close()
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Error reading response body:", err)
+		ctx.JSON(http.StatusBadRequest, echo.Map{
+			"success": false,
+			"msg":     "Internal Error",
+		})
+		return err
+	}
+	// Print response body
+	fmt.Println(string(body))
 	ctx.JSON(http.StatusCreated, echo.Map{
 		"success": true,
 		"msg":     "successfully created a Project",
@@ -142,6 +182,7 @@ func (app *Config) GetProject(ctx echo.Context) error {
 		ctx.JSON(http.StatusBadRequest, errorer)
 		return errorer
 	}
+	println(project)
 	ctx.JSON(http.StatusCreated, project)
 	return nil
 }
@@ -233,6 +274,26 @@ func (app *Config) DeleteWorkHub(ctx echo.Context) error {
 	}
 	ctx.JSON(http.StatusNoContent, "Deleted successfully")
 	return nil
+}
+func (app *Config) GetWorkHubById(ctx echo.Context) error {
+	fmt.Println("Handling GET workhubID request Workhub...")
+
+	code := ctx.Param("id")
+	workhub_id, err1 := strconv.Atoi(code)
+	fmt.Println(workhub_id)
+	fmt.Println(workhub_id)
+	if err1 != nil {
+		ctx.JSON(http.StatusBadRequest, err1)
+		return err1
+	}
+	Workhub, errorer := app.Db.GetWorkhubbyID(workhub_id)
+	if errorer != nil {
+		ctx.JSON(http.StatusBadRequest, errorer)
+		return errorer
+	}
+	ctx.JSON(http.StatusCreated, Workhub)
+	return nil
+
 }
 
 func (app *Config) UpdateTask(ctx echo.Context) error {

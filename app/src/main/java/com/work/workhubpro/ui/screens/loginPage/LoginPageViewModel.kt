@@ -10,6 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 public class LoginPageViewModel @Inject constructor(private val tokenManager:TokenManager,private val repo: LoginRepo) : ViewModel() {
     val token=repo.token
+    val user = repo.user
     fun getTokenManager(): TokenManager {
         return tokenManager
     }

@@ -6,20 +6,15 @@ data class Task @Inject
 constructor(
     val ID: Int = 0,
     val name: String,
-    val description: String,
-    val assigned_by: Int = 0,
-    val deadline : String,
-    val assigned_to: String,
-    val project_key: Int = 0,
-    val work_hub_id: Int = 0,
-    val status: String
-) {
-}
-
+    val description : String,
+    val assigned_to:Int,
+    val work_hub_id:Int,
+    val assigned_by: Int,
+    val project_key: Int,
+    val status:String,
+)
 data class UpdateTask @Inject
 constructor(
     val ID: Int,
     val status: String
-) {
-}
-
+) 

@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.models.User
+import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.NormalTextComposable
 
 data class SelectedOptions(
@@ -58,10 +59,12 @@ fun Create_task(
     navController: NavController,
     sharedViewModel: SharedViewModel
 ) {
+    val assigned_by = sharedViewModel.user.collectAsState().value?.ID
+    val work_hub_id = sharedViewModel.user.collectAsState().value?.id
+    val project_key = sharedViewModel.user.collectAsState().value?.id
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var assignedTo by remember { mutableStateOf("") }
-    var deadline by remember { mutableStateOf("") }
     
     val createTaskViewModel: TaskFormViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
@@ -115,20 +118,16 @@ fun Create_task(
                 textValue = description,
                 onValueChange = { description = it }
             )
-            MyTextField(
-                labelValue = stringResource(id = R.string.task_deadline),
-                painterResource(id = R.drawable.outline_edit_black_24dp),
-                textValue = deadline,
-                onValueChange = { deadline = it }
-            )
+
 
             // Dropdown for selecting employees
             MultiSelectField(
                 options = employees ?: emptyList(),
                 selectedOptions = selectedOptions.selectedEmployees,
-                onOptionsSelected = { options ->
-                    selectedOptions = selectedOptions.copy(selectedEmployees = options)
-                },
+                onOptionsSelected = { selectedUsers->val selectedIds = selectedUsers.map { it.id }
+                    assignedTo = selectedIds.firstOrNull().toString()
+                    selectedOptions = selectedOptions.copy(selectedEmployees = selectedUsers)
+                                    },
                 label = "Select Employees"
             )
 
@@ -136,8 +135,9 @@ fun Create_task(
                 MultiSelectField(
                     options = projectleaders ?: emptyList(),
                     selectedOptions = selectedOptions.selectedProjectLeads,
-                    onOptionsSelected = { options ->
-                        selectedOptions = selectedOptions.copy(selectedProjectLeads = options)
+                    onOptionsSelected = { selectedUsers->val selectedIds = selectedUsers.map { it.id }
+                        assignedTo = selectedIds.firstOrNull().toString()
+                        selectedOptions = selectedOptions.copy(selectedEmployees = selectedUsers)
                     },
                     label = "Select Project Leaders"
                 )
@@ -155,8 +155,7 @@ fun Create_task(
                     ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    createTaskViewModel.createTask(name, description, deadline,selectedOptions.selectedEmployees[0].username,
-                       assignedby= sharedViewModel.user.value?.id ?: 0)
+                    createTaskViewModel.createTask(name, description, assignedTo.toInt(),assigned_by!!,work_hub_id!!,project_key!!)
                 },
             ) {
                 Text(text = "Create Task", color = Color.White)

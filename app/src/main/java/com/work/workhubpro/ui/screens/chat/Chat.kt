@@ -33,11 +33,9 @@ fun Chat(receiver: String, navController: NavController, sharedViewModel: Shared
     val chatViewModel: ChatViewModel = hiltViewModel()
     val receivechat = chatViewModel.receiverchat.collectAsState().value
     var senderchat by remember { mutableStateOf<Message?>(null) }
-    sender = "karan"
-    var receiver1 = "abhi"
     LaunchedEffect(Unit) {
-        chatViewModel.getmessages(sender, receiver1)
-        chatViewModel.connect("ws://10.0.2.2:8002/ws?room=$sender-$receiver1")
+        chatViewModel.getmessages(sender!!, receiver)
+        chatViewModel.connect("ws://10.0.2.2:8002/ws?room=$sender-$receiver")
         }
     val allMessages = chatViewModel.addmessages()
     val sortedMessages = allMessages.sortedBy { it.CreatedAt}
@@ -91,7 +89,7 @@ fun Chat(receiver: String, navController: NavController, sharedViewModel: Shared
                         var msg = Message(message,"karan","abhi", currentTime)
                         senderchat = (msg)
                         chatViewModel.senderchat.value = senderchat
-                        chatViewModel.sendmessage(message, sender, receiver1)
+                        chatViewModel.sendmessage(message, sender!!, receiver)
                         message=""
                         senderchat= null
                     }
