@@ -147,9 +147,9 @@ go run main.go
 
 ## 🔍 Additional Information
 
-- For detailed information about the project, refer to the comprehensive [Software Requirements Specification (SRS) Document](https://github.com/sriganeshres/WorkHub-Pro/blob/production/Software%20Requirements%20Specification.pdf).
 - Check out the project's [GitHub repository](https://github.com/sriganeshres/WorkHub-Pro) for the latest updates, issues, and pull requests.
-- Explore the project's [documentation](link_to_documentation) for in-depth information on architecture, design patterns, and development practices.
+- For detailed information about the project, refer to the comprehensive [Software Requirements Specification (SRS) Document](https://github.com/sriganeshres/WorkHub-Pro/blob/production/Software%20Requirements%20Specification.pdf).
+- Explore the project's [Risk Analysis](https://github.com/sriganeshres/WorkHub-Pro/blob/production/Risk%20Analysis%20and%20Mitigation%20Plan%20.pdf) for in-depth information on architecture, design patterns, and development practices.
 
 ## 👥 Project Members
 
