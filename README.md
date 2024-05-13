@@ -155,8 +155,8 @@ go run main.go
 
 The WorkhubPro ERP System was developed by a dedicated team of contributors:
 
-- [Sri Ganesh Thota](https://github.com/sriganeshres)
 - [Aditya Trivedi](https://github.com/adit4443ya)
--[Rahul Reddy](https://github.com/rahulrangers)
+- [Sri Ganesh Thota](https://github.com/sriganeshres)
+- [Rahul Reddy](https://github.com/rahulrangers)
 
 Feel free to reach out to any of the project members for more information or collaboration opportunities.
