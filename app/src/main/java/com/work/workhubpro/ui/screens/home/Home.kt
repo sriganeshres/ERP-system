@@ -48,6 +48,7 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.work.workhubpro.R
+//import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.models.Task
 import com.work.workhubpro.ui.navigation.Navscreen
@@ -55,6 +56,119 @@ import com.work.workhubpro.ui.theme.Lightblue2
 import com.work.workhubpro.ui.theme.mediumblue
 import java.time.LocalDate
 
+
+// val dummyTasks = listOf(
+//     Task(
+//         ID = 1,
+//         name = "Implement feature X",
+//         description = "Implement the new feature X in the application",
+//         assigned_by = 1,
+//         deadline = "2023-06-30",
+//         assigned_to = "John Doe",
+//         project_key = 1,
+//         work_hub_id = 1,
+//         status = "In Progress"
+//     ),
+//     Task(
+//         ID = 2,
+//         name = "Fix bug Y",
+//         description = "Fix the bug Y in the existing codebase",
+//         assigned_by = 2,
+//         deadline = "2023-05-15",
+//         assigned_to = "Jane Smith",
+//         project_key = 2,
+//         work_hub_id = 1,
+//         status = "Pending"
+//     ),
+//     Task(
+//         ID = 3,
+//         name = "Refactor module Z",
+//         description = "Refactor the module Z for better performance",
+//         assigned_by = 1,
+//         deadline = "2023-07-10",
+//         assigned_to = "Michael Johnson",
+//         project_key = 1,
+//         work_hub_id = 2,
+//         status = "In Progress"
+//     ),
+//     Task(
+//         ID = 4,
+//         name = "Implement authentication",
+//         description = "Implement authentication system for the application",
+//         assigned_by = 3,
+//         deadline = "2023-06-20",
+//         assigned_to = "Emily Davis",
+//         project_key = 3,
+//         work_hub_id = 2,
+//         status = "Pending"
+//     ),
+//     Task(
+//         ID = 5,
+//         name = "Design UI/UX",
+//         description = "Design the UI/UX for the new feature",
+//         assigned_by = 2,
+//         deadline = "2023-05-25",
+//         assigned_to = "David Wilson",
+//         project_key = 2,
+//         work_hub_id = 1,
+//         status = "Completed"
+//     ),
+//     Task(
+//         ID = 6,
+//         name = "Integrate payment gateway",
+//         description = "Integrate the payment gateway with the application",
+//         assigned_by = 1,
+//         deadline = "2023-08-01",
+//         assigned_to = "Sarah Thompson",
+//         project_key = 1,
+//         work_hub_id = 3,
+//         status = "In Progress"
+//     ),
+//     Task(
+//         ID = 7,
+//         name = "Conduct user testing",
+//         description = "Conduct user testing for the new feature",
+//         assigned_by = 3,
+//         deadline = "2023-07-15",
+//         assigned_to = "Robert Anderson",
+//         project_key = 3,
+//         work_hub_id = 2,
+//         status = "Pending"
+//     ),
+//     Task(
+//         ID = 8,
+//         name = "Optimize database queries",
+//         description = "Optimize database queries for better performance",
+//         assigned_by = 2,
+//         deadline = "2023-06-10",
+//         assigned_to = "Jessica Taylor",
+//         project_key = 2,
+//         work_hub_id = 1,
+//         status = "In Progress"
+//     ),
+//     Task(
+//         ID = 9,
+//         name = "Implement push notifications",
+//         description = "Implement push notifications for the mobile app",
+//         assigned_by = 1,
+//         deadline = "2023-07-20",
+//         assigned_to = "Christopher Brown",
+//         project_key = 1,
+//         work_hub_id = 3,
+//         status = "Pending"
+//     ),
+//     Task(
+//         ID = 10,
+//         name = "Deploy to production",
+//         description = "Deploy the application to the production environment",
+//         assigned_by = 3,
+//         deadline = "2023-08-10",
+//         assigned_to = "Ashley Garcia",
+//         project_key = 3,
+//         work_hub_id = 2,
+//         status = "In Progress"
+//     )
+// )
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -68,7 +182,8 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
     LaunchedEffect (Unit){
         homeViewModel.gettasks(sharedViewModel.user.value?.id!!)
     }
-    dummyTasks=homeViewModel.tasks.collectAsState().value
+//    val dummyTasks= listOf(<Task>)
+    val dummyTasks=homeViewModel.tasks.collectAsState().value
     println(workhub)
     if(workhub!=null){
         sharedViewModel.updateWorkhub(workhub)

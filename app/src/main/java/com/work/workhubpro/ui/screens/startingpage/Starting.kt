@@ -1,14 +1,12 @@
 package com.work.workhubpro.ui.screens.startingpage
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,7 +14,6 @@ import androidx.navigation.NavController
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.ui.navigation.Navscreen
-import com.work.workhubpro.ui.screens.landing.LandingViewModel
 
 @Composable
 fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
@@ -29,17 +26,18 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
     println(tokenManager.getToken())
     if(tokenManager.getToken()!=null){
         println(tokenManager.getToken())
+        println(success)
         ViewModel.user_from_token(tokenManager.getToken()!!)
-        LaunchedEffect(user) {
+        LaunchedEffect(success) {
             if(success!=null) {
-                if (user != null) {
+                if (success==true) {
                     println(user)
-                    println(user.username)
+                    println(user?.username)
                     sharedViewModel.updateUser(user)
                     println("hello")
                     navController.navigate(
                         Navscreen.Bottom.route + "/${
-                            user.username.substring(
+                            user?.username?.substring(
                                 0,
                                 4
                             )
@@ -50,6 +48,9 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
                 }
             }
         }
+    }
+    else{
+        navController.navigate(Navscreen.Landing.route)
     }
     Box(
         modifier = Modifier
