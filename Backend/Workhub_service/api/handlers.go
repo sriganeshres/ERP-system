@@ -131,6 +131,9 @@ func (app *Config) CreateProject(ctx echo.Context) error {
 		})
 		return errorer
 	}
+	if usersData.Names == nil {
+		return nil
+	}
 	url := "http://localhost:8000/api/addUsers"
 
 	response, err := http.Post(url, "application/json", bytes.NewBuffer(JSONUsers))
