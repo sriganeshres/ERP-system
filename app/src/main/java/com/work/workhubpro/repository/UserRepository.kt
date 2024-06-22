@@ -41,7 +41,7 @@ class UserRepository @Inject constructor(private val userapi: UserApi) {
             _success.emit(response.body()!!.success)
         }
         else{
-            println("some error")
+            _success.emit(false)
         }
     }
 

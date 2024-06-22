@@ -20,6 +20,7 @@ public class LoginPageViewModel @Inject constructor(private val tokenManager:Tok
         return try {
             // Attempt to retrieve the user from the repository
             repo.getUser(newUser)
+
             // Return true if the user is successfully retrieved
             true
         } catch (e: Exception) {

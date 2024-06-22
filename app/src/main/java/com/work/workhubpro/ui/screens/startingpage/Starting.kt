@@ -30,26 +30,33 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
     if(tokenManager.getToken()!=null){
         println(tokenManager.getToken())
         ViewModel.user_from_token(tokenManager.getToken()!!)
-        LaunchedEffect(user) {
+        LaunchedEffect(success) {
             if(success!=null) {
-                if (user != null) {
+                println("false")
+                if (success==true) {
                     println(user)
-                    println(user.username)
+                    println(user?.username)
                     sharedViewModel.updateUser(user)
                     println("hello")
                     navController.navigate(
                         Navscreen.Bottom.route + "/${
-                            user.username.substring(
+                            user?.username?.substring(
                                 0,
                                 4
                             )
                         }"
                     )
                 } else {
+                    println("trivedi")
                     navController.navigate(Navscreen.Landing.route)
                 }
+
             }
+
         }
+    }
+    else{
+        navController.navigate(Navscreen.Landing.route)
     }
     Box(
         modifier = Modifier
@@ -63,5 +70,3 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
         )
     }
 }
-
-
