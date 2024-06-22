@@ -35,7 +35,6 @@ import com.work.workhubpro.models.User
 @Composable
 fun ProjectDetails(id: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val projectDetailsViewModel: ProjectDetailsViewModel = hiltViewModel()
-    println("i am kawaki")
     println(id)
     LaunchedEffect(Unit) {
         projectDetailsViewModel.getProjectDetails(id.toInt())
@@ -66,19 +65,19 @@ fun ProjectDetails(id: String, navController: NavController, sharedViewModel: Sh
                 text = "Project Leader: ${project.projectLead}",
                 modifier = Modifier.padding(bottom = 16.dp)
             )
-            Text(
-                text = "Members:",
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(8.dp)
-            ) {
-                items(members) { member ->
-                    MemberItem(member = member)
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
-            }
+//            Text(
+//                text = "Members:",
+//                modifier = Modifier.padding(bottom = 8.dp)
+//            )
+//            LazyColumn(
+//                modifier = Modifier.fillMaxWidth(),
+//                contentPadding = PaddingValues(8.dp)
+//            ) {
+//                items(members) { member ->
+//                    MemberItem(member = member)
+//                    Spacer(modifier = Modifier.height(8.dp))
+//                }
+//            }
         }
     } else {
         // Show a loading indicator or placeholder until project data is available
