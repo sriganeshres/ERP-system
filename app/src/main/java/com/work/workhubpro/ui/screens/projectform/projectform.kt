@@ -2,7 +2,6 @@ package com.work.workhubpro.ui.screens.projectform
 
 
 
-import android.widget.Toast
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +39,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -50,6 +49,7 @@ import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.models.User
 import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.NormalTextComposable
+import com.work.workhubpro.ui.theme.Lightblue2
 
 @Composable
 fun MyTextField(
@@ -60,6 +60,10 @@ fun MyTextField(
     isError: Boolean = false
 ) {
     OutlinedTextField(
+        colors=OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = Color.hsl(220f,0.8f,0.5f),
+        ),
+
         value = textValue,
         onValueChange = onValueChange,
         modifier = Modifier
@@ -70,7 +74,7 @@ fun MyTextField(
             Icon(painter = painterResource, contentDescription = null, modifier = Modifier.size(24.dp))
         },
         label = {
-            Text(text = labelValue)
+            Text(text = labelValue, color = Color.DarkGray)
         },
         isError = isError
     )
@@ -110,14 +114,16 @@ fun CreateProject(
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Lightblue2)
             .padding(30.dp),
+
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
                 .verticalScroll(scrollState)
+                .background(Lightblue2)
         ) {
             NormalTextComposable(value = stringResource(id = R.string.Create_New_project))
             HeadingTextComposable(value = stringResource(id = R.string.create_project))
@@ -156,6 +162,8 @@ fun CreateProject(
             )
 
             Button(
+                colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(15.dp)
@@ -188,11 +196,13 @@ fun MultiSelectField(
     var isExpanded by remember { mutableStateOf(false) }
     val icon = if (isExpanded) Icons.Filled.ArrowDropUp else Icons.Filled.ArrowDropDown
 
-    Column {
+    Column (
+    ){
         OutlinedButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .background(Lightblue2),
             onClick = { isExpanded = !isExpanded },
             colors = ButtonDefaults.outlinedButtonColors(
                 contentColor = MaterialTheme.colorScheme.onSurface
@@ -226,6 +236,7 @@ fun MultiSelectField(
                 .fillMaxWidth()
                 .background(Color.White)
                 .padding(16.dp)
+                .background(Lightblue2)
         ) {
             options.forEach { option ->
                 CustomMenuItem(
@@ -257,7 +268,8 @@ fun CustomMenuItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onSelect(user) }
-            .padding(16.dp),
+            .padding(16.dp)
+            .background(Lightblue2),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

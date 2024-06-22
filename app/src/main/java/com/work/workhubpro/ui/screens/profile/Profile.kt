@@ -1,10 +1,7 @@
 package com.work.workhubpro.ui.screens.profile
 import androidx.compose.foundation.Image
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,26 +33,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.models.User
 import com.work.workhubpro.ui.navigation.Navscreen
-import com.work.workhubpro.ui.theme.LightBlue
 import com.work.workhubpro.ui.theme.Lightblue2
-import com.work.workhubpro.ui.theme.mediumblue
 import com.work.workhubpro.ui.theme.mediumblue2
 import com.work.workhubpro.ui.theme.profile
 import com.work.workhubpro.ui.theme.team
-import java.time.LocalDate
 
 @Composable
 fun Info(user:User){
@@ -226,6 +215,7 @@ fun Profile(navController: NavController,sharedViewModel: SharedViewModel) {
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
              tokenmanager.saveToken(null)
+                    sharedViewModel.updateUser(null)
                     navController.navigate(Navscreen.Landing.route)
                 },
 

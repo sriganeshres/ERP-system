@@ -56,7 +56,7 @@ func (db *Database) CreateUser(userData *models.UserData) error {
 
 func (db *Database) GetAllEmplyeesbyWorkhubId(workhubId uint) ([]models.UserData, error) {
 	var users []models.UserData
-	err := db.DB.Where("workhub_id = ? AND role = ?", workhubId, "user").Find(&users).Error
+	err := db.DB.Where("workhub_id = ? AND role = ?", workhubId, "employee").Find(&users).Error
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (db *Database) GetAllEmplyeesbyWorkhubId(workhubId uint) ([]models.UserData
 
 func (db *Database) GetAllProjectLeadbyWorkhubId(workhubId uint) ([]models.UserData, error) {
 	var users []models.UserData
-	err := db.DB.Where("workhub_id = ? AND role = ?", workhubId, "project_lead").Find(&users).Error
+	err := db.DB.Where("workhub_id = ? AND role = ?", workhubId, "ProjectLeader").Find(&users).Error
 	if err != nil {
 		return nil, err
 	}

@@ -124,10 +124,11 @@ fun Create_task(
             MultiSelectField(
                 options = employees ?: emptyList(),
                 selectedOptions = selectedOptions.selectedEmployees,
-                onOptionsSelected = { selectedUsers->val selectedIds = selectedUsers.map { it.id }
-                    assignedTo = selectedIds.firstOrNull().toString()
-                    selectedOptions = selectedOptions.copy(selectedEmployees = selectedUsers)
-                                    },
+                onOptionsSelected = { 
+                     options ->
+                    selectedOptions = selectedOptions.copy(selectedEmployees = options)
+                    
+                },
                 label = "Select Employees"
             )
 
@@ -135,9 +136,11 @@ fun Create_task(
                 MultiSelectField(
                     options = projectleaders ?: emptyList(),
                     selectedOptions = selectedOptions.selectedProjectLeads,
-                    onOptionsSelected = { selectedUsers->val selectedIds = selectedUsers.map { it.id }
+                    onOptionsSelected = {
+                         selectedUsers->val selectedIds = selectedUsers.map { it.id }
                         assignedTo = selectedIds.firstOrNull().toString()
-                        selectedOptions = selectedOptions.copy(selectedEmployees = selectedUsers)
+                        selectedOptions = selectedOptions.copy(selectedProjectLeads = selectedUsers)
+                        
                     },
                     label = "Select Project Leaders"
                 )

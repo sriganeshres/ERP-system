@@ -1,79 +1,163 @@
-# ERP-system
+Sure, here's an attractive and effective version of the README file with detailed steps, bulletins, commands, and proper structuring:
 
-## Setting up Postgres
-1. First, pull the docker image of postgres15
-   
-   ```js
-   PS> docker pull postgres:15-alpine
-   ```
-2. Then use the makefile
-   1. To Initialize the image for local
-      ```js
-       PS> make postgresinit
-      ```
-   2. To open the console (psql)
-      ```js
-       PS> make postgres
-      ```
-   3. To Create the db for users
-      ```js
-       PS> make createdbusers
-      ```
-   4. To drop the users db
-      ```js
-       PS> make dropdbusers
-      ```
-   5. To open the console (bash)
-      ```js
-       PS> make bash
-      ```
-3. For using the psql
-   1. To see all the databases
-      ```js
-       root=# \l
-      ```
-   2. connect to the db wanted
-      ```js
-       root=# \c <yourdb>
-      ```
-   3. to see all the relations or tables
-      ```js
-       root=# \dt
-      ```
-   5. to see all values in the table
-      ```js
-       root=# SELECT * FROM <tablename>;
-      ```
-   6. to quit
-      ```js
-       root=# \q
-      ```
-## For any problems while using Postgres
-1. If it says SSL Enabled error
-      1. Then Use bash:
-         ```js
-         PS> make bash
-         ```
-      2. go to postgres.conf file
-         ```js
-         f92622037df6:/# cd /var/lib/postgresql/data
-         ```
-      3. check the SSL setting
-         ```js
-         f92622037df6:/# cat postgresql.conf | grep ssl
-         ```
-         If it is not this in the first line.
-         <br>
-         ![Image Description](https://github.com/sriganeshres/WorkHub-Pro/assets/120654479/0a663247-df52-41f5-964a-c8983ccb9979)
-      4. Uncomment the line: `# ssl = off`
-          ```js
-         f92622037df6:/# vi postgresql.conf
-         ```
-          use only vi, as it is the only one that is supported.
-      5. Then demote yourself as a normal user and restart the postgres service:
-         ```js
-         f92622037df6:/# su - postgres
-         f92622037df6:~$ pg_ctl restart
-         ```
-      6. If the image has stopped running, then run the image from Docker Desktop.
-      7. Then try to use the service again. It should work.
+# WorkhubPro ERP System
+
+## 📱 Setting up the Project
+
+### 🐘 Setting up PostgreSQL
+
+1. First, pull the Docker image of PostgreSQL 15:
+
+```bash
+docker pull postgres:15-alpine
+```
+
+2. Use the provided Makefile for PostgreSQL operations:
+
+- Initialize the image for local development:
+
+```bash
+make postgresinit
+```
+
+- Open the PostgreSQL console (psql):
+
+```bash
+make postgres
+```
+
+- Create the database for users:
+
+```bash
+make createdbusers
+```
+
+- Drop the users database:
+
+```bash
+make dropdbusers
+```
+
+- Open the Bash console within the PostgreSQL container:
+
+```bash
+make bash
+```
+
+3. Using the PostgreSQL console (psql):
+
+- List all available databases:
+
+```sql
+root=# \l
+```
+
+- Connect to a specific database:
+
+```sql
+root=# \c <your_database_name>
+```
+
+- Show all relations (tables) in the current database:
+
+```sql
+root=# \dt
+```
+
+- View all records in a table:
+
+```sql
+root=# SELECT * FROM <table_name>;
+```
+
+- Quit the PostgreSQL console:
+
+```sql
+root=# \q
+```
+
+### ⚠️ Troubleshooting PostgreSQL Issues
+
+1. If you encounter an SSL Enabled error:
+
+- Use the Bash console:
+
+```bash
+make bash
+```
+
+- Navigate to the PostgreSQL data directory:
+
+```bash
+f92622037df6:/# cd /var/lib/postgresql/data
+```
+
+- Check the SSL setting:
+
+```bash
+f92622037df6:/# cat postgresql.conf | grep ssl
+```
+
+- If the first line is not `ssl = off`, uncomment the line `# ssl = off`:
+
+```bash
+f92622037df6:/# vi postgresql.conf
+```
+
+- Demote yourself to a normal user and restart the PostgreSQL service:
+
+```bash
+f92622037df6:/# su - postgres
+f92622037df6:~$ pg_ctl restart
+```
+
+- If the Docker image has stopped running, restart it from Docker Desktop.
+
+- Try using the PostgreSQL service again. It should work now.
+
+## 🚀 Running the Services
+
+### 💬 Chat Service
+
+```bash
+cd .\Backend\Chat_service\cmd\
+go run main.go
+```
+
+### 📋 WorkhubServices
+
+```bash
+cd .\Backend\Workhub_service\cmd\
+go run main.go
+```
+
+### 🔐 Authentication Services
+
+```bash
+cd .\Backend\Authentication_service\cmd\
+go run main.go
+```
+
+### 📲 Android App
+
+1. Open the project in Android Studio.
+2. Select an emulator or connect a physical device.
+3. Build the Gradle files.
+4. Run the app.
+
+## 🔍 Additional Information
+
+- For detailed information about the project, refer to the comprehensive [Software Requirements Specification (SRS) Document](https://github.com/sriganeshres/WorkHub-Pro/blob/production/Final%20SRS.pdf).
+- Check out the project's [GitHub repository](https://github.com/sriganeshres/WorkHub-Pro) for the latest updates, issues, and pull requests.
+- For detailed information about the project, refer to the comprehensive [Software Requirements Specification (SRS) Document](https://github.com/sriganeshres/WorkHub-Pro/blob/production/Final%20SRS.pdf).
+- Explore the project's [Risk Analysis](https://github.com/sriganeshres/WorkHub-Pro/blob/production/Risk%20Analysis%20and%20Mitigation%20Plan%20.pdf) for in-depth information on architecture, design patterns, and development practices.
+
+## 👥 Project Members
+
+The WorkhubPro ERP System was developed by a dedicated team of contributors:
+
+- [Aditya Trivedi](https://github.com/adit4443ya)
+- [Sri Ganesh Thota](https://github.com/sriganeshres)
+- [Rahul Reddy](https://github.com/rahulrangers)
+
+Feel free to reach out to any of the project members for more information or collaboration opportunities.
