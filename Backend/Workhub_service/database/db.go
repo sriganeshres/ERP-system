@@ -1,6 +1,7 @@
 package database
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -38,7 +39,18 @@ func (db *Database) Migrate() error {
 }
 
 func (db *Database) CreateWorkhub(WorkHub *models.WorkHub) error {
-	err := db.DB.Create(&WorkHub).Error
+	var existingWorkhub *models.WorkHub
+	err := db.DB.Where("name = ?", WorkHub.Name).First(&existingWorkhub).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			// No existing WorkHub found, continue creating
+		} else {
+			return err // Return other errors
+		}
+	} else {
+		return errors.New("another Workhub already exists")
+	}
+	err = db.DB.Create(&WorkHub).Error
 	if err != nil {
 		return err
 	}
@@ -68,10 +80,23 @@ func (db *Database) DeleteWorkHub(code int) error {
 }
 
 func (db *Database) CreateProject(Project *models.Project) error {
-	err := db.DB.Create(&Project).Error
+	var existingProject *models.Project
+	fmt.Print(Project.Name)
+	err := db.DB.Where("name = ?", Project.Name).First(&existingProject).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			// No existing WorkHub found, continue creating
+		} else {
+			return err // Return other errors
+		}
+	} else {
+		return errors.New("another Project already exists")
+	}
+	err = db.DB.Create(&Project).Error
 	if err != nil {
 		return err
 	}
+	fmt.Printf("Created project %s\n", Project.Name)
 	return nil
 }
 func (db *Database) UpdateWorkhub(id uint, User models.UserData) error {

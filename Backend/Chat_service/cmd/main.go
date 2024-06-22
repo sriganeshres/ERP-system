@@ -5,9 +5,8 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"path/filepath"
 
-	// "path/filepath"
+	"path/filepath"
 	"strings"
 
 	"github.com/gorilla/websocket"
@@ -101,8 +100,13 @@ func main() {
 	server := NewServer()
 	e := echo.New()
 	db := database.NewDatabase()
-	envPath := filepath.Join("..", "..", ".env")
-	er := godotenv.Load(envPath)
+	envPath := filepath.Join( "..", ".env")
+	absEnvPath, err := filepath.Abs(envPath)
+    if err != nil {
+        fmt.Println("Error getting absolute path:", err)
+        return
+    }
+	er := godotenv.Load(absEnvPath)
 	if er != nil {
 		log.Println(er)
 	}
@@ -110,7 +114,7 @@ func main() {
 	app := api.Config{Router: e, Db: db}
 	app.Routes()
 
-	err := app.Db.Init()
+	err = app.Db.Init()
 	if err != nil {
 		panic(err)
 	}

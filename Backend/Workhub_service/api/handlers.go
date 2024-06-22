@@ -175,6 +175,36 @@ func (app *Config) CreateProject(ctx echo.Context) error {
 		return errorer
 	}
 	ctx.JSON(http.StatusCreated, Project)
+	if usersData.Names == nil {
+		return nil
+	}
+	url := "http://localhost:8000/api/addUsers"
+
+	response, err := http.Post(url, "application/json", bytes.NewBuffer(JSONUsers))
+	if err != nil {
+		fmt.Println("Error:", err)
+		ctx.JSON(http.StatusBadRequest, echo.Map{
+			"success": false,
+			"msg":     "CouldnOt send Request further",
+		})
+		return err
+	}
+	defer response.Body.Close()
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Error reading response body:", err)
+		ctx.JSON(http.StatusBadRequest, echo.Map{
+			"success": false,
+			"msg":     "Internal Error",
+		})
+		return err
+	}
+	// Print response body
+	fmt.Println(string(body))
+	ctx.JSON(http.StatusCreated, echo.Map{
+		"success": true,
+		"msg":     "successfully created a Project",
+	})
 	return nil
 }
 
