@@ -12,7 +12,7 @@ import (
 
 func main() {
 	e := echo.New()
-	envPath := filepath.Join("..", "..", ".env")
+	envPath := filepath.Join( "..", ".env")
 	er := godotenv.Load(envPath)
 
 	db := database.NewDatabase()

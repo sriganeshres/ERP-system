@@ -4,9 +4,6 @@ import (
 	"log"
 	"path/filepath"
 
-	// "path/filepath"
-	// "path/filepath"
-
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/Authentication_service/api"
@@ -16,7 +13,7 @@ import (
 func main() {
 	e := echo.New()
 	db := database.NewDatabase()
-	envPath := filepath.Join("..", "..", ".env")
+	envPath := filepath.Join("..", ".env")
 	er := godotenv.Load(envPath)
 	if er != nil {
 		log.Println(er)
