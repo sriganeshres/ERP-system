@@ -3,6 +3,7 @@ package com.work.workhubpro.ui.screens.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,25 +20,34 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,144 +58,28 @@ import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import com.work.workhubpro.R
-//import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.models.Task
+import com.work.workhubpro.models.UpdateTask
 import com.work.workhubpro.ui.navigation.Navscreen
-import com.work.workhubpro.ui.theme.Lightblue2
 import com.work.workhubpro.ui.theme.mediumblue
 import java.time.LocalDate
-
-
-// val dummyTasks = listOf(
-//     Task(
-//         ID = 1,
-//         name = "Implement feature X",
-//         description = "Implement the new feature X in the application",
-//         assigned_by = 1,
-//         deadline = "2023-06-30",
-//         assigned_to = "John Doe",
-//         project_key = 1,
-//         work_hub_id = 1,
-//         status = "In Progress"
-//     ),
-//     Task(
-//         ID = 2,
-//         name = "Fix bug Y",
-//         description = "Fix the bug Y in the existing codebase",
-//         assigned_by = 2,
-//         deadline = "2023-05-15",
-//         assigned_to = "Jane Smith",
-//         project_key = 2,
-//         work_hub_id = 1,
-//         status = "Pending"
-//     ),
-//     Task(
-//         ID = 3,
-//         name = "Refactor module Z",
-//         description = "Refactor the module Z for better performance",
-//         assigned_by = 1,
-//         deadline = "2023-07-10",
-//         assigned_to = "Michael Johnson",
-//         project_key = 1,
-//         work_hub_id = 2,
-//         status = "In Progress"
-//     ),
-//     Task(
-//         ID = 4,
-//         name = "Implement authentication",
-//         description = "Implement authentication system for the application",
-//         assigned_by = 3,
-//         deadline = "2023-06-20",
-//         assigned_to = "Emily Davis",
-//         project_key = 3,
-//         work_hub_id = 2,
-//         status = "Pending"
-//     ),
-//     Task(
-//         ID = 5,
-//         name = "Design UI/UX",
-//         description = "Design the UI/UX for the new feature",
-//         assigned_by = 2,
-//         deadline = "2023-05-25",
-//         assigned_to = "David Wilson",
-//         project_key = 2,
-//         work_hub_id = 1,
-//         status = "Completed"
-//     ),
-//     Task(
-//         ID = 6,
-//         name = "Integrate payment gateway",
-//         description = "Integrate the payment gateway with the application",
-//         assigned_by = 1,
-//         deadline = "2023-08-01",
-//         assigned_to = "Sarah Thompson",
-//         project_key = 1,
-//         work_hub_id = 3,
-//         status = "In Progress"
-//     ),
-//     Task(
-//         ID = 7,
-//         name = "Conduct user testing",
-//         description = "Conduct user testing for the new feature",
-//         assigned_by = 3,
-//         deadline = "2023-07-15",
-//         assigned_to = "Robert Anderson",
-//         project_key = 3,
-//         work_hub_id = 2,
-//         status = "Pending"
-//     ),
-//     Task(
-//         ID = 8,
-//         name = "Optimize database queries",
-//         description = "Optimize database queries for better performance",
-//         assigned_by = 2,
-//         deadline = "2023-06-10",
-//         assigned_to = "Jessica Taylor",
-//         project_key = 2,
-//         work_hub_id = 1,
-//         status = "In Progress"
-//     ),
-//     Task(
-//         ID = 9,
-//         name = "Implement push notifications",
-//         description = "Implement push notifications for the mobile app",
-//         assigned_by = 1,
-//         deadline = "2023-07-20",
-//         assigned_to = "Christopher Brown",
-//         project_key = 1,
-//         work_hub_id = 3,
-//         status = "Pending"
-//     ),
-//     Task(
-//         ID = 10,
-//         name = "Deploy to production",
-//         description = "Deploy the application to the production environment",
-//         assigned_by = 3,
-//         deadline = "2023-08-10",
-//         assigned_to = "Ashley Garcia",
-//         project_key = 3,
-//         work_hub_id = 2,
-//         status = "In Progress"
-//     )
-// )
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun Home(name: String, navController: NavController, sharedViewModel: SharedViewModel) {
     val datedialogueState = rememberMaterialDialogState()
-    val viewmodel : HomeViewModel = hiltViewModel()
+    val viewmodel: HomeViewModel = hiltViewModel()
     val workhub = viewmodel.workhub.collectAsState().value
     var name = "technovia"
     var description = "description"
     val homeViewModel: HomeViewModel = hiltViewModel()
-    LaunchedEffect (Unit){
-        homeViewModel.gettasks(sharedViewModel.user.value?.id!!)
+    LaunchedEffect(Unit) {
+        homeViewModel.gettasksToUser(sharedViewModel.user.value?.id!!)
     }
-//    val dummyTasks= listOf(<Task>)
-    val dummyTasks=homeViewModel.tasks.collectAsState().value
+    val Tasks = homeViewModel.tasks.collectAsState().value
     println(workhub)
-    if(workhub!=null){
+    if (workhub != null) {
         sharedViewModel.updateWorkhub(workhub)
         name = workhub.name
         description = workhub.description
@@ -196,8 +90,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
     }
     val font = FontFamily(Font(R.font.kaushanscript))
     val joseph = FontFamily(Font(R.font.josefinsansbold))
-    val role= sharedViewModel.user.value?.role
-
+    val role = sharedViewModel.user.value?.role
 
     var showDialog by remember { mutableStateOf(false) }
 
@@ -209,14 +102,14 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Lightblue2)
+            .background(Brush.verticalGradient(listOf(Color(0xFF001F3F), Color(0xFF003366))))
     ) {
         Image(
             painter = painterResource(id = R.drawable.border),
             contentDescription = "",
             modifier = Modifier
                 .fillMaxWidth()
-                .height(75.dp)
+                .height(85.dp)
         )
 
         Text(
@@ -224,7 +117,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             style = TextStyle(
                 fontFamily = font,
                 fontSize = 35.sp,
-                color = Color.Black
+                color = Color.White
             ),
             modifier = Modifier.padding(16.dp)
         )
@@ -239,7 +132,7 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text=description,
+                text = description,
                 style = TextStyle(
                     fontFamily = joseph,
                     fontSize = 18.sp,
@@ -247,34 +140,35 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 ),
                 modifier = Modifier.padding(18.dp),
 
-            )
+                )
         }
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
-        )  {
+        ) {
             // Add your Text composable here
-            Text(text = "Company Calender",
+            Text(
+                text = "Company Calendar",
                 style = TextStyle(
                     fontFamily = font,
                     fontSize = 30.sp,
-                    color = Color.Black
+                    color = Color.White
                 ),
-                modifier = Modifier.padding(10.dp))
+                modifier = Modifier.padding(10.dp)
+            )
 
-                Image(
-                    painter = painterResource(R.drawable.calendar),
-                    contentDescription = "Your Image Description",
-                    modifier = Modifier
-                        .size(70.dp)
-                        .shadow(10.dp)
-                        .padding(10.dp)
-                        .clickable { datedialogueState.show() },
-                )
+            Image(
+                painter = painterResource(R.drawable.calendar),
+                contentDescription = "Your Image Description",
+                modifier = Modifier
+                    .size(70.dp)
+                    .shadow(10.dp)
+                    .padding(10.dp)
+                    .clickable { datedialogueState.show() },
+            )
 
         }
         Spacer(modifier = Modifier.height(20.dp))
-
 
         // Render buttons based on user role
         when (role) {
@@ -282,12 +176,11 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
                 AdminButtons(navController)
             }
             "ProjectLeader" -> {
-
                 ProjectLeaderButtons(navController)
-                AssignedTasksList(dummyTasks)
+                ScrollableAssignedTasksList(Tasks)
             }
             "employee" -> {
-                AssignedTasksList(dummyTasks)
+                ScrollableAssignedTasksList(Tasks)
             }
         }
 
@@ -307,28 +200,27 @@ fun Home(name: String, navController: NavController, sharedViewModel: SharedView
             )
         }
 
-
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomEnd
         ) {
 
-                MaterialDialog(
-                    dialogState = datedialogueState,
-                    buttons = {
-                        LaunchedEffect(Unit) {
-                            showDialog = true
-                        }
+            MaterialDialog(
+                dialogState = datedialogueState,
+                buttons = {
+                    LaunchedEffect(Unit) {
+                        showDialog = true
                     }
-                ) {
-                    datepicker(
-                        initialDate = LocalDate.now()
-                    )
-
                 }
+            ) {
+                datepicker(
+                    initialDate = LocalDate.now()
+                )
+            }
         }
     }
 }
+
 @Preview
 @Composable
 fun HomePreview() {
@@ -339,7 +231,6 @@ fun HomePreview() {
         sharedViewModel = SharedViewModel()
     )
 }
-
 
 @Composable
 fun AdminButtons(navController: NavController) {
@@ -384,7 +275,7 @@ fun AddTaskButton(navController: NavController) {
         shape = RoundedCornerShape(8.dp)
     ) {
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f, 0.8f, 0.5f)),
 
             modifier = Modifier
                 .fillMaxWidth()
@@ -411,9 +302,9 @@ fun AddProjectButton(navController: NavController) {
             .background(color = Color.Transparent),
         shape = RoundedCornerShape(8.dp),
 
-    ) {
+        ) {
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f, 0.8f, 0.5f)),
 
             modifier = Modifier
                 .background(
@@ -433,90 +324,132 @@ fun AddProjectButton(navController: NavController) {
 @Composable
 fun AddEmployeesButton(navController: NavController) {
 
-        Surface(
-            modifier = Modifier
-
-                .padding(16.dp)
-                .shadow(20.dp)
-                .fillMaxWidth(0.7f)
-                .background(color = Color.Transparent),
-                shape = RoundedCornerShape(8.dp)
-        ) {
-            Button(
-                colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f,0.8f,0.5f)),
-                modifier = Modifier
-                    .background(
-                        color = Color.Cyan
-                    )
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(10.dp),
-                onClick = {
-                    // navController.navigate(Navscreen.AddEmployees.route)
-                },
-            ) {
-                Text(
-                    text = "Add Employers",
-                    style = TextStyle(
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = 18.sp,
-                        color = Color.White
-                    ),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .background(Color.Transparent)
-                        .padding(10.dp)
-                        .fillMaxWidth() // Make Text fill the entire width inside the Surface
-                )
-            }
-        }
-
-}
-
-
-
-
-@Composable
-fun AssignedTasksList(tasks: List<Task>) {
-    LazyColumn(
+    Surface(
         modifier = Modifier
-            .fillMaxWidth()
+
             .padding(16.dp)
+            .shadow(20.dp)
+            .fillMaxWidth(0.7f)
+            .background(color = Color.Transparent),
+        shape = RoundedCornerShape(8.dp)
     ) {
-        items(tasks) { task ->
-            TaskItem(task = task)
+        Button(
+            colors = ButtonDefaults.buttonColors(containerColor = Color.hsl(220f, 0.8f, 0.5f)),
+            modifier = Modifier
+                .background(
+                    color = Color.Cyan
+                )
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            onClick = {
+                 navController.navigate(Navscreen.Addempoly.route)
+            },
+        ) {
+            Text(
+                text = "Add Employers",
+                style = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.josefinsansbold)),
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+            )
         }
     }
 }
+@Composable
+fun ScrollableAssignedTasksList(tasks: List<Task>) {
+    val taskList = remember { mutableStateListOf(*tasks.toTypedArray()) }
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        items(taskList) { task ->
+            TaskItem(
+                task = task,
+            )
+        }
+    }
+
+    SnackbarHost(
+        hostState = snackbarHostState,
+        snackbar = { snackbarData ->
+            Snackbar(
+                snackbarData = snackbarData,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+    )
+}
 
 @Composable
-fun TaskItem(task: Task) {
-    Surface(
+fun TaskItem(
+    task: Task,
+) {
+    var isChecked by remember { mutableStateOf(task.status == "CompletedByUser") }
+    val viewModel: HomeViewModel = hiltViewModel()
+    val updateTask=UpdateTask(task.ID,task.status)
+    val toggleCheckbox: () -> Unit = {
+        isChecked = !isChecked
+        // Add your logic here to mark the task as completed
+        println(updateTask.taskID)
+        if(isChecked){
+            updateTask.status="CompletedByUser"
+        }
+        else{
+            updateTask.status="NotCompletedByUser"
+        }
+        viewModel.updateTask(updateTask)
+    }
+
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(8.dp),
-        tonalElevation = 4.dp
+            .padding(vertical = 8.dp)
+            .shadow(8.dp, RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.primaryContainer),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .border(shape = RoundedCornerShape(12.dp), width = 2.dp, color = Color.Cyan)
+                .padding(16.dp)
         ) {
-            Text(
-                text = task.name,
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = task.name,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
                 )
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = task.description,
-                style = TextStyle(fontSize = 14.sp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-//            Text(
-//                text = "Due Date: ${task.deadline}",
-//                style = TextStyle(fontSize = 14.sp)
-//            )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = task.description,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                )
+            }
+            IconButton(
+                onClick = { toggleCheckbox() },
+                modifier = Modifier.size(24.dp)
+            ) {
+                Icon(
+                    painter = painterResource(
+                        if (isChecked) R.drawable.checked
+                        else R.drawable.unchecked
+                    ),
+                    contentDescription = null,
+                    tint = if (isChecked) Color.Green else Color.Gray
+                )
+            }
         }
     }
 }

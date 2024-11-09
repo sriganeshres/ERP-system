@@ -317,6 +317,7 @@ func (app *Config) GetWorkHubById(ctx echo.Context) error {
 func (app *Config) UpdateTask(ctx echo.Context) error {
 	var task models.UpdateTask
 	err := ctx.Bind(&task)
+	fmt.Println("tasks->",task.ID)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return err
@@ -349,7 +350,7 @@ func (app *Config) GetAllTasksByProject(ctx echo.Context) error {
 	return nil
 }
 
-func (app *Config) GetTaskByUserID(ctx echo.Context) error {
+func (app *Config) GetTaskAssignedToUserID(ctx echo.Context) error {
 	var id int
 	v := ctx.QueryParam("id")
 	id, err := strconv.Atoi(v)
@@ -358,7 +359,24 @@ func (app *Config) GetTaskByUserID(ctx echo.Context) error {
 		return err
 	}
 	var tasks []models.Task
-	errorer := app.Db.GetAllTasksByUserID(id, &tasks)
+	errorer := app.Db.GetAllTasksByAssignedtoUserID(id, &tasks)
+	if errorer != nil {
+		return errorer
+	}
+	ctx.JSON(http.StatusOK, tasks)
+	return nil
+}
+
+func (app *Config) GetTaskAssignedByUserID(ctx echo.Context) error {
+	var id int
+	v := ctx.QueryParam("id")
+	id, err := strconv.Atoi(v)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return err
+	}
+	var tasks []models.Task
+	errorer := app.Db.GetAllTasksByAssignedbyUserID(id, &tasks)
 	if errorer != nil {
 		return errorer
 	}

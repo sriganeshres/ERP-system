@@ -2,6 +2,7 @@ package com.work.workhubpro.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.work.workhubpro.models.UpdateTask
 import com.work.workhubpro.repository.OrganisationCreation
 import com.work.workhubpro.repository.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +19,27 @@ class HomeViewModel @Inject constructor(private val repo:OrganisationCreation , 
             repo.getworkhub(id)
         }
     }
-    fun gettasks(id:Int) {
+    fun gettasksByUser(id:Int) {
         viewModelScope.launch {
             task.getTaskByUserID(id)
         }
     }
+
+    fun gettasksToUser(id:Int) {
+        viewModelScope.launch {
+            task.getTaskToUserID(id)
+        }
+    }
+
+    fun updateTask(update:UpdateTask){
+        viewModelScope.launch{
+            task.updateTask(update)
+        }
+    }
+    fun deleteTask(id:Int){
+        viewModelScope.launch{
+            task.deleteTask(id)
+        }
+    }
+
 }

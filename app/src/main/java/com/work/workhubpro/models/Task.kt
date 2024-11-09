@@ -15,6 +15,6 @@ constructor(
 )
 data class UpdateTask @Inject
 constructor(
-    val ID: Int,
-    val status: String
+    val taskID: Int,
+    var status: String
 ) 
