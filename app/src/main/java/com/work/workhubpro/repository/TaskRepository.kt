@@ -2,6 +2,7 @@ package com.work.workhubpro.repository
 
 import com.work.workhubpro.api.WorkHubApi
 import com.work.workhubpro.models.Task
+import com.work.workhubpro.models.UpdateTask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,6 +45,14 @@ class TaskRepository @Inject constructor(
             println("couldn't get")
         }
     }
+    suspend fun getTaskToUserID(request: Int) {
+        val response = workhubApi.getTaskToUserID(request)
+        if (response.isSuccessful && response.body() != null) {
+            _tasks.emit(response.body()!!)
+        } else {
+            println("couldn't get")
+        }
+    }
 
     suspend fun getTaskByProjectID(request: Int) {
         val response = workhubApi.getTaskByProjectID(request)
@@ -63,6 +72,16 @@ class TaskRepository @Inject constructor(
             }
         } else {
             println("couldn't get")
+        }
+    }
+
+    suspend fun updateTask(request: UpdateTask) {
+        val response = workhubApi.updateTask(request)
+        println(request.taskID)
+        if (response.isSuccessful && response.body() != null){
+            println("Successfully updated")
+        } else {
+            println("Could not updated")
         }
     }
 }

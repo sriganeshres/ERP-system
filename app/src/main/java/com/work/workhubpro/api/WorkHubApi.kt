@@ -5,13 +5,13 @@ import com.work.workhubpro.models.Organisation
 import com.work.workhubpro.models.Project
 import com.work.workhubpro.models.Resp
 import com.work.workhubpro.models.Task
+import com.work.workhubpro.models.UpdateTask
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface WorkHubApi {
@@ -36,14 +36,19 @@ interface WorkHubApi {
 
     @DELETE("/api/deleteTask")
     suspend fun deleteTask(@Query("id") request:Int): Response<String>
+    @POST("/api/updateTask")
+    suspend fun updateTask(@Body request:UpdateTask): Response<String>
 
+    @GET("/api/gettaskByUser")
+    suspend fun getTaskByUserID(@Query("id") request:Int): Response<List<Task>>
 
 
     @GET("/api/gettaskProject")
     suspend fun getTaskByProjectID(@Query("id") request:Int): Response<List<Task>>
 
-    @GET("/api/gettaskUser")
-    suspend fun getTaskByUserID(@Query("id") request:Int): Response<List<Task>>
+    @GET("/api/gettaskToUser")
+    suspend fun getTaskToUserID(@Query("id") request:Int): Response<List<Task>>
+
     @GET("/api/getworkhub/{id}")
     suspend fun getworkhub(@Path("id") id: String): Response<Organisation>
     @GET("/api/gettaskWorkhub")

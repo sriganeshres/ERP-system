@@ -24,6 +24,6 @@ type Task struct {
 }
 
 type UpdateTask struct {
-	ID          int         ` json:"ID"`
+	ID          int         ` json:"taskID"`
 	StatusField StatusField `json:"status"`
 }
