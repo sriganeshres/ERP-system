@@ -30,6 +30,7 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
         ViewModel.user_from_token(tokenManager.getToken()!!)
         LaunchedEffect(success) {
             if(success!=null) {
+                println("false")
                 if (success==true) {
                     println(user)
                     println(user?.username)
@@ -44,9 +45,12 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
                         }"
                     )
                 } else {
+                    println("trivedi")
                     navController.navigate(Navscreen.Landing.route)
                 }
+
             }
+
         }
     }
     else{
@@ -64,5 +68,3 @@ fun Starting(navController: NavController,sharedViewModel:SharedViewModel)
         )
     }
 }
-
-

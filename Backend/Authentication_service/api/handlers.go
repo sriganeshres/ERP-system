@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -14,6 +15,7 @@ import (
 )
 
 func (app *Config) Login(ctx echo.Context) error {
+	log.Println("A try to login")
 	var userData models.LoginUser
 	err := ctx.Bind(&userData)
 	if err != nil {
