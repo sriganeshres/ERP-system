@@ -15,6 +15,7 @@ import com.work.workhubpro.ui.screens.home.Home
 import com.work.workhubpro.ui.screens.joinOrg.JoinOrganization_Screen
 import com.work.workhubpro.ui.screens.landing.LandingPage
 import com.work.workhubpro.ui.screens.loginPage.LoginScreen
+import com.work.workhubpro.ui.screens.performance.PerformanceScreen
 import com.work.workhubpro.ui.screens.profile.Profile
 import com.work.workhubpro.ui.screens.projects.ProjectListScreens
 import com.work.workhubpro.ui.screens.signup.SignupScreen
@@ -55,6 +56,10 @@ fun Navigation() {
         }
         composable(route = Navscreen.Projects.route) {
             ProjectListScreens(navController = navController, sharedViewModel = sharedViewModel)
+        }
+
+        composable(route = Navscreen.Performance.route) {
+            PerformanceScreen(navController = navController, sharedViewModel = sharedViewModel)
         }
 
         composable(route=Navscreen.Create_Org.route){

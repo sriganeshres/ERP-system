@@ -64,7 +64,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation("androidx.compose.material3:material3")
+//    implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation(libs.androidx.ui.tooling.preview)
@@ -82,7 +82,7 @@ dependencies {
 //    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:1.0.0")
 //    implementation(libs.androidx.material3.android)
 //    implementation ("androidx.compose.material3:material3:$m3-version")
-    implementation(libs.androidx.material3)
+//    implementation(libs.androidx.material3)
     implementation(libs.androidx.activity.ktx)
     // For hilt Implementation
     implementation ("com.google.dagger:hilt-android:2.49")

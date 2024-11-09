@@ -24,7 +24,8 @@ func (app *Config) Routes() {
 	app.Router.POST("api/createTask", app.CreateTask)
 	app.Router.POST("api/updateTask", app.UpdateTask)
 	app.Router.GET("/api/gettaskProject", app.GetAllTasksByProject)
-	app.Router.GET("/api/gettaskUser", app.GetTaskByUserID)
+	app.Router.GET("/api/gettaskToUser", app.GetTaskAssignedToUserID)
+	app.Router.GET("/api/gettaskByUser", app.GetTaskAssignedByUserID)
 	app.Router.GET("/api/gettaskWorkHub", app.GetTaskByWorkHubID)
 	app.Router.DELETE("/api/deletetask", app.DeleteTask)
 }

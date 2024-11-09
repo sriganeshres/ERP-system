@@ -160,6 +160,7 @@ func (db *Database) CreateTask(task *models.Task) error {
 func (db *Database) UpdateTask(code int, status models.StatusField) error {
 	var task models.Task
 	err := db.DB.Where("id =?", code).First(&task).Error
+	fmt.Println(code)
 	if err != nil {
 		return err
 	}
@@ -196,8 +197,16 @@ func (db *Database) GetAllTasksByWorkHubID(WorkHubID int, tasks *[]models.Task) 
 	return nil
 }
 
-func (db *Database) GetAllTasksByUserID(userID int, tasks *[]models.Task) error {
+func (db *Database) GetAllTasksByAssignedtoUserID(userID int, tasks *[]models.Task) error {
 	err := db.DB.Where("assigned_to =?", userID).Find(tasks).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (db *Database) GetAllTasksByAssignedbyUserID(userID int, tasks *[]models.Task) error {
+	err := db.DB.Where("assigned_by =?", userID).Find(tasks).Error
 	if err != nil {
 		return err
 	}
