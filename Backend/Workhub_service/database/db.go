@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	_ "github.com/lib/pq"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/models"
@@ -31,7 +32,7 @@ func (db *Database) Init() error {
 }
 
 func (db *Database) Migrate() error {
-	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.Project{}, &models.UserData{}, &models.Task{})
+	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.Project{}, &models.UserData{}, &models.Task{},&models.Notification{})
 	if err != nil {
 		return err
 	}
@@ -224,4 +225,33 @@ func (db *Database) DeleteTask(id int) error {
 		return err
 	}
 	return nil
+}
+func (db *Database) CreateNotification(notification *models.Notification) error {
+    return db.DB.Create(notification).Error
+}
+
+func (db *Database) GetNotificationsByUserID(userID string) ([]models.Notification, error) {
+    var notifications []models.Notification
+    err := db.DB.Where("user_id = ?", userID).Order("created_at DESC").Find(&notifications).Error
+    if err != nil {
+        return nil, err
+    }
+    return notifications, nil
+}
+func (db *Database) ScheduleTask(taskID uint, scheduleAt time.Time) error {
+    task := &models.Task{}
+    if err := db.DB.First(task, taskID).Error; err != nil {
+        return err
+    }
+    task.ScheduledAt = &scheduleAt
+    return db.DB.Save(task).Error
+}
+
+func (db *Database) GetScheduledTasks() ([]models.Task, error) {
+    var tasks []models.Task
+    err := db.DB.Where("scheduled_at IS NOT NULL").Find(&tasks).Error
+    if err != nil {
+        return nil, err
+    }
+    return tasks, nil
 }

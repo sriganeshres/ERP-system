@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/sriganeshres/WorkHub-Pro/Backend/Workhub_service/utils"
@@ -416,3 +417,56 @@ func (app *Config) DeleteTask(ctx echo.Context) error {
 	ctx.JSON(http.StatusOK, "Deleted successfully")
 	return nil
 }
+
+func (app *Config) ScheduleTask(ctx echo.Context) error {
+    var taskScheduleRequest struct {
+        TaskID     uint      `json:"task_id"`
+        ScheduleAt time.Time `json:"schedule_at"`
+    }
+
+    if err := ctx.Bind(&taskScheduleRequest); err != nil {
+        return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input"})
+    }
+
+    err := app.Db.ScheduleTask(taskScheduleRequest.TaskID, taskScheduleRequest.ScheduleAt)
+    if err != nil {
+        return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
+
+    return ctx.JSON(http.StatusOK, map[string]string{"message": "Task scheduled successfully"})
+}
+
+func (app *Config) GetScheduledTasks(ctx echo.Context) error {
+    tasks, err := app.Db.GetScheduledTasks()
+    if err != nil {
+        return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
+    return ctx.JSON(http.StatusOK, tasks)
+}
+func (app *Config) SendNotification(ctx echo.Context) error {
+    var notification models.Notification
+    if err := ctx.Bind(&notification); err != nil {
+        return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid input"})
+    }
+
+    if err := app.Db.CreateNotification(&notification); err != nil {
+        return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
+
+    return ctx.JSON(http.StatusOK, map[string]string{"message": "Notification sent successfully"})
+}
+
+func (app *Config) GetNotifications(ctx echo.Context) error {
+    userID := ctx.Param("user_id")
+    if userID == "" {
+        return ctx.JSON(http.StatusBadRequest, map[string]string{"error": "User ID is required"})
+    }
+
+    notifications, err := app.Db.GetNotificationsByUserID(userID)
+    if err != nil {
+        return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
+
+    return ctx.JSON(http.StatusOK, notifications)
+}
+

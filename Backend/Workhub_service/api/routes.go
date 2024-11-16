@@ -28,4 +28,8 @@ func (app *Config) Routes() {
 	app.Router.GET("/api/gettaskByUser", app.GetTaskAssignedByUserID)
 	app.Router.GET("/api/gettaskWorkHub", app.GetTaskByWorkHubID)
 	app.Router.DELETE("/api/deletetask", app.DeleteTask)
+	app.Router.POST("/api/tasks/schedule", app.ScheduleTask)
+	app.Router.GET("/api/tasks/schedule", app.GetScheduledTasks)
+	app.Router.POST("/api/notifications/send", app.SendNotification)
+	app.Router.GET("/api/notifications/:user_id", app.GetNotifications)
 }

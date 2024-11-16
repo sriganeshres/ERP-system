@@ -42,7 +42,10 @@ func (app *Config) Login(ctx echo.Context) error {
 		ctx.JSON(http.StatusBadRequest, "Invalid password")
 		return errors.New(erro.Error())
 	}
-
+	// SELECT table_schema, table_name, column_name  
+	// FROM information_schema.columns  
+	// WHERE table_name ='user_data' OR table_name = 'projects' OR table_name = 'work_hubs' OR table_name = 'tasks' OR table_name = 'messages'
+	// ORDER BY table_schema, table_name, ordinal_position;
 	// Set custom claims
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
