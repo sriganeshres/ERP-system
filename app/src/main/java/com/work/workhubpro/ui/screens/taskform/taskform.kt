@@ -46,7 +46,6 @@ import androidx.navigation.NavController
 import com.work.workhubpro.R
 import com.work.workhubpro.SharedViewModel
 import com.work.workhubpro.models.User
-import com.work.workhubpro.ui.composables.HeadingTextComposable
 import com.work.workhubpro.ui.composables.NormalTextComposable
 
 data class SelectedOptions(
@@ -64,7 +63,7 @@ fun Create_task(
     val project_key = sharedViewModel.user.collectAsState().value?.id
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var assignedTo by remember { mutableStateOf("") }
+    var assignedTo by remember { mutableStateOf(0) }
     
     val createTaskViewModel: TaskFormViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
@@ -81,6 +80,7 @@ fun Create_task(
 
     val projectleaders = createTaskViewModel.project_lead.collectAsState().value
     val employees = createTaskViewModel.employees.collectAsState().value
+    println(employees)
 
 
     val gradient = Brush.verticalGradient(
@@ -124,10 +124,9 @@ fun Create_task(
             MultiSelectField(
                 options = employees ?: emptyList(),
                 selectedOptions = selectedOptions.selectedEmployees,
-                onOptionsSelected = { 
-                     options ->
+                onOptionsSelected = { options ->
                     selectedOptions = selectedOptions.copy(selectedEmployees = options)
-                    
+                    assignedTo = options.firstOrNull()?.id ?: -1 // Use a default invalid ID if none is selected
                 },
                 label = "Select Employees"
             )
@@ -138,7 +137,7 @@ fun Create_task(
                     selectedOptions = selectedOptions.selectedProjectLeads,
                     onOptionsSelected = {
                          selectedUsers->val selectedIds = selectedUsers.map { it.id }
-                        assignedTo = selectedIds.firstOrNull().toString()
+                        assignedTo = selectedIds.firstOrNull()!!
                         selectedOptions = selectedOptions.copy(selectedProjectLeads = selectedUsers)
                         
                     },
@@ -158,7 +157,7 @@ fun Create_task(
                     ),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    createTaskViewModel.createTask(name, description, assignedTo.toInt(),assigned_by!!,work_hub_id!!,project_key!!)
+                    createTaskViewModel.createTask(name, description, assignedTo,assigned_by!!,work_hub_id!!,project_key!!)
                 },
             ) {
                 Text(text = "Create Task", color = Color.White)
