@@ -28,11 +28,17 @@ func (app *Config) Login(ctx echo.Context) error {
 		ctx.JSON(http.StatusBadRequest, "Invalid password")
 	}
 	if user == nil {
+		fmt.Println("Invalid credentials")
 		return ctx.JSON(http.StatusBadRequest, "Invalid credentials")
 	}
-	whether, erro := utils.VerifyPassword(password, user.Password)
+	fmt.Println(user)
+	whether, erro, attempts := utils.VerifyPassword(email, password, user.Password)
 	if !whether {
-		fmt.Println(erro.Error())
+		// fmt.Println(erro.Error())
+		if attempts {
+			ctx.JSON(http.StatusBadRequest, "Account locked due to too many failed login attempts")
+			return errors.New("account locked due to too many failed login attempts")
+		}
 		ctx.JSON(http.StatusBadRequest, "Invalid password")
 		return errors.New(erro.Error())
 	}

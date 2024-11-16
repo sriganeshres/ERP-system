@@ -162,7 +162,7 @@ func (app *Config) Verify(ctx echo.Context) error {
 // }
 
 func (app *Config) CreateProject(ctx echo.Context) error {
-	fmt.Println("Handling POST request Workhub...")
+	fmt.Println("creating the project...")
 	var Project models.Project
 	err := ctx.Bind(&Project)
 	if err != nil {
@@ -174,36 +174,6 @@ func (app *Config) CreateProject(ctx echo.Context) error {
 		ctx.JSON(http.StatusBadRequest, errorer)
 		return errorer
 	}
-	if usersData.Names == nil {
-		return nil
-	}
-	url := "http://localhost:8000/api/addUsers"
-
-	response, err := http.Post(url, "application/json", bytes.NewBuffer(JSONUsers))
-	if err != nil {
-		fmt.Println("Error:", err)
-		ctx.JSON(http.StatusBadRequest, echo.Map{
-			"success": false,
-			"msg":     "CouldnOt send Request further",
-		})
-		return err
-	}
-	defer response.Body.Close()
-	body, err := io.ReadAll(response.Body)
-	if err != nil {
-		fmt.Println("Error reading response body:", err)
-		ctx.JSON(http.StatusBadRequest, echo.Map{
-			"success": false,
-			"msg":     "Internal Error",
-		})
-		return err
-	}
-	// Print response body
-	fmt.Println(string(body))
-	ctx.JSON(http.StatusCreated, echo.Map{
-		"success": true,
-		"msg":     "successfully created a Project",
-	})
 	ctx.JSON(http.StatusCreated, Project)
 	return nil
 }

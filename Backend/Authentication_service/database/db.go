@@ -28,15 +28,24 @@ func (db *Database) Init() error {
 	fmt.Println("Database initialized")
 	return nil
 }
+var loginAttempts = make(map[string]int)
 
 func (db *Database) GetUserByEmail(email string) (*models.UserData, error) {
-	var user models.UserData
-	err := db.DB.Where("email =?", email).First(&user).Error
-	if err != nil {
-		return nil, err
-	}
-	return &user, nil
+
+
+    var user models.UserData
+    err := db.DB.Where("email = ?", email).First(&user).Error
+    if err != nil {
+        // If the user is not found or password is incorrect, increment the attempts
+
+        return nil, fmt.Errorf("invalid credentials")
+    }
+
+    // Reset attempts after successful retrieval
+
+    return &user, nil
 }
+
 
 func (db *Database) Migrate() error {
 	err := db.DB.AutoMigrate(&models.WorkHub{}, &models.UserData{})
