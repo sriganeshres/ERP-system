@@ -1,0 +1,140 @@
+f7bb6ce23acaaef018ce0bc8439a1023a0d293f6 Sri Ganesh Thota sriganeshthota12345@gmail.com chnages in .gitignore
+8b620143d99431dcc2407aa31919812f7f505650 sriganeshres sriganeshthota12345@gmail.com Minor  changes
+43e5320ae392954091f1b0bb327545b27eb4a1a9 sriganeshres sriganeshthota12345@gmail.com Minor Chnages
+b182302fe99933d7680053740ea949301b38ec8e Aditya Trivedi adit4443ya@gmail.com Update in the Backend and modified UI
+3c0b75369ac38c16e74144934598fb0c293857fe Aditya Trivedi adit4443ya@gmail.com Add .gitattributes file
+9ba8947d7affa25ef72d8fc09b62194bc0a972f1 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #49 from sriganeshres/adit4443ya-patch-1
+77f7dc2729a9e1412b6781a3d036e464d54747b7 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge branch 'production' into adit4443ya-patch-1
+60116e262cd58b1ddee74e9e855a96f0639d8b5b Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #52 from sriganeshres/adit4443ya-patch-4
+85552da99622853d57a39b705e61ce5224431ee3 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Update README.md
+df868f641282e79aa48f8a4f82295f87b8ad8a12 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #51 from sriganeshres/adit4443ya-patch-3
+5c212b2a917c4df99317bd6616da68d6ad2c5079 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Delete Software Requirements Specification.pdf
+c8bcf7dd8137eac0767e5c6ceee1ec09f2387110 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #50 from sriganeshres/adit4443ya-patch-2
+963688d1513cf3c4edadf765820eb2e712fedc99 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Update README.md
+3445dd1bee4ebc79669404986c60b3e083fbd88b Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Update README.md
+b04a7f222e5384c664ccb5c8410b3d69285cad53 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #48 from adit4443ya/aditya
+9b9ad30e7e725391cc152cf1bb2c886d0b8764a8 Aditya Trivedi adit4443ya@gmail.com Added Documentation
+094105695161d27099c512573521295265f55241 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #47 from adit4443ya/aditya
+311e84b57834c688ebec550f2b600c5555b17bac Aditya Trivedi adit4443ya@gmail.com Updated Readme.md
+1c5b6eec2bb8afb34e0542d0175069180a31ec37 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #46 from adit4443ya/aditya
+383b5222416f4665ecaf42872bde0fd48923b9fe Aditya Trivedi adit4443ya@gmail.com Updated Readme.md
+5cc1e75f1ee781db78b1c5c3e7784132bd93240b Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #45 from adit4443ya/aditya
+761147200f85be61c1aab5d01ec8c4b09ef2f4d7 Aditya Trivedi adit4443ya@gmail.com Added SRS document
+b42751e9b660241cbfe35e9f70bd176c0afe1038 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #44 from adit4443ya/aditya
+1a7fc77ad581668e4c413485755eb3118f86cca8 Aditya Trivedi adit4443ya@gmail.com Fixed minor issues and Error handling
+00ef329a4e6e30ae1deed3a1d0370d7456936556 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #43 from sriganeshres/Ganesh
+d659fbc8e95a83eadf34819b0c9b4362a5bf746b sriganeshres sriganeshthota12345@gmail.com Added Tests
+7c7cfdc02901ae6010e31ca304eb90b5c146b868 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #42 from adit4443ya/aditya
+082ee6a22d4f3bb5410eea23903aa298a03711c4 Aditya Trivedi adit4443ya@gmail.com Added request handler for task fetching
+0ac77f564df0daba808f74fe8857e8a76fa043b9 Aditya Trivedi adit4443ya@gmail.com Added Tasks showing on home page
+a70057a3513a0adc511fed02a879df4dc7dd54a0 Aditya Trivedi adit4443ya@gmail.com Added Tasks showing on home page
+cd07a262226b2190569e2e080adc27b61566033c Aditya Trivedi adit4443ya@gmail.com added role based screens
+09a924e90cb7173740f24bac129d3afb460f65c8 Aditya Trivedi adit4443ya@gmail.com added role based screens
+259b9624b86fbce3206f7c12c31787374fab4679 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #39 from rahulrangers/feature
+05374242a6f3d9496c0edd0779714e003f983a01 unknown rahulreddypurmani123@gmail.com added logout,add employee
+8c736074d4952ae29eb0858476faecd164b50d18 unknown rahulreddypurmani123@gmail.com add_employ
+3794b9990f08434237fe0151bb409de397287c5a Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #37 from adit4443ya/aditya
+827283abab4981188e6a582507d654cc2a671760 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #38 from sriganeshres/Ganesh
+24745916ba8d9c602dee7fc761ea28b0344e6dfd Aditya Trivedi adit4443ya@gmail.com Refactoring
+357b84577ba00232badeab34d5a0786b58a2f6f4 sriganeshres sriganeshthota12345@gmail.com Made Chnages to add team memers to project and Some Error Handling in frontend
+511813c886daa8967b8ef5cc5f4942267ecd199f Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #36 from adit4443ya/aditya
+2ce40a5765430bf31ecf81bd0be8f43f3ae44459 Aditya Trivedi adit4443ya@gmail.com Added some strings for placeholders and hadings
+23100a6c235fa68824aace97bc99003974cfa057 Aditya Trivedi adit4443ya@gmail.com Added dropdown functionality
+85e56af025c355e0a9277d053d4f301c63a2f456 Aditya Trivedi adit4443ya@gmail.com Added Dropdown Functionality
+c96121bdefd214cd182d29276296a7b946b59e3f Aditya Trivedi adit4443ya@gmail.com Added navigations for the project and Task forms
+de3b96d759faf56482123f1dc17927746b909c86 Aditya Trivedi adit4443ya@gmail.com Refactorin
+8685f19ac65d3aa3ab2366f338c1717c2b1de707 Aditya Trivedi adit4443ya@gmail.com Added functionality of dropdown menu for selecting employees and project Team Leaders via proper State Management
+dfb8a408a35e9bb497ec373e4c7d51c2b8ff301d unknown rahulreddypurmani123@gmail.com Backend Integration
+7a5a5f40ae963a1e3ecaf644c370dfabf1293533 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #35 from sriganeshres/Ganesh
+3fba3c598d1e72e6561549c46308c075bfe92e99 sriganeshres sriganeshthota12345@gmail.com Added Projects Page and fixed internla issues
+f4e66e28c19925d4be30e700e55f4d631dce4880 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #34 from rahulrangers/feature
+1eaaf2c230869f448af02e232c6c86aa632d2462 unknown rahulreddypurmani123@gmail.com connected addproject and getprojects
+b43163417ac1fa7512487083d5894fecd775c2ca unknown rahulreddypurmani123@gmail.com added profile page
+4ba124dbd98ac4bd41912efb58894c7f9fe4c469 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #32 from adit4443ya/aditya
+fb273d12c80fe8aa19602fc4b0500ac973b1b163 Aditya Trivedi adit4443ya@gmail.com Added two endpoints requests
+af2ecfc458aab4bdd9511b516dbf530ff9dba45e Aditya Trivedi adit4443ya@gmail.com Changed its layout
+fb1e48f63ec7a4ddb99e20256f8c1692f1de99fc Aditya Trivedi adit4443ya@gmail.com Changed its layout
+a4578e3f8005f791a4d65966307a79517db34575 Aditya Trivedi adit4443ya@gmail.com Added Taskcreation repo
+01f2a3384f070433f76c63f37e88c61c9f76d07c Aditya Trivedi adit4443ya@gmail.com Added Task Form
+93dac7bd0000c86b46d249a0416d547fa582dc0e Aditya Trivedi adit4443ya@gmail.com Added Project Form
+11cc2c5860cbd554846571a82bb5107b411560c2 Aditya Trivedi adit4443ya@gmail.com Added Task repo
+64b1ea5a1eec3ad1e6ea95145743115ca4d5c8f8 Aditya Trivedi adit4443ya@gmail.com Added Task Model
+f59d1f4da515ed06a670773e0ef0493ee6beaba0 Aditya Trivedi adit4443ya@gmail.com Added some strings values
+ab806df635030953b6f9c6f23b5c4bf1dd0e051b Aditya Trivedi adit4443ya@gmail.com Modified Two Buttons
+fd7c343ff1483deb47b0c303214351625035dcb3 Aditya Trivedi adit4443ya@gmail.com Added routes for Task and Project Creation
+038b2913214687abc68af579b38e5775fead3677 Aditya Trivedi adit4443ya@gmail.com Added routes for creating Tasks and Projects
+de55529bb92102e51974f33cdf534393c7434512 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #31 from sriganeshres/Ganesh
+7a2e777f265b7fff69906284474539ecb65b573f sriganeshres sriganeshthota12345@gmail.com Added tasks model and its services
+34c26d4d594528a21befcda7c96c6eb23f828334 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #30 from sriganeshres/Ganesh
+fc6142c56878e68e1676c2556b97caf6c5e5a99b sriganeshres sriganeshthota12345@gmail.com Removed Project_service folder
+2c10a9f65a6138eb2bb12662033456a60d4454f5 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #29 from adit4443ya/aditya
+adea47e7d23071db77bec5a4c16fd0ceb81cec63 Aditya Trivedi adit4443ya@gmail.com Resolved merge Conflicts
+51325c71678397e8cdc89300c77aaf65590286b4 Aditya Trivedi adit4443ya@gmail.com Projects
+e345911108ab528ecde8b1dc5e11e8e0e7191c80 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #28 from rahulrangers/feature
+a8bdc6eb99640fb6ef7f89909eb17840046e8129 unknown rahulreddypurmani123@gmail.com Merge branch 'feature' of https://github.com/rahulrangers/WorkHub-Pro into feature
+e6d6f40c4d9854cc2a918593347f3679130b7d98 unknown rahulreddypurmani123@gmail.com Added Admin page
+e263260ac284f7ac2e06e8b5b5416cd7abd9d887 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #27 from sriganeshres/Ganesh
+9438c283429780ea7e09cb0e29774c5659ee0079 sriganeshres sriganeshthota12345@gmail.com Added Join Organization and Fixed Foreign Key Issues
+a1df7fef433565a31aeeba7903847b5cf3231466 Aditya Trivedi adit4443ya@gmail.com Added Paramters to models for project ID
+b9516e831c77b593a45617396b8e2e4d67c87990 Aditya Trivedi adit4443ya@gmail.com Projet Service Added
+7360b7e54cb62f2d68a11b850f7f17c561d0f3f1 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #25 from rahulrangers/feature
+056255bba6e916cf918921c484bf5da5d5a37b56 unknown rahulreddypurmani123@gmail.com Resolved Merge Conflicts
+15fe190bfc1e077be89bd9d8322dae4150508659 unknown rahulreddypurmani123@gmail.com Made Chat-System
+ddd6b51f7a180f10d0c02fd9c3c8295c15c3f5b0 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #24 from adit4443ya/aditya
+3476471ce9ee22f1794f8743190d2f64bd04ca22 Aditya Trivedi adit4443ya@gmail.com Added LoginPage
+7a104c9f50adb9183b6b0cf81fd0c7a4a059f11d Aditya Trivedi adit4443ya@gmail.com Added LoginPage
+4dc4cb301770776f3d374a1988694709cea750b1 Aditya Trivedi 120598696+adit4443ya@users.noreply.github.com Merge pull request #23 from rahulrangers/feature
+c86b24cafbe8ee31bb912fbe3ba151902b8bae7c unknown rahulreddypurmani123@gmail.com Added tests
+5c6008a5b1c0075150014d3eeed7a1c9433a7827 unknown rahulreddypurmani123@gmail.com JWT TOKEN
+901d70aaf4777cd7ed0acbf66f38942ebbbf8f49 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #22 from sriganeshres/Ganesh
+dfba8ec68e01ec2cac4edce8bf4fd6bdf71948be sriganeshres sriganeshthota12345@gmail.com Made the Backend SOA and Made the frontend retrofit for multiple urls
+f669ba7356a3ecff4c299e5eb6bbe29eb6cc72ab Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #21 from rahulrangers/feature
+1da9731c8845a03481b93737847cd6b0f66e8c4d unknown rahulreddypurmani123@gmail.com updated db file
+07cc8db1c8aece4f39128da53abfab86fdc07a58 unknown rahulreddypurmani123@gmail.com Integration of Backend
+79aa5b78892365347fc945297ec5ca090facdee3 unknown rahulreddypurmani123@gmail.com PrivateKey generation
+d70220a748622a771cad711f86010cd4809f7c02 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #19 from adit4443ya/aditya
+65adbdd4f403de8c1da9f4681493eb8234b7c0ac Aditya Trivedi adit4443ya@gmail.com Landing Page added
+3d2b2cb95ca930e422402cd1a7e5f0b3e770c286 Aditya Trivedi adit4443ya@gmail.com refactoring to before changes
+b76c627795243562173323d54e22700c26c18bc1 Aditya Trivedi adit4443ya@gmail.com Added the create Organisation screen
+83114e5040b0d087a498f0c21c95bb57a8440370 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #18 from sriganeshres/Ganesh
+5c25a36e743f635e4e297b486c36763f243b7ad4 sriganeshres sriganeshthota12345@gmail.com Refactoring and making packages perfect
+ef0a9ffaff47f4f6c7d80d02f40ce57950981ec9 sriganeshres sriganeshthota12345@gmail.com Refactoring
+37678da2c65baadcfa32b8228ee7e8d84e8df42e Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #16 from sriganeshres/Ganesh
+b7e33e8f213f68c906cc915e84f40c08ff46f7ca sriganeshres sriganeshthota12345@gmail.com made the make file generic
+a46215c361bfbb7b8df46bb5cec22d9dcd3a73cd Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #15 from sriganeshres/Ganesh
+1f975bf0acc6beebcc91f82985cf60b674fdf0cb sriganeshres sriganeshthota12345@gmail.com Redefined Signup
+6fa05e05b4d77cab5526be27e624e3d8b1ceea0e Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #14 from sriganeshres/Ganesh
+d41e84f56b728cc0f7df31e7fe4ff5db863fccee sriganeshres sriganeshthota12345@gmail.com Modified Chnages and Pushed final
+8422d1be1620d6a802b0ed3e406ab944a4e98b2c Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #13 from rahulrangers/master
+9d8048a938b27478b140f9133992943fd13be86c Sri Ganesh Thota sriganeshthota12345@gmail.com Merge branch 'production' into master
+01036b3e548477aaab18f35d89f5da4f1243b899 unknown rahulreddypurmani123@gmail.com Fixed Some Bugs in Backend and Chnages in frontend
+341c1eb0e33b5f749afed2d353c0d48ce7d6ff86 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #11 from sriganeshres/rahul
+104f6d280bdab377f07c3a5015a00a614d48cead unknown rahulreddypurmani123@gmail.com Integrated Backend
+b581e9198616bd3fa44e86adcea0887e4ebeedb5 unknown rahulreddypurmani123@gmail.com Merge branch 'master' of https://github.com/rahulrangers/WorkHub-Pro
+b2bb17cb45597bd5690d8c31012365430b9ba533 unknown rahulreddypurmani123@gmail.com Integrated Backend
+01c11c09ca0f1258906ade49b35f10fff0f4f73e rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #10 from sriganeshres/production
+d5004bbe6799325511bad7bf9982f7c9604b7d59 rahulrangers 127782777+rahulrangers@users.noreply.github.com Merge pull request #9 from sriganeshres/Ganesh
+665bbd48cc3d0f0d2d032f527250ec945363edeb sriganeshres sriganeshthota12345@gmail.com Merge branch 'Ganesh' of github.com:sriganeshres/WorkHub-Pro into Ganesh
+22885ff2a2e123f6b75a22b9f68bb32c19a3f4b1 sriganeshres sriganeshthota12345@gmail.com Added Env File
+58ba92732fe93d0bd81bf2b9fe9ba828065d4803 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #8 from sriganeshres/Ganesh
+1defc53d1bed9589972b81c5850848e70f7e66a2 Sri Ganesh Thota sriganeshthota12345@gmail.com Update README.md
+612e4ad27a2b13f62ef2def11a38db08c2b82d14 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #7 from sriganeshres/production
+bbf2b423dda3ed0e92c642ffed9eb9c46b46ead4 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #6 from sriganeshres/master
+06caad3297d08d9e48017ba120b22ffb56d8639c Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #3 from sriganeshres/Ganesh
+d91ed686c8ff1c82098e68a6fe437975af79c04e sriganeshres sriganeshthota12345@gmail.com made changes to Makefile
+84376296718c61f93bb76cf94f4ddb2c9e94ac5d sriganeshres sriganeshthota12345@gmail.com made changes to it
+cdb6fc80f565e882674f2c182d906b4e8ea69767 sriganeshres sriganeshthota12345@gmail.com Added cmd
+ed843a9b6f85b694955f6e136d5c407da1f7396d sriganeshres sriganeshthota12345@gmail.com Added Api
+d98c055ee4a9696b90b65729c9bcac91ace471dd sriganeshres sriganeshthota12345@gmail.com Added Utilities
+f56fe4cceb98395b4b265aad6376826b44ebc960 sriganeshres sriganeshthota12345@gmail.com Added database files
+c454aa434bb599d20932589a1a39f94ea3d8a323 Aditya Trivedi adit4443ya@gmail.com Modified TextFiled Composables
+d533e80cf0803a2a0887afe43cc882efdf0b41e8 Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #2 from rahulrangers/master
+eb5f533fb4ba4c79a9ef7dc01ef44333a8afc61e unknown rahulreddypurmani123@gmail.com resolved conflicts
+df3cfa3d80895f97b070fbadc2114ce435434232 unknown rahulreddypurmani123@gmail.com added bottombar
+3a06eab75e6050c40c9ce7fc1ff3f51d8c960595 sriganeshres sriganeshthota12345@gmail.com Updated Packages for imports
+7baa9a91e265e5251534b88061e56e0ad88d724f Sri Ganesh Thota sriganeshthota12345@gmail.com Merge pull request #1 from rahulrangers/master
+0e33b8bfd1957deac3c58a3e43f1b90f418d0bbc unknown rahulreddypurmani123@gmail.com added profile page
+192dc7d66b596182f073d0e80ccf999b026e10bb sriganeshres sriganeshthota12345@gmail.com Added Backend and Some Changes
+b354e3f38705b8276395dcdd477e6a89db1953d6 sriganeshres sriganeshthota12345@gmail.com Basic Signup added and SOme changes are made
+e28aed6d6c1105077240a58cd09318ba1dc17c87 sriganeshres sriganeshthota12345@gmail.com Basic Layout ad Structure
+684209f186e31921cc1c5f420d7b521c9952b583 Sri Ganesh Thota sriganeshthota12345@gmail.com Initial commit

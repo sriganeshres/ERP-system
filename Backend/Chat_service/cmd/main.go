@@ -100,7 +100,7 @@ func main() {
 	server := NewServer()
 	e := echo.New()
 	db := database.NewDatabase()
-	envPath := filepath.Join( "..", ".env")
+	envPath := filepath.Join( "..", "..", ".env")
 	absEnvPath, err := filepath.Abs(envPath)
     if err != nil {
         fmt.Println("Error getting absolute path:", err)
